@@ -1,0 +1,256 @@
+{% comment %}
+  Seção de Produtos Relacionados/Recomendados
+{% endcomment %}
+
+<section class="product-recommendations">
+  <div class="container product-recommendations__inner">
+    <h2 class="product-recommendations__title">{{ section.settings.title | default: "Você também pode gostar" }}</h2>
+    
+    <div 
+      class="product-recommendations__grid" 
+      data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=4"
+    >
+      <!-- Produtos serão carregados via JavaScript -->
+      <div class="recommendations-loading">
+        <div class="loading-spinner"></div>
+        <p>Carregando recomendações...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .product-recommendations {
+    padding: 80px 0;
+    background: #FFFFFF;
+  }
+
+  .product-recommendations__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .product-recommendations__title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #5A3838;
+    text-align: center;
+    margin: 0 0 50px 0;
+    font-family: Inter, sans-serif;
+  }
+
+  .product-recommendations__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+  }
+
+  .recommendations-loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f0f0f0;
+    border-top: 4px solid #5A3838;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .recommendations-loading p {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+  }
+
+  /* Card de Produto Recomendado */
+  .recommendation-card {
+    background: #f8f9fa;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .recommendation-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  }
+
+  .recommendation-card__image {
+    width: 100%;
+    aspect-ratio: 1;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .recommendation-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+
+  .recommendation-card:hover .recommendation-card__image img {
+    transform: scale(1.1);
+  }
+
+  .recommendation-card__body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .recommendation-card__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #5A3838;
+    margin: 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .recommendation-card__price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .recommendation-card__price-current {
+    font-size: 24px;
+    font-weight: 700;
+    color: #5A3838;
+  }
+
+  .recommendation-card__price-old {
+    font-size: 16px;
+    color: #999;
+    text-decoration: line-through;
+  }
+
+  .recommendation-card__cta {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #F44027, #E63320);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s ease;
+    margin-top: auto;
+  }
+
+  .recommendation-card__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(244, 64, 39, 0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .product-recommendations__grid {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-recommendations {
+      padding: 50px 0;
+    }
+
+    .product-recommendations__title {
+      font-size: 28px;
+      margin-bottom: 30px;
+    }
+
+    .product-recommendations__grid {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .recommendation-card__body {
+      padding: 16px;
+    }
+
+    .recommendation-card__title {
+      font-size: 16px;
+    }
+
+    .recommendation-card__price-current {
+      font-size: 20px;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const recommendationsContainer = document.querySelector('.product-recommendations__grid');
+  if (!recommendationsContainer) return;
+
+  const url = recommendationsContainer.dataset.url;
+  if (!url) return;
+
+  // Fetch recommendations
+  fetch(url)
+    .then(response => response.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const recommendations = doc.querySelector('.product-recommendations__grid');
+      
+      if (recommendations && recommendations.innerHTML.trim()) {
+        recommendationsContainer.innerHTML = recommendations.innerHTML;
+      } else {
+        // Se não houver recomendações, mostrar produtos da mesma coleção
+        recommendationsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">Nenhuma recomendação disponível no momento.</p>';
+      }
+    })
+    .catch(error => {
+      console.error('Error loading recommendations:', error);
+      recommendationsContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666;">Erro ao carregar recomendações.</p>';
+    });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Produtos Recomendados",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "Você também pode gostar"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Produtos Recomendados"
+    }
+  ]
+}
+{% endschema %}
+
+
+
+

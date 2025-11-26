@@ -1,0 +1,97 @@
+{% comment %}
+  Seção: Benefícios
+  Lista de benefícios com ícones seguindo a identidade visual.
+{% endcomment %}
+
+<section class="benefits" aria-label="Benefícios">
+  <div class="benefits__container">
+    <header class="benefits__header">
+      <span class="benefits__kicker">{{ section.settings.kicker | default: 'Por que escolher' }}</span>
+      <h1 class="benefits__title">{{ section.settings.title | default: 'Benefícios do Wheypuccino' }}</h1>
+      {% if section.settings.subtitle %}
+        <p class="benefits__subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </header>
+
+    <div class="benefits__grid">
+      {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'benefit' %}
+            <article class="benefit" {{ block.shopify_attributes }}>
+              <div class="benefit__icon">
+                {% if block.settings.icon != blank %}
+                  <img src="{{ block.settings.icon | image_url: width: 100 }}" alt="" loading="lazy">
+                {% else %}
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" stroke="#F44027" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                {% endif %}
+              </div>
+              <h3 class="benefit__title">{{ block.settings.title }}</h3>
+              <p class="benefit__desc">{{ block.settings.description }}</p>
+            </article>
+        {% endcase %}
+      {% endfor %}
+      {% else %}
+        <article class="benefit"><div class="benefit__icon"></div><h3 class="benefit__title">Alto teor de proteína</h3><p class="benefit__desc">Ajuda na recuperação e manutenção muscular.</p></article>
+        <article class="benefit"><div class="benefit__icon"></div><h3 class="benefit__title">Energia para o dia</h3><p class="benefit__desc">Cafeína e proteína na medida certa.</p></article>
+        <article class="benefit"><div class="benefit__icon"></div><h3 class="benefit__title">Sabor premium</h3><p class="benefit__desc">Cremoso e delicioso a cada dose.</p></article>
+        <article class="benefit"><div class="benefit__icon"></div><h3 class="benefit__title">Pronto em segundos</h3><p class="benefit__desc">Preparo prático para sua rotina.</p></article>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .benefits { background:#fff; padding:60px 0; }
+  .benefits__container { max-width:1200px; margin:0 auto; padding:0 20px; }
+  .benefits__header { text-align:center; margin-bottom:32px; }
+  .benefits__kicker { color:#5A3838; font-weight:700; letter-spacing:.06em; text-transform:uppercase; display:inline-block; margin-bottom:8px; }
+  .benefits__title { margin:0; font-size: clamp(24px, 4vw, 36px); color:#342222; font-weight:800; }
+  .benefits__subtitle { margin:8px 0 0; color:#7B766E; }
+
+  .benefits__grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+  .benefit { background:#EFEFEF; border-radius:16px; padding:20px; border:2px solid #f0f0f0; transition:transform .2s ease, box-shadow .2s ease; }
+  .benefit:hover { transform: translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,.08); }
+  .benefit__icon { width:48px; height:48px; display:flex; align-items:center; justify-content:center; background:#fff; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,.06); margin-bottom:12px; }
+  .benefit__icon img { width:28px; height:28px; object-fit:contain; }
+  .benefit__icon svg { width:28px; height:28px; }
+  .benefit__title { margin:0 0 6px; color:#342222; font-size:18px; font-weight:700; }
+  .benefit__desc { margin:0; color:#7B766E; line-height:1.6; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Benefícios",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Benefícios" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Benefícios do Wheypuccino" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtítulo", "default": "Resultados reais para o seu dia a dia." }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefício",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Proteína de alta qualidade" },
+        { "type": "textarea", "id": "description", "label": "Descrição", "default": "Nutrição superior com sabor incrível." },
+        { "type": "image_picker", "id": "icon", "label": "Ícone (opcional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefícios",
+      "blocks": [
+        { "type": "benefit", "settings": { "title": "Alto teor de proteína", "description": "Ajuda na recuperação e manutenção muscular." } },
+        { "type": "benefit", "settings": { "title": "Energia para o dia", "description": "Combine cafeína e proteína na medida certa." } },
+        { "type": "benefit", "settings": { "title": "Sabor premium", "description": "Experiência cremosa e deliciosa a cada dose." } },
+        { "type": "benefit", "settings": { "title": "Pronto em segundos", "description": "Preparo simples e prático." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+

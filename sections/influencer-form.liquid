@@ -1,0 +1,567 @@
+{% comment %}
+  Seção de Formulário e Benefícios - Página Influencer - Design do Figma
+{% endcomment %}
+
+<section class="influencer-form-section">
+  <div class="influencer-form-container">
+    <!-- Coluna Esquerda: Benefícios -->
+    <div class="influencer-benefits-col">
+      <div class="influencer-benefits-content">
+        <h2 class="influencer-benefits-title">{{ section.settings.benefits_title | default: 'BENEFÍCIOS DE SER INFLUENCER' }}</h2>
+        
+        <p class="influencer-benefits-description">
+          <span class="benefits-desc-light">Ganhe comissões mostrando como o Wheypuccino une</span> <span class="benefits-desc-regular">sabor, proteína e estilo em cada gole.</span>
+        </p>
+
+        <!-- Card de Benefícios -->
+        <div class="influencer-benefits-card">
+          <!-- Benefício 1 -->
+          <div class="influencer-benefit-item">
+            <img 
+              src="{{ 'influencer-icon-1.svg' | asset_url }}" 
+              alt="Produtos exclusivos"
+              class="influencer-benefit-icon"
+              width="51"
+              height="58"
+            >
+            <p class="influencer-benefit-text">{{ section.settings.benefit_1 | default: 'Produtos exclusivos antes do lançamento' }}</p>
+          </div>
+
+          <div class="influencer-benefit-divider"></div>
+
+          <!-- Benefício 2 -->
+          <div class="influencer-benefit-item">
+            <img 
+              src="{{ 'influencer-icon-2.svg' | asset_url }}" 
+              alt="Kits especiais"
+              class="influencer-benefit-icon"
+              width="52"
+              height="50"
+            >
+            <p class="influencer-benefit-text">{{ section.settings.benefit_2 | default: 'Kits e experiências especiais' }}</p>
+          </div>
+
+          <div class="influencer-benefit-divider"></div>
+
+          <!-- Benefício 3 -->
+          <div class="influencer-benefit-item">
+            <img 
+              src="{{ 'influencer-icon-3.svg' | asset_url }}" 
+              alt="Reconhecimento"
+              class="influencer-benefit-icon"
+              width="46"
+              height="58"
+            >
+            <p class="influencer-benefit-text">{{ section.settings.benefit_3 | default: 'Comissão ou programa de afliados' }}</p>
+          </div>
+
+          <div class="influencer-benefit-divider"></div>
+
+          <!-- Benefício 4 -->
+          <div class="influencer-benefit-item">
+            <img 
+              src="{{ 'influencer-icon-3.svg' | asset_url }}" 
+              alt="Destaque"
+              class="influencer-benefit-icon"
+              width="46"
+              height="58"
+            >
+            <p class="influencer-benefit-text">{{ section.settings.benefit_4 | default: 'Reconhecimento e destaque' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Linha Divisória Vertical -->
+    <div class="influencer-vertical-line"></div>
+
+    <!-- Coluna Direita: Formulário -->
+    <div class="influencer-form-col">
+      <h2 class="influencer-form-title">{{ section.settings.form_title | default: 'COMO FUNCIONA O PROGRAMA' }}</h2>
+
+      <!-- Timeline/Passos -->
+      <div class="influencer-timeline">
+        <div class="influencer-timeline-step">
+          <div class="influencer-timeline-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M16 8V24M8 16H24" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="16" cy="16" r="14" stroke="white" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="influencer-timeline-label">Cadastre-se</div>
+        </div>
+        
+        <svg class="influencer-timeline-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M9 5L16 12L9 19" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+        <div class="influencer-timeline-step">
+          <div class="influencer-timeline-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect x="6" y="8" width="20" height="16" rx="2" stroke="white" stroke-width="2"/>
+              <path d="M6 12H26" stroke="white" stroke-width="2"/>
+              <path d="M10 20H22" stroke="white" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="influencer-timeline-label">Receba seu kit</div>
+        </div>
+        
+        <svg class="influencer-timeline-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M9 5L16 12L9 19" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+        <div class="influencer-timeline-step">
+          <div class="influencer-timeline-icon">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path d="M16 6L20 14L28 14L22 20L24 28L16 24L8 28L10 20L4 14L12 14L16 6Z" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="influencer-timeline-label">Compartilhe sua experiência</div>
+        </div>
+      </div>
+
+      <!-- Área para App Shopify Forms -->
+      <div class="influencer-form-app-area">
+        {% for block in section.blocks %}
+          <div {{ block.shopify_attributes }}>
+            {% case block.type %}
+              {% when '@app' %}
+                {% render block %}
+              {% else %}
+                {% render block %}
+            {% endcase %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* Seção de Formulário Influencer */
+.influencer-form-section {
+  background: #FFFFFF;
+  padding: 80px 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.influencer-form-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 80px;
+  align-items: start;
+  box-sizing: border-box;
+}
+
+/* Linha Vertical Divisória */
+.influencer-vertical-line {
+  width: 1px;
+  height: 100%;
+  min-height: 800px;
+  background: #000000;
+  opacity: 0.15;
+}
+
+/* Coluna de Benefícios */
+.influencer-benefits-col {
+  width: 100%;
+}
+
+.influencer-benefits-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.influencer-benefits-title {
+  font-family: 'Kayak Sans', 'Inter', sans-serif;
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000000;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.influencer-benefits-description {
+  font-family: 'Kayak Sans', 'Inter', sans-serif;
+  font-size: 24px;
+  line-height: 30px;
+  color: #4A4C4D;
+  margin: 0;
+}
+
+.benefits-desc-light {
+  font-weight: 300;
+}
+
+.benefits-desc-regular {
+  font-weight: 400;
+}
+
+/* Card de Benefícios */
+.influencer-benefits-card {
+  background: #E02229;
+  border-radius: 24px;
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  box-shadow: 0 8px 24px rgba(224, 34, 41, 0.15);
+}
+
+.influencer-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px 0;
+}
+
+.influencer-benefit-item:first-child {
+  padding-top: 0;
+}
+
+.influencer-benefit-item:last-child {
+  padding-bottom: 0;
+}
+
+.influencer-benefit-icon {
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+  width: 50px;
+  height: auto;
+}
+
+.influencer-benefit-text {
+  font-family: 'Kayak Sans', 'Inter', sans-serif;
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 300;
+  color: #FFFFFF;
+  margin: 0;
+  flex: 1;
+}
+
+.influencer-benefit-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  margin: 0;
+}
+
+/* Coluna de Formulário */
+.influencer-form-col {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.influencer-form-title {
+  font-family: 'Kayak Sans', 'Inter', sans-serif;
+  font-size: 48px;
+  line-height: 52px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000000;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+/* Timeline */
+.influencer-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.influencer-timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+  min-width: 120px;
+}
+
+.influencer-timeline-icon {
+  width: 52px;
+  height: 52px;
+  background: #E02229;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.influencer-timeline-icon svg {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.influencer-timeline-arrow {
+  flex-shrink: 0;
+  margin: 0 8px;
+  align-self: center;
+}
+
+.influencer-timeline-label {
+  font-family: 'Kayak Sans', 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #4A4C4D;
+  text-align: center;
+  max-width: 120px;
+  width: 100%;
+}
+
+/* Área do App Forms */
+.influencer-form-app-area {
+  width: 100%;
+  margin-top: 0;
+}
+
+.influencer-form-app-area > div {
+  width: 100%;
+}
+
+/* Responsivo Mobile */
+@media (max-width: 768px) {
+  .influencer-form-section {
+    padding: 50px 0;
+    overflow: visible;
+  }
+
+  .influencer-form-container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    padding: 0 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .influencer-vertical-line {
+    display: none;
+  }
+
+  .influencer-benefits-col,
+  .influencer-form-col {
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+  }
+
+  .influencer-benefits-content {
+    gap: 32px;
+  }
+
+  .influencer-benefits-title,
+  .influencer-form-title {
+    font-size: 28px;
+    line-height: 36px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .influencer-benefits-description {
+    font-size: 16px;
+    line-height: 24px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .influencer-benefits-card {
+    padding: 32px 24px;
+    border-radius: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .influencer-benefit-item {
+    gap: 16px;
+    padding: 20px 0;
+  }
+
+  .influencer-benefit-item:first-child {
+    padding-top: 0;
+  }
+
+  .influencer-benefit-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .influencer-benefit-icon {
+    width: 40px;
+    height: auto;
+    min-width: 40px;
+  }
+
+  .influencer-benefit-text {
+    font-size: 16px;
+    line-height: 22px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .influencer-form-col {
+    gap: 36px;
+  }
+
+  .influencer-timeline {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin-bottom: 28px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+  }
+
+  .influencer-timeline-step {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .influencer-timeline-icon {
+    width: 48px;
+    height: 48px;
+    background: #E02229;
+    border-radius: 8px;
+  }
+
+  .influencer-timeline-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .influencer-timeline-arrow {
+    width: 16px;
+    height: 16px;
+    margin: 0 2px;
+    align-self: center;
+    flex-shrink: 0;
+  }
+
+  .influencer-timeline-label {
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .influencer-form-app-area {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+/* Responsivo Tablet */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .influencer-form-container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    padding: 0 40px;
+  }
+
+  .influencer-vertical-line {
+    display: none;
+  }
+
+  .influencer-timeline {
+    justify-content: space-between;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Formulário Influencer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Benefícios"
+    },
+    {
+      "type": "text",
+      "id": "benefits_title",
+      "label": "Título dos Benefícios",
+      "default": "BENEFÍCIOS DE SER INFLUENCER"
+    },
+    {
+      "type": "textarea",
+      "id": "benefits_description",
+      "label": "Descrição dos Benefícios",
+      "default": "Ganhe comissões mostrando como o Wheypuccino une sabor, proteína e estilo em cada gole."
+    },
+    {
+      "type": "text",
+      "id": "benefit_1",
+      "label": "Benefício 1",
+      "default": "Produtos exclusivos antes do lançamento"
+    },
+    {
+      "type": "text",
+      "id": "benefit_2",
+      "label": "Benefício 2",
+      "default": "Kits e experiências especiais"
+    },
+    {
+      "type": "text",
+      "id": "benefit_3",
+      "label": "Benefício 3",
+      "default": "Comissão ou programa de afliados"
+    },
+    {
+      "type": "text",
+      "id": "benefit_4",
+      "label": "Benefício 4",
+      "default": "Reconhecimento e destaque"
+    },
+    {
+      "type": "header",
+      "content": "Formulário"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Título do Formulário",
+      "default": "COMO FUNCIONA O PROGRAMA"
+    },
+    {
+      "type": "paragraph",
+      "content": "Adicione o bloco do Shopify Forms usando o botão 'Adicionar bloco' abaixo"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Formulário Influencer"
+    }
+  ]
+}
+{% endschema %}
+

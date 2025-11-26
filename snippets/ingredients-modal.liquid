@@ -1,0 +1,78 @@
+{% comment %}
+  Botão "Ver ingredientes" + Modal acessível
+  Usa metafields do produto: custom.ingredients_html (rich text/HTML) ou custom.ingredients (texto)
+{% endcomment %}
+
+{% assign ingredients_html = product.metafields.custom.ingredients_html.value | default: '' %}
+{% assign ingredients_text = product.metafields.custom.ingredients.value | default: '' %}
+{% assign ingredientes_pt = product.metafields.custom.ingredientes.value | default: '' %}
+
+{% if ingredients_html != blank or ingredients_text != blank or ingredientes_pt != blank %}
+<div class="ingredients-block" data-product-id="{{ product.id }}">
+  <button
+    type="button"
+    class="ingredients-btn"
+    data-ingredients-trigger="ingredients-modal-{{ product.id }}"
+    aria-haspopup="dialog"
+    aria-controls="ingredients-modal-{{ product.id }}"
+  >
+    Ver Ingredientes
+    <img src="{{ 'eye-white.svg' | asset_url }}" alt="" aria-hidden="true" class="ingredients-btn__icon">
+  </button>
+
+  <div
+    class="ingredients-modal"
+    id="ingredients-modal-{{ product.id }}"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="ingredients-title-{{ product.id }}"
+    aria-hidden="true"
+  >
+    <div class="ingredients-overlay" data-ingredients-close="ingredients-modal-{{ product.id }}" tabindex="-1"></div>
+    <div class="ingredients-dialog" role="document">
+      <button class="ingredients-close" type="button" aria-label="Fechar" data-ingredients-close="ingredients-modal-{{ product.id }}">×</button>
+      <h2 class="ingredients-title" id="ingredients-title-{{ product.id }}">Ingredientes</h2>
+      <div class="ingredients-content">
+        {% if ingredients_html != blank %}
+          {{ ingredients_html }}
+        {% elsif ingredients_text != blank or ingredientes_pt != blank %}
+          {% assign raw_text = ingredients_text | default: ingredientes_pt %}
+          {% assign lines = raw_text | split: "\n" %}
+          {% assign allergens_block = '' %}
+          <div class="ingredients-list">
+            {% for line in lines %}
+              {% assign trimmed = line | strip %}
+              {% if trimmed != '' %}
+                {% if trimmed contains 'ALÉRGICOS' or trimmed contains 'ALERGICOS' %}
+                  {% if trimmed contains 'ALÉRGICOS:' %}
+                    {% assign pre_post = trimmed | split: 'ALÉRGICOS:' %}
+                    {% assign pre_text = pre_post[0] | strip %}
+                    {% assign allergen_text = pre_post[1] | default: '' | strip %}
+                  {% else %}
+                    {% assign pre_post = trimmed | split: 'ALERGICOS:' %}
+                    {% assign pre_text = pre_post[0] | strip %}
+                    {% assign allergen_text = pre_post[1] | default: '' | strip %}
+                  {% endif %}
+                  {% if pre_text != '' %}
+                    <p>{{ pre_text }}</p>
+                  {% endif %}
+                  {% capture allergens_block %}{{ allergens_block }}<p class="ingredients-alert"><strong>ALÉRGICOS:</strong> {{ allergen_text }}</p>{% endcapture %}
+                {% elsif trimmed contains 'NÃO CONTÉM GLÚTEN' or trimmed contains 'NAO CONTÉM GLÚTEN' or trimmed contains 'NÃO CONTEM GLÚTEN' or trimmed contains 'CONTÉM GLÚTEN' or trimmed contains 'CONTEM GLÚTEN' %}
+                  <p class="ingredients-gluten"><strong>{{ trimmed }}</strong></p>
+                {% else %}
+                  <p>{{ trimmed }}</p>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            {% if allergens_block != '' %}
+              {{ allergens_block }}
+            {% endif %}
+          </div>
+        {% else %}
+          <p>Conteúdo de ingredientes não disponível.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

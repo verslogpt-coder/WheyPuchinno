@@ -1,0 +1,83 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "how-to-prepare",
+      "blocks": {
+        "wheypuccino_step_fwccEE": {
+          "type": "wheypuccino_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61314.svg",
+            "title": "Adicione 2 colheres (30g) ao copo",
+            "description": "Use a medida recomendada para melhor sabor e textura."
+          }
+        },
+        "wheypuccino_step_jAxVfa": {
+          "type": "wheypuccino_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61315.svg",
+            "title": "Adicione 2 colheres (30g) ao copo",
+            "description": "Use a medida recomendada para melhor sabor e textura."
+          }
+        },
+        "wheypuccino_step_EjDDVF": {
+          "type": "wheypuccino_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61316.svg",
+            "title": "Adicione 2 colheres (30g) ao copo",
+            "description": "Use a medida recomendada para melhor sabor e textura."
+          }
+        },
+        "chococaps_step_YxXbiD": {
+          "type": "chococaps_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61309.svg",
+            "title": "Adicione 2 colheres (30g) ao copo",
+            "description": "Use a medida recomendada para melhor sabor e textura."
+          }
+        },
+        "chococaps_step_HCx8kY": {
+          "type": "chococaps_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61310.svg",
+            "title": "Adicione 2 colheres (30g) ao copo",
+            "description": "Use a medida recomendada para melhor sabor e textura."
+          }
+        },
+        "chococaps_step_xm9CRt": {
+          "type": "chococaps_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61311.svg",
+            "title": "Adicione 2 colheres (30g) ao copo",
+            "description": "Use a medida recomendada para melhor sabor e textura."
+          }
+        }
+      },
+      "block_order": [
+        "wheypuccino_step_fwccEE",
+        "wheypuccino_step_jAxVfa",
+        "wheypuccino_step_EjDDVF",
+        "chococaps_step_YxXbiD",
+        "chococaps_step_HCx8kY",
+        "chococaps_step_xm9CRt"
+      ],
+      "settings": {
+        "kicker": "Guia rápido",
+        "title": "Como preparar o seu Wheypuccino",
+        "subtitle": "Resultados consistentes em 3 passos.",
+        "reels_url": "https://cdn.shopify.com/videos/c/o/v/70afcaaddffb4b70b6d4d375507d6f03.mp4"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

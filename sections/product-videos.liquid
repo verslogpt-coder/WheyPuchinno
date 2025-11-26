@@ -1,0 +1,814 @@
+{% comment %}
+  Seção de Vídeos/Depoimentos - Design do Figma
+{% endcomment %}
+
+<section class="videos-section">
+  <div class="videos-container">
+    <!-- Header -->
+    <div class="videos-header">
+      <div class="videos-badge">
+        <img src="{{ 'icon-energy-drink.svg' | asset_url }}" alt="Depoimentos" width="24" height="27">
+        <span class="videos-badge-text">Depoimentos</span>
+      </div>
+      
+      <h2 class="videos-title">Quem experimentou indica!</h2>
+      
+      <p class="videos-subtitle">Confira o que dizem sobre o nosso produto...</p>
+    </div>
+
+    <!-- Grid de Vídeos -->
+    <div class="videos-grid" id="videos-carousel">
+      {% for i in (1..6) %}
+      {% assign video_key = 'video_url_' | append: i %}
+      {% assign poster_key = 'video_poster_' | append: i %}
+      <div class="video-card" data-index="{{ forloop.index0 }}">
+        <div class="video-placeholder">
+          {% if section.settings[video_key] != blank %}
+            {% assign video_url = section.settings[video_key] %}
+            {% assign poster_image = section.settings[poster_key] %}
+            {% assign is_mp4 = false %}
+            {% if video_url contains '.mp4' or video_url contains '/videos/c/vp/' or video_url contains 'cdn/shop/videos' %}
+              {% assign is_mp4 = true %}
+            {% endif %}
+
+            {% if is_mp4 %}
+              {%- comment -%}
+                URL direta para MP4. Mantemos o player oculto inicialmente e geramos a thumbnail
+                automaticamente a partir de um frame do próprio vídeo via Canvas.
+              {%- endcomment -%}
+              <div class="video-thumb" data-provider="mp4"></div>
+              <video 
+                class="video-tag" 
+                preload="metadata" 
+                playsinline 
+                controls 
+                controlslist="nodownload noplaybackrate"
+                muted
+                style="display:none;">
+                <source src="{{ video_url }}" type="video/mp4">
+              </video>
+            {% else %}
+              {%- comment -%}
+                Embed (YouTube/Vimeo). Mantemos o player oculto e carregamos somente ao clicar.
+                A thumbnail é extraída automaticamente (YouTube/Vimeo) com base no próprio vídeo.
+              {%- endcomment -%}
+              <div class="video-thumb" data-provider="embed"></div>
+              <iframe 
+                src=""
+                data-src="{{ video_url }}"
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen
+                playsinline
+                loading="lazy"
+                class="video-iframe"
+                style="display:none;"
+              ></iframe>
+            {% endif %}
+          {% else %}
+            <div class="video-empty">
+              <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="#619CCE" stroke-width="1.5"/>
+                <path d="M10 8L16 12L10 16V8Z" fill="#619CCE"/>
+              </svg>
+              <p>Vídeo {{ i }}</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Navegação Mobile (dots) -->
+    <div class="videos-dots">
+      {% for i in (1..6) %}
+      <button class="video-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></button>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+/* Seção de Vídeos */
+.videos-section {
+  width: 100%;
+  background: #FFFFFF;
+  padding: 80px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.videos-container {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 52px;
+}
+
+/* Header */
+.videos-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 23px;
+  width: 100%;
+  max-width: 1600px;
+}
+
+.videos-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(97, 156, 206, 0.1);
+  padding: 8px 16px;
+  border-radius: 16px;
+}
+
+.videos-badge img {
+  width: 24px;
+  height: 27px;
+}
+
+.videos-badge-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0.14px;
+  color: #619CCE;
+}
+
+.videos-title {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 60px;
+  color: #342222;
+  margin: 0;
+}
+
+.videos-subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  color: #342222;
+  margin: 0;
+}
+
+/* Grid de Vídeos */
+.videos-grid {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 60px 16px 60px;
+  scroll-snap-type: x mandatory;
+}
+
+.videos-grid::-webkit-scrollbar {
+  height: 6px;
+}
+
+.videos-grid::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 3px;
+}
+
+.videos-grid::-webkit-scrollbar-thumb {
+  background: #619CCE;
+  border-radius: 3px;
+}
+
+.video-card {
+  width: 280px;
+  flex-shrink: 0;
+  scroll-snap-align: center;
+}
+
+.video-placeholder {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background: #F0F0F0;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.video-iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* evita corte e mantém proporção do vídeo dentro do player */
+  background: #000; /* bordas pretas como na referência */
+  display: block;
+  /* Evita que o iframe capture o clique antes de carregar o src */
+  pointer-events: none;
+}
+
+/* Ao ativar o vídeo (src definido), liberamos interação do player */
+.video-iframe.is-active {
+  pointer-events: auto;
+}
+
+/* Player HTML5 para URLs MP4 */
+.video-tag {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* mantém a proporção e evita zoom/corte (como na primeira imagem) */
+  background: #000; /* barras/laterais pretas quando necessário */
+  display: block;
+}
+
+/* Thumbnail overlay gerada automaticamente */
+.video-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #EAEAEA;
+  background-size: cover;
+  background-position: center center;
+}
+.video-thumb::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: rgba(0,0,0,0.35);
+}
+.video-thumb::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-40%, -50%);
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+  border-color: transparent transparent transparent #FFFFFF;
+}
+
+.video-empty {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #619CCE;
+}
+
+.video-empty p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Dots de Navegação Mobile */
+.videos-dots {
+  display: none;
+  gap: 8px;
+  justify-content: center;
+  margin-top: -20px;
+}
+
+.video-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D9D9D9;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.video-dot.active {
+  background: #619CCE;
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* Responsivo Mobile */
+@media (max-width: 768px) {
+  .videos-section {
+    padding: 50px 0;
+    overflow: visible !important;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .videos-container {
+    padding: 0;
+    gap: 36px;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible !important;
+  }
+
+  .videos-header {
+    gap: 18px;
+    padding: 0 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    align-items: flex-start;
+  }
+
+  .videos-badge {
+    padding: 8px 16px;
+    border-radius: 14px;
+  }
+
+  .videos-badge img {
+    width: 20px;
+    height: 24px;
+  }
+
+  .videos-badge-text {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.14px;
+  }
+
+  .videos-title {
+    font-size: 28px;
+    line-height: 38px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .videos-subtitle {
+    font-size: 16px;
+    line-height: 24px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .videos-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    padding: 0 calc((100vw - 70vw) / 2) 20px;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .videos-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .video-card {
+    width: 70vw;
+    max-width: 300px;
+    min-width: 220px;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+  }
+
+  .video-placeholder {
+    aspect-ratio: 9 / 16;
+    border-radius: 16px;
+  }
+
+  .video-empty {
+    gap: 16px;
+  }
+
+  .video-empty svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .video-empty p {
+    font-size: 15px;
+  }
+
+  .videos-dots {
+    display: flex;
+    margin-top: 0;
+    padding: 0 20px;
+  }
+
+  .video-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .video-dot.active {
+    width: 24px;
+    border-radius: 4px;
+  }
+}
+
+/* Responsivo Tablet */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .videos-container {
+    padding: 0 32px;
+  }
+
+  .videos-grid {
+    gap: 20px;
+  }
+
+  .video-card {
+    width: 240px;
+  }
+
+  .video-placeholder {
+    aspect-ratio: 9 / 16;
+  }
+}
+
+/* Desktop - Scroll Horizontal */
+@media (min-width: 1025px) {
+  .videos-grid {
+    justify-content: flex-start;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const videosCarousel = document.getElementById('videos-carousel');
+  const dots = document.querySelectorAll('.video-dot');
+  const cards = videosCarousel ? videosCarousel.querySelectorAll('.video-card') : [];
+  
+  if (!videosCarousel) return;
+
+  // Função para atualizar dot ativo
+  function updateActiveDot() {
+    if (cards.length === 0 || dots.length === 0) return;
+
+    const scrollLeft = videosCarousel.scrollLeft;
+    const carouselWidth = videosCarousel.offsetWidth;
+    const viewportCenter = scrollLeft + (carouselWidth / 2);
+
+    let closestIndex = 0;
+    let minDistance = Infinity;
+
+    cards.forEach((card, index) => {
+      const cardLeft = card.offsetLeft;
+      const cardWidth = card.offsetWidth;
+      const cardCenter = cardLeft + (cardWidth / 2);
+      const distance = Math.abs(viewportCenter - cardCenter);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    dots.forEach((dot, index) => {
+      if (index === closestIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  // Atualizar dot ativo baseado no scroll com debounce
+  let scrollTimeout;
+  videosCarousel.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateActiveDot, 100);
+  }, { passive: true });
+
+  // Navegar ao clicar no dot
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', function() {
+      if (cards[index]) {
+        const cardLeft = cards[index].offsetLeft;
+        const cardWidth = cards[index].offsetWidth;
+        const carouselWidth = videosCarousel.offsetWidth;
+        const scrollPosition = cardLeft - (carouselWidth / 2) + (cardWidth / 2);
+        
+        videosCarousel.scrollTo({
+          left: scrollPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Helpers para thumbnails
+  function setThumbBackground(thumbEl, url) {
+    if (!thumbEl || !url) return;
+    thumbEl.style.backgroundImage = `url('${url}')`;
+  }
+
+  function getYouTubeId(url) {
+    try {
+      const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=))([A-Za-z0-9_-]{11})/);
+      return ytMatch ? ytMatch[1] : null;
+    } catch (e) { return null; }
+  }
+
+  function generateMp4Thumbnail(card, videoTag, thumbEl) {
+    if (!videoTag || !thumbEl) return;
+    try { videoTag.crossOrigin = 'anonymous'; } catch (e) {}
+    const onLoaded = () => {
+      const duration = isFinite(videoTag.duration) && videoTag.duration > 0 ? videoTag.duration : 5;
+      const targetTime = Math.min(Math.max(duration * 0.1, 0.5), 3);
+      const onSeeked = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          const placeholder = card.querySelector('.video-placeholder');
+          const phW = placeholder ? placeholder.clientWidth : 360;
+          const phH = placeholder ? placeholder.clientHeight : 640;
+          // Tamanho padrão com proporção 9:16
+          const ratio = 16/9;
+          let cw = Math.max(360, phW);
+          let ch = Math.max(640, phH);
+          // Garantir proporção 9:16
+          if (cw/ch > 9/16) { ch = Math.round(cw * 16/9); } else { cw = Math.round(ch * 9/16); }
+          canvas.width = cw; canvas.height = ch;
+          const ctx = canvas.getContext('2d');
+          const vw = videoTag.videoWidth || 720;
+          const vh = videoTag.videoHeight || 1280;
+          const scale = Math.max(cw / vw, ch / vh);
+          const sw = vw * scale;
+          const sh = vh * scale;
+          const dx = (cw - sw) / 2;
+          const dy = (ch - sh) / 2;
+          ctx.drawImage(videoTag, dx, dy, sw, sh);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+          setThumbBackground(thumbEl, dataUrl);
+          // Resetar o vídeo
+          try { videoTag.pause(); videoTag.currentTime = 0; } catch (e) {}
+        } catch (e) {
+          // Se Canvas for "tainted", mantemos o thumb padrão cinza
+        }
+      };
+      videoTag.addEventListener('seeked', onSeeked, { once: true });
+      try { videoTag.currentTime = targetTime; } catch (e) { onSeeked(); }
+    };
+    if (videoTag.readyState >= 1) onLoaded(); else {
+      videoTag.addEventListener('loadedmetadata', onLoaded, { once: true });
+      try { videoTag.load(); } catch (e) {}
+    }
+  }
+
+  async function generateEmbedThumbnail(card, url, thumbEl) {
+    if (!thumbEl || !url) return;
+    // YouTube
+    if (/youtu\.be|youtube\.com/.test(url)) {
+      const id = getYouTubeId(url);
+      if (!id) return;
+      const maxres = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+      const hq = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+      const img = new Image();
+      img.onload = function() { setThumbBackground(thumbEl, maxres); };
+      img.onerror = function() { setThumbBackground(thumbEl, hq); };
+      img.src = maxres;
+      return;
+    }
+    // Vimeo via oEmbed
+    if (/vimeo\.com|player\.vimeo\.com/.test(url)) {
+      try {
+        const res = await fetch(`https://vimeo.com/api/oembed.json?url=${encodeURIComponent(url)}`);
+        const data = await res.json();
+        if (data && data.thumbnail_url) {
+          setThumbBackground(thumbEl, data.thumbnail_url);
+        }
+      } catch (e) { /* Ignorar falhas */ }
+    }
+  }
+
+  // Carregar vídeo somente ao clicar e pausar/descarregar os demais
+  function playOnlyThis(index) {
+    if (!cards[index]) return;
+    const clickedIframe = cards[index].querySelector('iframe.video-iframe');
+    const clickedVideo = cards[index].querySelector('video.video-tag');
+    const clickedThumb = cards[index].querySelector('.video-thumb');
+
+    // Caso seja vídeo MP4
+    if (clickedVideo) {
+      // Pausar/descarregar todos os outros
+      cards.forEach((card, i) => {
+        const v = card.querySelector('video.video-tag');
+        if (v && i !== index) {
+          try { v.pause(); v.currentTime = 0; } catch (e) {}
+        }
+        const otherIframe = card.querySelector('iframe.video-iframe');
+        if (otherIframe) {
+          try { otherIframe.src = ''; otherIframe.classList.remove('is-active'); } catch (e) {}
+          otherIframe.style.display = 'none';
+        }
+        const t = card.querySelector('.video-thumb');
+        if (t && i !== index) t.style.display = 'block';
+        const vEl = card.querySelector('video.video-tag');
+        if (vEl && i !== index) vEl.style.display = 'none';
+      });
+
+      // Reproduzir o vídeo clicado
+      if (clickedThumb) clickedThumb.style.display = 'none';
+      clickedVideo.style.display = 'block';
+      try { clickedVideo.play(); } catch (e) {}
+      return;
+    }
+
+    // Caso seja embed (YouTube/Vimeo)
+    if (!clickedIframe) return;
+    const baseSrcRaw = clickedIframe.dataset.src || '';
+    if (!baseSrcRaw) return;
+    const baseSrc = removeAutoplayParam(baseSrcRaw);
+
+    // Acrescenta autoplay=1 somente para o vídeo clicado
+    const finalSrc = baseSrc + (baseSrc.includes('?') ? '&' : '?') + 'autoplay=1&controls=1&playsinline=1';
+
+    // Limpa os outros vídeos
+    cards.forEach((card, i) => {
+      const otherIframe = card.querySelector('iframe.video-iframe');
+      if (otherIframe && i !== index) {
+        try {
+          otherIframe.src = '';
+          otherIframe.classList.remove('is-active');
+        } catch (e) {}
+        otherIframe.style.display = 'none';
+      }
+      const v = card.querySelector('video.video-tag');
+      if (v) {
+        try { v.pause(); v.currentTime = 0; } catch (e) {}
+        v.style.display = 'none';
+      }
+      const t = card.querySelector('.video-thumb');
+      if (t && i !== index) t.style.display = 'block';
+    });
+
+    // Define o src do vídeo atual (e inicia reprodução)
+    if (clickedThumb) clickedThumb.style.display = 'none';
+    clickedIframe.src = finalSrc;
+    clickedIframe.classList.add('is-active');
+    clickedIframe.style.display = 'block';
+  }
+
+  cards.forEach((card, index) => {
+    const placeholder = card.querySelector('.video-placeholder');
+    if (placeholder) {
+      placeholder.addEventListener('click', function() {
+        playOnlyThis(index);
+      });
+    } else {
+      card.addEventListener('click', function() {
+        playOnlyThis(index);
+      });
+    }
+  });
+
+  // Touch/Swipe suporte
+  let startX = 0;
+  let scrollLeftStart = 0;
+  let isDragging = false;
+
+  videosCarousel.addEventListener('mousedown', function(e) {
+    isDragging = true;
+    startX = e.pageX - videosCarousel.offsetLeft;
+    scrollLeftStart = videosCarousel.scrollLeft;
+    videosCarousel.style.cursor = 'grabbing';
+  });
+
+  videosCarousel.addEventListener('mouseleave', function() {
+    isDragging = false;
+    videosCarousel.style.cursor = 'grab';
+  });
+
+  videosCarousel.addEventListener('mouseup', function() {
+    isDragging = false;
+    videosCarousel.style.cursor = 'grab';
+  });
+
+  videosCarousel.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - videosCarousel.offsetLeft;
+    const walk = (x - startX) * 2;
+    videosCarousel.scrollLeft = scrollLeftStart - walk;
+  });
+
+  // Inicializar
+  videosCarousel.style.cursor = 'grab';
+  updateActiveDot();
+  
+  // Helper: remove qualquer parâmetro de autoplay da URL
+  function removeAutoplayParam(url) {
+    if (!url) return '';
+    try {
+      let cleaned = url
+        .replace(/([?&])autoplay=1/gi, '$1')
+        .replace(/([?&])autoplay=true/gi, '$1')
+        .replace(/([?&])autoplay=0/gi, '$1')
+        .replace(/([?&])autoplay=false/gi, '$1');
+      // Limpar possíveis duplas de separadores criadas pela remoção
+      cleaned = cleaned
+        .replace(/([?&])&/g, '$1')
+        .replace(/\?&/, '?')
+        .replace(/\?$/, '');
+      return cleaned;
+    } catch (e) {
+      return url;
+    }
+  }
+
+  // Gerar thumbnails automaticamente a partir do próprio conteúdo dos vídeos
+  cards.forEach((card) => {
+    const iframe = card.querySelector('iframe.video-iframe');
+    const videoTag = card.querySelector('video.video-tag');
+    const thumbEl = card.querySelector('.video-thumb');
+    if (videoTag) {
+      try { videoTag.pause(); videoTag.removeAttribute('autoplay'); } catch (e) {}
+      generateMp4Thumbnail(card, videoTag, thumbEl);
+    }
+    if (iframe) {
+      const raw = iframe.dataset.src || '';
+      generateEmbedThumbnail(card, raw, thumbEl);
+    }
+  });
+
+  // Atualizar ao redimensionar
+  window.addEventListener('resize', updateActiveDot);
+});
+</script>
+
+{% schema %}
+{
+  "name": "Vídeos do Produto",
+  "settings": [
+    {
+      "type": "text",
+      "id": "video_url_1",
+      "label": "URL do Vídeo 1",
+      "info": "Cole a URL do YouTube/Vimeo (ex: https://www.youtube.com/embed/VIDEO_ID)"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster_1",
+      "label": "Imagem de capa do Vídeo 1 (opcional)",
+      "info": "Use uma imagem para a miniatura do vídeo MP4."
+    },
+    {
+      "type": "text",
+      "id": "video_url_2",
+      "label": "URL do Vídeo 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster_2",
+      "label": "Imagem de capa do Vídeo 2 (opcional)"
+    },
+    {
+      "type": "text",
+      "id": "video_url_3",
+      "label": "URL do Vídeo 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster_3",
+      "label": "Imagem de capa do Vídeo 3 (opcional)"
+    },
+    {
+      "type": "text",
+      "id": "video_url_4",
+      "label": "URL do Vídeo 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster_4",
+      "label": "Imagem de capa do Vídeo 4 (opcional)"
+    },
+    {
+      "type": "text",
+      "id": "video_url_5",
+      "label": "URL do Vídeo 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_poster_5",
+      "label": "Imagem de capa do Vídeo 5 (opcional)"
+    },
+    {
+      "type": "text",
+      "id": "video_url_6",
+      "label": "URL do Vídeo 6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vídeos do Produto"
+    }
+  ]
+}
+{% endschema %}

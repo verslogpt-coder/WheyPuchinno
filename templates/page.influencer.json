@@ -1,0 +1,132 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "influencer-hero": {
+      "type": "influencer-hero",
+      "settings": {
+        "show_logo": true,
+        "title_line_1": "FAÇA PARTE",
+        "title_line_2": "DO LIFESTYLE WHEYPUCCINO",
+        "subtitle": "Seja embaixador de uma marca premium que une saúde, energia e sabor.",
+        "overlay_opacity": 55,
+        "hero_height_desktop": 900
+      }
+    },
+    "influencer-form": {
+      "type": "influencer-form",
+      "blocks": {
+        "forms_inline_fdrCiX": {
+          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "711674",
+            "text_color": "#ffffff",
+            "button_background_color": "#e02229",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 13,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        }
+      },
+      "block_order": [
+        "forms_inline_fdrCiX"
+      ],
+      "settings": {
+        "benefits_title": "BENEFÍCIOS DE SER INFLUENCER",
+        "benefits_description": "Ganhe comissões mostrando como o Wheypuccino une sabor, proteína e estilo em cada gole.",
+        "benefit_1": "Produtos exclusivos antes do lançamento",
+        "benefit_2": "Kits e experiências especiais",
+        "benefit_3": "Comissão ou programa de afliados",
+        "benefit_4": "Reconhecimento e destaque",
+        "form_title": "COMO FUNCIONA O PROGRAMA"
+      }
+    },
+    "testimonials_carousel_dTND9G": {
+      "type": "testimonials-carousel",
+      "blocks": {
+        "testimonial_xda4en": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Mariana",
+            "date": "05/01/2025",
+            "text": "Comecei a tomar o Wheypuccino no lugar do café da manhã e simplesmente amei! Além de nutritivo, o sabor é incrível.",
+            "featured": false
+          }
+        },
+        "testimonial_zDhcfc": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Carlos Eduardo",
+            "date": "12/01/2025",
+            "text": "Melhor investimento que fiz! O Wheypuccino me dá energia para os treinos e ainda tem aquele gostinho de café gourmet. Recomendo demais!",
+            "featured": true
+          }
+        },
+        "testimonial_tYpnVh": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Juliana",
+            "date": "18/01/2025",
+            "text": "Estava cética no início, mas depois de experimentar fiquei viciada. O sabor é surpreendentemente bom!",
+            "featured": false
+          }
+        },
+        "testimonial_fD67rr": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Rafael",
+            "date": "22/01/2025",
+            "text": "Perfeito para quem quer unir proteína e café em um só produto. A textura é cremosa e o sabor é equilibrado.",
+            "featured": false
+          }
+        },
+        "testimonial_BHktPN": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Beatriz",
+            "date": "28/01/2025",
+            "text": "Não consigo mais começar o dia sem meu Wheypuccino! Substituiu meu café da manhã e me mantém saciada até o almoço.",
+            "featured": false
+          }
+        },
+        "testimonial_YMPjxE": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Lucas M.",
+            "date": "03/02/2025",
+            "text": "Já testei várias marcas de whey protein com café e essa é disparada a melhor. Sabor autêntico e qualidade premium.",
+            "featured": false
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_xda4en",
+        "testimonial_zDhcfc",
+        "testimonial_tYpnVh",
+        "testimonial_fD67rr",
+        "testimonial_BHktPN",
+        "testimonial_YMPjxE"
+      ],
+      "name": "Carrossel de Depoimentos",
+      "settings": {}
+    }
+  },
+  "order": [
+    "influencer-hero",
+    "influencer-form",
+    "testimonials_carousel_dTND9G"
+  ]
+}

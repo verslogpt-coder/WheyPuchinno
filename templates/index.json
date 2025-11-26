@@ -1,0 +1,658 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero-wheypuccino",
+      "blocks": {
+        "slide_VrfGRf": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/DESKTOP_1_3.png",
+            "image_mobile": "shopify://shop_images/MOBILE_3_2.png",
+            "hide_on_mobile": false,
+            "slide_link": "shopify://collections/all",
+            "chip_text": "",
+            "chip_text_color_mobile": "#61a1cd",
+            "title_strong": "",
+            "title_strong_color_mobile": "#ffffff",
+            "title_regular": "",
+            "title_regular_color_mobile": "#ffffff",
+            "title_accent": "",
+            "title_accent_color_mobile": "#f44027",
+            "subtitle": "",
+            "subtitle_color_mobile": "#ffffff",
+            "cta_primary_text": "",
+            "cta_primary_url": "",
+            "cta_secondary_text": "",
+            "cta_secondary_url": "",
+            "reviews_count": ""
+          }
+        },
+        "slide_F8qPkY": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/DESKTOP_1_2.png",
+            "image_mobile": "shopify://shop_images/MOBILE_3_3.png",
+            "hide_on_mobile": false,
+            "slide_link": "shopify://collections/all",
+            "chip_text": "",
+            "chip_text_color_mobile": "#61a1cd",
+            "title_strong": "",
+            "title_strong_color_mobile": "#ffffff",
+            "title_regular": "",
+            "title_regular_color_mobile": "#ffffff",
+            "title_accent": "",
+            "title_accent_color_mobile": "#f44027",
+            "subtitle": "",
+            "subtitle_color_mobile": "#ffffff",
+            "cta_primary_text": "",
+            "cta_primary_url": "",
+            "cta_secondary_text": "",
+            "cta_secondary_url": "",
+            "reviews_count": ""
+          }
+        },
+        "slide_by9X4i": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/DESKTOP_1_09885a94-d78a-41cd-bb92-94077c6bf5f2.png",
+            "image_mobile": "shopify://shop_images/MOBILE_3.png",
+            "hide_on_mobile": false,
+            "slide_link": "shopify://collections/all",
+            "chip_text": "",
+            "chip_text_color_mobile": "#61a1cd",
+            "title_strong": "",
+            "title_strong_color_mobile": "#ffffff",
+            "title_regular": "",
+            "title_regular_color_mobile": "#ffffff",
+            "title_accent": "",
+            "title_accent_color_mobile": "#f44027",
+            "subtitle": "",
+            "subtitle_color_mobile": "#ffffff",
+            "cta_primary_text": "",
+            "cta_primary_url": "",
+            "cta_secondary_text": "",
+            "cta_secondary_url": "",
+            "reviews_count": ""
+          }
+        },
+        "slide_zzfrrB": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/DESKTOP_1.png",
+            "hide_on_mobile": true,
+            "slide_link": "shopify://collections/wheypuccino",
+            "chip_text": "",
+            "chip_text_color_mobile": "#61a1cd",
+            "title_strong": "",
+            "title_strong_color_mobile": "#ffffff",
+            "title_regular": "",
+            "title_regular_color_mobile": "#ffffff",
+            "title_accent": "",
+            "title_accent_color_mobile": "#f44027",
+            "subtitle": "",
+            "subtitle_color_mobile": "#ffffff",
+            "cta_primary_text": "",
+            "cta_primary_url": "",
+            "cta_secondary_text": "",
+            "cta_secondary_url": "",
+            "reviews_count": ""
+          }
+        },
+        "slide_jEbF8B": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/banner_4.png",
+            "image_mobile": "shopify://shop_images/banner_4_mobile.png",
+            "hide_on_mobile": false,
+            "slide_link": "shopify://collections/wheypuccino",
+            "chip_text": "",
+            "chip_text_color_mobile": "#61a1cd",
+            "title_strong": "",
+            "title_strong_color_mobile": "#ffffff",
+            "title_regular": "",
+            "title_regular_color_mobile": "#ffffff",
+            "title_accent": "",
+            "title_accent_color_mobile": "#f44027",
+            "subtitle": "",
+            "subtitle_color_mobile": "#ffffff",
+            "cta_primary_text": "",
+            "cta_primary_url": "",
+            "cta_secondary_text": "",
+            "cta_secondary_url": "",
+            "reviews_count": ""
+          }
+        },
+        "slide_nGFaLh": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/banner_3.png",
+            "image_mobile": "shopify://shop_images/banner_3_mobile.png",
+            "hide_on_mobile": false,
+            "slide_link": "shopify://collections/wheypuccino",
+            "chip_text": "",
+            "chip_text_color_mobile": "#61a1cd",
+            "title_strong": "",
+            "title_strong_color_mobile": "#ffffff",
+            "title_regular": "",
+            "title_regular_color_mobile": "#ffffff",
+            "title_accent": "",
+            "title_accent_color_mobile": "#f44027",
+            "subtitle": "",
+            "subtitle_color_mobile": "#ffffff",
+            "cta_primary_text": "",
+            "cta_primary_url": "",
+            "cta_secondary_text": "",
+            "cta_secondary_url": "",
+            "reviews_count": ""
+          }
+        },
+        "slide_KxCnXp": {
+          "type": "slide",
+          "settings": {
+            "image_desktop": "shopify://shop_images/banner_1.png",
+            "image_mobile": "shopify://shop_images/banner_1_mobile.png",
+            "hide_on_mobile": false,
+            "slide_link": "shopify://collections/wheypuccino",
+            "chip_text": "",
+            "chip_text_color_mobile": "#61a1cd",
+            "title_strong": "",
+            "title_strong_color_mobile": "#ffffff",
+            "title_regular": "",
+            "title_regular_color_mobile": "#ffffff",
+            "title_accent": "",
+            "title_accent_color_mobile": "#f44027",
+            "subtitle": "",
+            "subtitle_color_mobile": "#ffffff",
+            "cta_primary_text": "",
+            "cta_primary_url": "",
+            "cta_secondary_text": "",
+            "cta_secondary_url": "",
+            "reviews_count": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_VrfGRf",
+        "slide_F8qPkY",
+        "slide_by9X4i",
+        "slide_zzfrrB",
+        "slide_jEbF8B",
+        "slide_nGFaLh",
+        "slide_KxCnXp"
+      ],
+      "settings": {
+        "slider_height_mobile": 800,
+        "slider_height_desktop": 720,
+        "overlay_color": "#ffffff",
+        "overlay_opacity": 0,
+        "autoplay": true,
+        "autoplay_duration": 6000
+      }
+    },
+    "what_is": {
+      "type": "what-is-wheypuccino",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "seal_image": "shopify://shop_images/6.svg"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "seal_image": "shopify://shop_images/4.svg"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "seal_image": "shopify://shop_images/5_5ba42109-1583-4664-8dfc-09f3ab0a9e7a.svg"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "seal_image": "shopify://shop_images/7.svg"
+          }
+        },
+        "feature_5": {
+          "type": "feature",
+          "settings": {
+            "seal_image": "shopify://shop_images/12_f327f474-aefb-4614-b539-4f249e635f6a.svg"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4",
+        "feature_5"
+      ],
+      "settings": {
+        "title": "O que é o Wheypuccino?",
+        "description": "O Wheypuccino é o primeiro cappuccino proteico do mundo (desde 2015), uma opção prática e saborosa, entregando energia real que nutre, sustenta e acompanha o seu lifestyle. Uma fusão entre café gourmet premium com whey protein em uma bebida cremosa, nutritiva e irresistível. Beba quente ou gelado!",
+        "main_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_10.53.46_6e6e6b0b.jpg",
+        "reviews_text": "+300 avaliações",
+        "quote_part_1": "É mais que um suplemento",
+        "quote_part_2": ", é um alimento inteligente para quem vive com",
+        "quote_accent": "intensidade",
+        "quote_part_3": ", mas sem abrir mão do sabor."
+      }
+    },
+    "benefits_carousel": {
+      "type": "benefits-carousel",
+      "blocks": {
+        "benefit_Uydwdd": {
+          "type": "benefit",
+          "settings": {
+            "title": "PRATICIDADE",
+            "description": "Sua dose de proteína e energia pronta em segundos, onde quer que você esteja.",
+            "background_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_10.55.41_03c4581f.jpg",
+            "icon_svg": ""
+          }
+        },
+        "benefit_mt4B4j": {
+          "type": "benefit",
+          "settings": {
+            "title": "SABOR",
+            "description": "O café que você ama, com muito mais sabor, cremosidade e nutrição.",
+            "background_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_11.02.41_83816557.jpg",
+            "icon_svg": ""
+          }
+        },
+        "benefit_LzFPnf": {
+          "type": "benefit",
+          "settings": {
+            "title": "ENERGIA",
+            "description": "O Wheypuccino entrega uma energia inteligente, não apenas desperta como o café tradicional, mas nutre, sustenta e mantém você no ritmo. É energia que alimenta, não que esgota.",
+            "background_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_11.03.15_51fb7366.jpg",
+            "icon_svg": ""
+          }
+        }
+      },
+      "block_order": [
+        "benefit_Uydwdd",
+        "benefit_mt4B4j",
+        "benefit_LzFPnf"
+      ],
+      "settings": {
+        "button_text": "Comprar Agora",
+        "button_url": "shopify://collections"
+      }
+    },
+    "carousel_tags": {
+      "type": "carousel-tags",
+      "blocks": {
+        "tag_K4FT6W": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Nutritivo",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "tag_QyjLGQ": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Irresistível",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "tag_dA4nF3": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Energizante",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "tag_nbQBKW": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Saboroso",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "tag_K4FT6W",
+        "tag_QyjLGQ",
+        "tag_dA4nF3",
+        "tag_nbQBKW"
+      ],
+      "settings": {}
+    },
+    "products": {
+      "type": "products-wheypuccino",
+      "settings": {
+        "title": "Escolha o seu!",
+        "subtitle": "A combinação perfeita entre capuccino e whey protein.",
+        "collection": "frontpage",
+        "products_limit": 8,
+        "product_lead": "Adoce sua rotina com o",
+        "cta_text": "Ver detalhes"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials-wheypuccino",
+      "blocks": {
+        "testimonial_fmFzJ9": {
+          "type": "testimonial",
+          "settings": {
+            "name": "",
+            "role": "",
+            "image": "shopify://shop_images/image_21_8f506892-2581-44e4-8a6b-3cc3f703a3dc.png",
+            "has_video": true
+          }
+        },
+        "testimonial_Pg7k7h": {
+          "type": "testimonial",
+          "settings": {
+            "name": "",
+            "role": "",
+            "image": "shopify://shop_images/image_19.png",
+            "has_video": true
+          }
+        },
+        "testimonial_bGWYMa": {
+          "type": "testimonial",
+          "settings": {
+            "name": "",
+            "role": "",
+            "image": "shopify://shop_images/image_22.png",
+            "has_video": true
+          }
+        },
+        "testimonial_zU4TXf": {
+          "type": "testimonial",
+          "settings": {
+            "name": "",
+            "role": "",
+            "image": "shopify://shop_images/image_20.png",
+            "has_video": true
+          }
+        },
+        "benefit_TRhKAm": {
+          "type": "benefit",
+          "settings": {
+            "text": "Aporte proteico no seu dia",
+            "icon": "shopify://shop_images/Drugs_Pill.svg"
+          }
+        },
+        "benefit_xTaMwD": {
+          "type": "benefit",
+          "settings": {
+            "text": "Rotina cada vez mais saudável"
+          }
+        },
+        "benefit_rGjE3L": {
+          "type": "benefit",
+          "settings": {
+            "text": "Praticidade inteligente, pronto em 1 minuto",
+            "icon": "shopify://shop_images/Heartbeat.svg"
+          }
+        },
+        "benefit_Ty6dbQ": {
+          "type": "benefit",
+          "settings": {
+            "text": "Sabor Irresistível, cremoso e marcante de um verdadeiro capuccino."
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_fmFzJ9",
+        "testimonial_Pg7k7h",
+        "testimonial_bGWYMa",
+        "testimonial_zU4TXf",
+        "benefit_TRhKAm",
+        "benefit_xTaMwD",
+        "benefit_rGjE3L",
+        "benefit_Ty6dbQ"
+      ],
+      "disabled": true,
+      "settings": {
+        "chip_text": "Prepare-se",
+        "title": "Energia que Alimenta e não que esgota;"
+      }
+    },
+    "solution": {
+      "type": "solution-section",
+      "blocks": {
+        "statistic_PXktgq": {
+          "type": "statistic",
+          "settings": {
+            "title": "Proteja sua saúde muscular",
+            "description": "a proteína do Wheypuccino ajuda a manter força e vitalidade em qualquer idade."
+          }
+        },
+        "statistic_pkizTY": {
+          "type": "statistic",
+          "settings": {
+            "title": "Mais sabor, menos culpa",
+            "description": "um verdadeiro cappuccino cremoso e proteico que ajuda a manter a disciplina sem abrir mão do prazer."
+          }
+        },
+        "statistic_G9aeWx": {
+          "type": "statistic",
+          "settings": {
+            "title": "Prazer que vira hábito",
+            "description": "com sabor premium, o Wheypuccino transforma nutrição e benefícios em uma rotina extremamente deliciosa."
+          }
+        }
+      },
+      "block_order": [
+        "statistic_PXktgq",
+        "statistic_pkizTY",
+        "statistic_G9aeWx"
+      ],
+      "settings": {
+        "title": "A solução para sua meta de proteína diária!",
+        "lead_text": "Imagine transformar a pausa mais aguardada e saborosa do seu dia em um gesto poderoso para sua saúde muscular e bem‑estar.",
+        "description": "Com WHEYPUCCINO®, o capuccino proteico pioneiro no mundo desde 2015, você não precisa mais escolher entre o prazer e a disciplina. Nutrir seu corpo com a proteína que ele precisa agora é o seu novo hábito delicioso.",
+        "main_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_13.57.22_b46c9b14.jpg",
+        "button_text": "Comprar Agora",
+        "button_url": "shopify://collections"
+      }
+    },
+    "reviews": {
+      "type": "reviews-section",
+      "blocks": {
+        "review_video_7acicw": {
+          "type": "review_video",
+          "settings": {
+            "video": "shopify://files/videos/StorySaver.net-wheypuccino-Video-1761067370010.mp4"
+          }
+        },
+        "review_video_788nmx": {
+          "type": "review_video",
+          "settings": {
+            "video": "shopify://files/videos/StorySaver.net-wheypuccino-Video-1761049404441.mp4"
+          }
+        },
+        "review_video_nNDdQA": {
+          "type": "review_video",
+          "settings": {
+            "video": "shopify://files/videos/StorySaver.net-wheypuccino-Video-1761067366539.mp4"
+          }
+        },
+        "review_video_cgzBNW": {
+          "type": "review_video",
+          "settings": {
+            "video": "shopify://files/videos/StorySaver.net-wheypuccino-Video-1761049399990.mp4"
+          }
+        },
+        "review_video_GWA9Nf": {
+          "type": "review_video",
+          "settings": {
+            "video": "shopify://files/videos/StorySaver.net-wheypuccino-Video-1761049407643.mp4"
+          }
+        },
+        "review_video_GM4xeE": {
+          "type": "review_video",
+          "settings": {
+            "video": "shopify://files/videos/StorySaver.net-wheypuccino-Video-1761049418387.mp4"
+          }
+        }
+      },
+      "block_order": [
+        "review_video_7acicw",
+        "review_video_788nmx",
+        "review_video_nNDdQA",
+        "review_video_cgzBNW",
+        "review_video_GWA9Nf",
+        "review_video_GM4xeE"
+      ],
+      "settings": {
+        "chip_text": "Quem prova, aprova.",
+        "title": "Descubra as avaliações reais e as opiniões de quem já provou o Wheypuccino.",
+        "autoplay": false,
+        "autoplay_interval": 5000,
+        "debug_mode": false
+      }
+    },
+    "cta_final": {
+      "type": "cta-final",
+      "settings": {
+        "title": "Escolha o seu!",
+        "subtitle": "A combinação perfeita entre capuccino e whey protein.",
+        "cta_text": "Conhecer sabores",
+        "cta_url": ""
+      }
+    },
+    "instagram_feed": {
+      "type": "instagram-feed",
+      "custom_css": [],
+      "settings": {
+        "background": "#ffffff",
+        "title": "Segue a gente no instagram!",
+        "subtitle": "Acompanhe nosso dia a dia e inspire-se com receitas incríveis",
+        "instagram_code": "",
+        "cta_text": "Seguir no Instagram",
+        "cta_url": "https://instagram.com/wheypuccino"
+      }
+    },
+    "1760971259e1ea2f6d": {
+      "type": "apps",
+      "custom_css": [
+        "a[href*=\"apps.shopify.com/instagram-feed-app\"] {display: none !important;}"
+      ],
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq-section",
+      "blocks": {
+        "faq_item_cWwQcQ": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Como devo preparar o Wheypuccino?",
+            "answer": "Preparar o seu Wheypuccino é simples e delicioso:\nBasta adicionar 1 scoop (25 g) em 150 ml de água ou leite.\n\nQuer um cappuccino quente? Use leite ou água quente e sinta o aroma e a cremosidade do café gourmet.\n\nPrefere algo gelado? Misture com leite ou água fria e adicione gelo para um frappuccino cremoso e refrescante.\n\nDica: use um mixer ou mini espumador para deixar a textura ainda mais cremosa. Uma verdadeira experiência Wheypuccino!"
+          }
+        },
+        "faq_item_7Gw4D3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Quais sabores de Wheypuccino estão disponíveis?",
+            "answer": "O Wheypuccino está disponível em três sabores irresistíveis, criados para transformar sua rotina em um momento de prazer:\nSabor Original: o equilíbrio perfeito entre café gourmet e cremosidade.\n\nChocolate Suíço:  intenso e aveludado, com notas de cacau premium.\n\nCaramelo:  toque adocicado e sofisticado, para quem gosta de um sabor marcante."
+          }
+        },
+        "faq_item_MBb9Cj": {
+          "type": "faq_item",
+          "settings": {
+            "question": "O Wheypuccino contém cafeína?",
+            "answer": "Sim, o Wheypuccino é feito com café gourmet premium, que naturalmente contém cafeína.\nMas diferente de bebidas energéticas tradicionais, ele oferece uma energia inteligente, que alimenta e sustenta o corpo, em vez de esgotar.\nCada dose proporciona foco, disposição, bem-estar e saciedade, sem exageros."
+          }
+        },
+        "faq_item_bx9Hzd": {
+          "type": "faq_item",
+          "settings": {
+            "question": "O produto é adequado para dietas vegetarianas ou veganas?",
+            "answer": "O Wheypuccino contém proteína do soro do leite (whey protein zero lactose) em sua composição, por isso, não é indicado para dietas veganas.\n\nMas ele é totalmente adequado para dietas vegetarianas, pois não contém carne, ovos ou outros derivados.\n\nÉ uma opção perfeita para quem busca energia inteligente, nutrição e sabor, com o equilíbrio do café gourmet e proteína de mais alta qualidade.\n\nFica de olho: a versão vegana do Wheypuccino já está nos nossos planos para o futuro!"
+          }
+        },
+        "faq_item_HEYUA4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "O Wheypuccino pode ser consumido quente ou frio?",
+            "answer": "O Wheypuccino foi criado para ser versátil e delicioso em qualquer temperatura.\n\nQuente, ele se transforma em um cappuccino cremoso, com aroma intenso e sabor marcante. Perfeito para começar o dia ou relaxar.\n\nGelado, vira um frappuccino refrescante, ideal para os dias quentes ou depois do treino.\n\nA fórmula do Wheypuccino foi desenvolvida para dissolver facilmente, mantendo a textura cremosa e o sabor equilibrado em ambas as versões.\nUm produto inteligente, feito para se adaptar ao seu momento. Do aconchego ao movimento."
+          }
+        },
+        "faq_item_7XmU6U": {
+          "type": "faq_item",
+          "settings": {
+            "question": "O Wheypuccino substitui uma refeição completa?",
+            "answer": "O Wheypuccino não foi criado para substituir uma refeição completa, mas sim para complementar sua rotina alimentar de forma prática e saborosa.\nCada dose oferece proteína de alta qualidade, energia inteligente e o prazer de um café gourmet. Ideal para momentos como: \ninício do dia, intervalo do trabalho ou dos estudos, pré ou pós-treino.\n\nPode ser combinado com frutas, pães, tapiocas ou outros alimentos leves, tornando-se uma opção equilibrada e nutritiva quando você precisa de praticidade sem abrir mão do sabor."
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_cWwQcQ",
+        "faq_item_7Gw4D3",
+        "faq_item_MBb9Cj",
+        "faq_item_bx9Hzd",
+        "faq_item_HEYUA4",
+        "faq_item_7XmU6U"
+      ],
+      "settings": {
+        "chip_text": "Prepare-se",
+        "title": "Perguntas frequentes",
+        "contact_title": "Ainda tem dúvidas?",
+        "contact_text": "Entre em contato com o nosso suporte via whatsapp, estamos prontos para lhe atender."
+      }
+    },
+    "176314097680cdc420": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_jJdqxL": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "title": "",
+            "title_color": "",
+            "title_size_v2": 0,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
+            "background_color": "",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_jJdqxL"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "what_is",
+    "benefits_carousel",
+    "carousel_tags",
+    "products",
+    "testimonials",
+    "solution",
+    "reviews",
+    "cta_final",
+    "instagram_feed",
+    "176314097680cdc420",
+    "1760971259e1ea2f6d",
+    "faq"
+  ]
+}

@@ -1,0 +1,2144 @@
+{% comment %}
+  Seção Principal do Produto - Design Original
+{% endcomment %}
+
+{{ 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap' | stylesheet_tag }}
+
+<section class="product-section-figma" data-product-id="{{ product.id }}">
+  <div class="product-container-figma">
+    
+    <!-- Coluna Esquerda: Galeria -->
+    <div class="product-gallery-col">
+      <!-- Imagem Principal -->
+      <div class="product-image-main">
+        {% if product.featured_media %}
+          <img 
+            id="main-product-image"
+            src="{{ product.featured_media | image_url: width: 1200 }}" 
+            alt="{{ product.title }}"
+            loading="eager"
+          >
+        {% else %}
+          <div class="image-placeholder">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="18" height="18" rx="2" stroke="#E0E0E0" stroke-width="2"/>
+            </svg>
+          </div>
+        {% endif %}
+      </div>
+      
+      <!-- Carousel de Miniaturas - NAVEGAÇÃO FUNCIONAL -->
+      <div class="image-carousel">
+        <div class="carousel-container">
+          {% if product.media.size > 1 %}
+          <button class="carousel-arrow prev" onclick="carouselPrev()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="24" height="24" rx="8" fill="#F44027"/>
+              <path d="M14 8L10 12L14 16" stroke="#FFFCFC" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          {% endif %}
+          
+          <div class="carousel-track" id="carousel-track">
+            <!-- Mostrar TODAS as imagens do produto -->
+            {% for media in product.media %}
+            <div class="carousel-image {% if forloop.index == 1 %}active{% endif %}" 
+                 data-image="{{ media | image_url: width: 1200 }}">
+              <img src="{{ media | image_url: width: 200 }}" alt="{{ media.alt }}" loading="lazy">
+            </div>
+            {% endfor %}
+            
+            <!-- Se não há imagens, mostrar placeholder -->
+            {% if product.media.size == 0 %}
+            <div class="carousel-image active">
+              <div class="placeholder-image">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none">
+                  <rect x="3" y="3" width="18" height="18" rx="2" stroke="#E0E0E0" stroke-width="2"/>
+                </svg>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          
+          {% if product.media.size > 1 %}
+          <button class="carousel-arrow next" onclick="carouselNext()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="24" height="24" rx="8" fill="#F44027"/>
+              <path d="M10 16L14 12L10 8" stroke="#FFFCFC" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Coluna Direita: Informações -->
+    <div class="product-info-col">
+      
+      <!-- Rating e Título -->
+      <div class="product-header">
+        <div class="product-rating">
+          <div class="rating-stars">
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            <span class="star">★</span>
+            </div>
+          <div class="rating-divider"></div>
+          <span class="rating-count">{{ section.settings.rating_count }}</span>
+        </div>
+        <h1 class="product-title">{{ product.title }}</h1>
+        <div class="product-desc" id="product-desc">
+          <div class="product-desc__content">
+            {{ product.description }}
+          </div>
+          <button type="button" class="product-desc__toggle" id="product-desc-toggle" aria-expanded="false" aria-controls="product-desc">
+            Ver mais
+          </button>
+        </div>
+      </div>
+      
+      <form class="product-form-main" action="/cart/add" method="post" enctype="multipart/form-data" id="product-form-{{ product.id }}">
+        <input type="hidden" name="id" id="variant-id" value="{{ product.selected_or_first_available_variant.id }}">
+        <!-- IDs das variantes do combo -->
+        <input type="hidden" id="whey-variant-id" value="">
+        <input type="hidden" id="choc-variant-id" value="">
+        
+        <!-- Seletor de Sabor/Variante -->
+        {% liquid
+          assign whey_index = 0
+          assign caps_index = 0
+          for opt in product.options
+            assign name_down = opt | downcase
+            if name_down contains 'whey'
+              assign whey_index = forloop.index
+            elsif name_down contains 'chococaps' or name_down contains 'choco'
+              assign caps_index = forloop.index
+            endif
+          endfor
+        %}
+
+        {% if whey_index > 0 and caps_index > 0 %}
+          {% assign whey_key = 'option1' %}
+          {% if whey_index == 2 %}{% assign whey_key = 'option2' %}{% elsif whey_index == 3 %}{% assign whey_key = 'option3' %}{% endif %}
+          {% assign caps_key = 'option1' %}
+          {% if caps_index == 2 %}{% assign caps_key = 'option2' %}{% elsif caps_index == 3 %}{% assign caps_key = 'option3' %}{% endif %}
+
+          <!-- Opção 1: Sabor Whey -->
+          <div class="flavor-selector">
+            <div class="flavor-grid-header">
+              <div class="flavor-label">Sabor Whey</div>
+              {% if section.settings.flavor_help_link != blank %}
+                <a class="flavor-help" href="{{ section.settings.flavor_help_link }}" target="_blank" rel="noopener">{{ section.settings.flavor_help_text }}</a>
+              {% endif %}
+            </div>
+            <div class="flavor-grid">
+              {% assign whey_values = '' %}
+              {% for v in product.variants %}
+                {% assign val = v[whey_key] %}
+                {% unless whey_values contains val %}
+                  {% assign flavor_color = section.settings.flavor_default_color %}
+                  <button type="button"
+                          class="flavor-card {% if forloop.first %}active{% endif %}"
+                          data-group="whey"
+                          data-value="{{ val }}"
+                          data-variant-price="{{ v.price | money_without_currency }}"
+                          {% if v.featured_media %}
+                            data-image="{{ v.featured_media | image_url: width: 1200 }}"
+                          {% endif %}
+                          style="--flavor-color: {{ flavor_color | default: '#ECECEC' }}">
+                    <div class="flavor-card-top">
+                      {% if v.featured_media %}
+                        <img src="{{ v.featured_media | image_url: width: 80 }}" alt="{{ val }}">
+                      {% endif %}
+                    </div>
+                    <div class="flavor-card-label">{{ val }}</div>
+                  </button>
+                  {% assign whey_values = whey_values | append: '|' | append: val %}
+                {% endunless %}
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Opção 2: Sabor ChocoCaps -->
+          <div class="flavor-selector">
+            <div class="flavor-grid-header">
+              <div class="flavor-label">Sabor ChocoCaps</div>
+            </div>
+            <div class="flavor-grid">
+              {% assign caps_values = '' %}
+              {% for v in product.variants %}
+                {% assign val = v[caps_key] %}
+                {% unless caps_values contains val %}
+                  {% assign flavor_color = section.settings.flavor_default_color %}
+                  <button type="button"
+                          class="flavor-card {% if forloop.first %}active{% endif %}"
+                          data-group="caps"
+                          data-value="{{ val }}"
+                          data-variant-price="{{ v.price | money_without_currency }}"
+                          {% if v.featured_media %}
+                            data-image="{{ v.featured_media | image_url: width: 1200 }}"
+                          {% endif %}
+                          style="--flavor-color: {{ flavor_color | default: '#ECECEC' }}">
+                    <div class="flavor-card-top">
+                      {% if v.featured_media %}
+                        <img src="{{ v.featured_media | image_url: width: 80 }}" alt="{{ val }}">
+                      {% endif %}
+                    </div>
+                    <div class="flavor-card-label">{{ val }}</div>
+                  </button>
+                  {% assign caps_values = caps_values | append: '|' | append: val %}
+                {% endunless %}
+              {% endfor %}
+            </div>
+          </div>
+        {% elsif product.has_only_default_variant == false %}
+          <!-- MODO SIMPLES: seletor de sabores do produto atual -->
+          <div class="flavor-selector">
+            <div class="flavor-grid-header">
+              <div class="flavor-label">Sabor</div>
+              {% if section.settings.flavor_help_link != blank %}
+                <a class="flavor-help" href="{{ section.settings.flavor_help_link }}" target="_blank" rel="noopener">{{ section.settings.flavor_help_text }}</a>
+              {% endif %}
+            </div>
+            <div class="flavor-grid">
+              {% assign first_variant = true %}
+              {% for variant in product.variants %}
+                {% if variant.available %}
+                  {% assign variant_title_down = variant.title | downcase %}
+                  {% assign flavor_color = section.settings.flavor_default_color %}
+                  {% for block in section.blocks %}
+                    {% if block.type == 'flavor_style' %}
+                      {% assign block_title_down = block.settings.flavor_name | downcase %}
+                      {% if block_title_down == variant_title_down %}
+                        {% assign flavor_color = block.settings.flavor_color %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                  <button type="button"
+                          class="flavor-card {% if first_variant %}active{% endif %}"
+                          data-variant-id="{{ variant.id }}"
+                          data-variant-price="{{ variant.price | money_without_currency }}"
+                          {% if variant.featured_media %}
+                            data-image="{{ variant.featured_media | image_url: width: 1200 }}"
+                          {% elsif variant.image %}
+                            data-image="{{ variant.image | image_url: width: 1200 }}"
+                          {% endif %}
+                          style="--flavor-color: {{ flavor_color | default: '#ECECEC' }}">
+                    <div class="flavor-card-top">
+                      {% if variant.featured_media %}
+                        <img src="{{ variant.featured_media | image_url: width: 80 }}" alt="{{ variant.title }}">
+                      {% elsif variant.image %}
+                        <img src="{{ variant.image | image_url: width: 80 }}" alt="{{ variant.title }}">
+                      {% endif %}
+                    </div>
+                    <div class="flavor-card-label">{{ variant.title }}</div>
+                    <div class="flavor-card-price">R$ {{ variant.price | money_without_currency }}</div>
+                  </button>
+                  {% assign first_variant = false %}
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <!-- FALLBACK: Se não há produtos configurados ou variantes -->
+          <div class="flavor-selector">
+            <div class="flavor-grid-header">
+              <div class="flavor-label">Produto</div>
+            </div>
+            <div class="flavor-grid">
+              <button type="button" class="flavor-card active" data-variant-id="{{ product.selected_or_first_available_variant.id }}" data-variant-price="{{ product.selected_or_first_available_variant.price | money_without_currency }}" style="--flavor-color: #ECECEC">
+                <div class="flavor-card-top">
+                  {% if product.featured_media %}
+                    <img src="{{ product.featured_media | image_url: width: 80 }}" alt="{{ product.title }}">
+                  {% endif %}
+                </div>
+                <div class="flavor-card-label">{{ product.title }}</div>
+              </button>
+            </div>
+          </div>
+        {% endif %}
+        
+        <!-- Cards de Quantidade -->
+        <div class="quantity-options">
+          
+          <!-- Card 1 -->
+          <label class="qty-card">
+            <input type="radio" name="quantity" value="1" checked>
+            <div class="qty-card-body">
+              <div class="qty-left">
+                <div class="qty-title">{{ section.settings.qty1_title }}</div>
+                <div class="qty-info">
+                  <div class="icon-check">
+                    <div class="check-circle"></div>
+                    <div class="check-mark"></div>
+                  </div>
+                  <span>{{ section.settings.qty1_info }}</span>
+                </div>
+              </div>
+              <div class="qty-right">
+                {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+                <div class="price-from">de {{ product.selected_or_first_available_variant.compare_at_price | money }}</div>
+                {% endif %}
+                <div class="price-now" id="variant-price">{{ product.selected_or_first_available_variant.price | money }}</div>
+              </div>
+            </div>
+          </label>
+          
+          <!-- Card 2 -->
+          {% if section.settings.combo_max_qty >= 2 %}
+          <label class="qty-card">
+            <input type="radio" name="quantity" value="2">
+            <div class="qty-card-body-col">
+              <div class="qty-title">{{ section.settings.qty2_title }}</div>
+              <div class="qty-benefits">
+                <div class="benefit-line">
+                  <div class="benefit-left">
+                    <div class="icon-check">
+                      <div class="check-circle"></div>
+                      <div class="check-mark"></div>
+                  </div>
+                    <span>{{ section.settings.qty2_info }}</span>
+                  </div>
+                  <div class="price-from">de R$ <s id="card2-price-old">--</s></div>
+                </div>
+                <div class="benefit-line">
+                  <div class="benefit-left">
+                    <div class="icon-check">
+                      <div class="check-circle"></div>
+                      <div class="check-mark"></div>
+                  </div>
+                    <span>Economize R$ <span id="card2-savings">--</span></span>
+                  </div>
+                  <div class="price-now">R$ <span id="card2-price-new">--</span></div>
+                </div>
+              </div>
+            </div>
+          </label>
+          {% endif %}
+
+          <script>
+          (function(){
+            const form = document.getElementById('product-form-{{ product.id }}');
+            const variants = {{ product.variants | json }};
+            const optionsOrder = {{ product.options | json }};
+            const wheyIndex = (optionsOrder.findIndex(n => /whey/i.test(n)) + 1) || 0;
+            const capsIndex = (optionsOrder.findIndex(n => /choco/i.test(n)) + 1) || 0;
+            const getOpt = (v, idx) => idx === 1 ? v.option1 : (idx === 2 ? v.option2 : (idx === 3 ? v.option3 : null));
+            const findVariant = (wheyVal, capsVal) => {
+              return variants.find(v =>
+                (!wheyIndex || getOpt(v, wheyIndex) === wheyVal) &&
+                (!capsIndex || getOpt(v, capsIndex) === capsVal) && v.available
+              ) || variants.find(v => v.available) || variants[0];
+            };
+
+            function formatMoney(n){
+              try { return (Number(n||0)).toFixed(2).replace('.', ','); } catch(e){ return n; }
+            }
+
+            // Função para verificar limites por variante (desabilitada temporariamente)
+            function checkVariantLimits(variantId) {
+              // Funcionalidade desabilitada temporariamente devido a problemas de sintaxe
+              return;
+            }
+
+            function updatePrices(){
+              // Usar sempre o preço base do produto, independente das variantes selecionadas
+              const base = {{ product.selected_or_first_available_variant.price | divided_by: 100.0 }};
+
+              // Atualizar variante selecionada baseada nas escolhas de sabor
+              const cardWhey = document.querySelector('.flavor-card[data-group="whey"].active');
+              const cardCaps = document.querySelector('.flavor-card[data-group="caps"].active');
+              const wheyVal = cardWhey ? cardWhey.dataset.value : null;
+              const capsVal = cardCaps ? cardCaps.dataset.value : null;
+              const current = findVariant(wheyVal, capsVal);
+              
+              const variantIdInput = document.getElementById('variant-id');
+              if(variantIdInput && current){ 
+                variantIdInput.value = current.id;
+                // Verificar limites da variante selecionada
+                checkVariantLimits(current.id);
+              }
+
+              const variantPriceEl = document.getElementById('variant-price');
+              if(variantPriceEl){ variantPriceEl.textContent = formatMoney(base); }
+              const card1New = document.getElementById('card1-price-new');
+              if(card1New){ card1New.textContent = formatMoney(base); }
+
+              const card2New = document.getElementById('card2-price-new');
+              const card2Old = document.getElementById('card2-price-old');
+              const card2Save = document.getElementById('card2-savings');
+              const disc2 = {{ section.settings.qty2_discount_percent | default: 10 }};
+              if(card2New){
+                const total2 = base * 2;
+                const new2 = total2 * (1 - (Number(disc2)/100));
+                if(card2Old) card2Old.textContent = formatMoney(total2);
+                card2New.textContent = formatMoney(new2);
+                if(card2Save) card2Save.textContent = formatMoney(total2 - new2);
+              }
+
+              const card3New = document.getElementById('card3-price-new');
+              const card3Old = document.getElementById('card3-price-old');
+              const card3Save = document.getElementById('card3-savings');
+              const disc3 = {{ section.settings.qty3_discount_percent | default: 20 }};
+              if(card3New){
+                const total3 = base * 3;
+                const new3 = total3 * (1 - (Number(disc3)/100));
+                if(card3Old) card3Old.textContent = formatMoney(total3);
+                card3New.textContent = formatMoney(new3);
+                if(card3Save) card3Save.textContent = formatMoney(total3 - new3);
+              }
+            }
+
+            function selectCard(btn){
+              const group = btn.dataset.group || 'single';
+              const groupSelector = group === 'single' ? '.flavor-card:not([data-group])' : `.flavor-card[data-group="${group}"]`;
+              document.querySelectorAll(groupSelector).forEach(function(el){ el.classList.remove('active'); });
+              btn.classList.add('active');
+              const cardWhey = document.querySelector('.flavor-card[data-group="whey"].active');
+              const cardCaps = document.querySelector('.flavor-card[data-group="caps"].active');
+              const wheyVal = cardWhey ? cardWhey.dataset.value : null;
+              const capsVal = cardCaps ? cardCaps.dataset.value : null;
+              const current = findVariant(wheyVal, capsVal);
+              const input = document.getElementById('variant-id');
+              if(input && current){ 
+                input.value = current.id;
+                // Verificar limites da nova variante selecionada
+                checkVariantLimits(current.id);
+              }
+              const img = btn.dataset.image;
+              const mainImg = document.getElementById('main-product-image');
+              if(img && mainImg){ mainImg.src = img; }
+              updatePrices();
+            }
+
+            document.querySelectorAll('.flavor-card').forEach(function(btn){
+              btn.addEventListener('click', function(){ selectCard(btn); });
+            });
+
+            // Inicializar valores padrão para combo
+            const wheyFirstCard = document.querySelector('.flavor-card[data-group="whey"].active');
+            const capsFirstCard = document.querySelector('.flavor-card[data-group="caps"].active');
+            if(wheyFirstCard) {
+              const wheyInput = document.getElementById('whey-variant-id');
+              if(wheyInput) wheyInput.value = wheyFirstCard.dataset.variantId;
+            }
+            if(capsFirstCard) {
+              const capsInput = document.getElementById('choc-variant-id');
+              if(capsInput) capsInput.value = capsFirstCard.dataset.variantId;
+            }
+
+            const qtyRadios = document.querySelectorAll('input[name="quantity"]');
+            qtyRadios.forEach(function(r){ r.addEventListener('change', updatePrices); });
+
+            // Verificar limites na inicialização
+            const initialVariantId = document.getElementById('variant-id').value;
+            if(initialVariantId) {
+              checkVariantLimits(initialVariantId);
+            }
+
+            updatePrices();
+
+            if(form){
+              form.addEventListener('submit', function(e){
+                // comportamento padrão: adicionar a variante resolvida
+                const variantId = document.getElementById('variant-id') && document.getElementById('variant-id').value;
+                if(!variantId){ e.preventDefault(); alert('Selecione os sabores Whey e ChocoCaps.'); }
+              }, { passive: false });
+            }
+          })();
+          </script>
+          
+          <!-- Card 3 -->
+          {% if section.settings.combo_max_qty >= 3 %}
+          <label class="qty-card">
+            <input type="radio" name="quantity" value="3">
+            <div class="qty-card-body-col">
+              <div class="qty-header">
+                <div class="qty-title">{{ section.settings.qty3_title }}</div>
+                <div class="badge-free">{{ section.settings.qty3_badge }}</div>
+              </div>
+              <div class="qty-benefits">
+                <div class="benefit-line">
+                  <div class="benefit-left">
+                    <div class="icon-check">
+                      <div class="check-circle"></div>
+                      <div class="check-mark"></div>
+                  </div>
+                    <span>{{ section.settings.qty3_info }}</span>
+                  </div>
+                  <div class="price-from">de R$ <s id="card3-price-old">--</s></div>
+                </div>
+                <div class="benefit-line">
+                  <div class="benefit-left">
+                    <div class="icon-check">
+                      <div class="check-circle"></div>
+                      <div class="check-mark"></div>
+                  </div>
+                    <span>Economize R$ <span id="card3-savings">--</span></span>
+                  </div>
+                  <div class="price-now">R$ <span id="card3-price-new">--</span></div>
+                </div>
+              </div>
+            </div>
+          </label>
+          {% endif %}
+          
+        </div>
+        
+        <!-- Botão de Compra -->
+        <button type="submit" class="add-to-cart-btn">
+          <span>{{ section.settings.button_text }}</span>
+          </button>
+          
+        <!-- Badges de Confiança -->
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <div class="trust-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 3H5L7.68 14.39C7.77 14.76 8.1 15 8.47 15H18.5C18.9 15 19.25 14.74 19.34 14.35L21.34 6.35C21.42 6.01 21.18 5.69 20.84 5.69H7.5" stroke="#00C851" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="8" cy="20" r="2" stroke="#00C851" stroke-width="2"/>
+                <circle cx="18" cy="20" r="2" stroke="#00C851" stroke-width="2"/>
+                <path d="M8 20H18" stroke="#00C851" stroke-width="2"/>
+                <path d="M3 3L5 8" stroke="#00C851" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <span>{{ section.settings.badge1_text }}</span>
+          </div>
+          
+          <div class="trust-badge">
+            <div class="trust-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 3H6C4.9 3 4 3.9 4 5V19C4 20.1 4.9 21 6 21H18C19.1 21 20 20.1 20 19V8L16 3Z" stroke="#00C851" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M16 3V8H20" stroke="#00C851" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 12H16" stroke="#00C851" stroke-width="2" stroke-linecap="round"/>
+                <path d="M8 16H12" stroke="#00C851" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="18" cy="12" r="3" fill="#00C851"/>
+                <path d="M17 12L18 13L20 11" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span>{{ section.settings.badge2_text }}</span>
+          </div>
+          
+          <div class="trust-badge">
+            <div class="trust-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 22S2 17.5 2 12V5L12 2L22 5V12C22 17.5 12 22 12 22Z" stroke="#00C851" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 12L11 14L15 10" stroke="#00C851" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span>{{ section.settings.badge3_text }}</span>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+    
+  </div>
+</section>
+
+<style>
+/* Reset e Base */
+* {
+  box-sizing: border-box;
+}
+
+/* Garantir que não há overflow horizontal */
+body {
+  overflow-x: hidden;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+.product-section-figma {
+  width: 100%;
+  padding: 60px 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.product-container-figma {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* Galeria */
+.product-gallery-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: sticky;
+  top: 80px;
+}
+
+.product-image-main {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 20px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-image-main:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+.product-image-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: high-quality;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  color: #666;
+}
+
+.image-carousel {
+  padding: 16px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  flex: 1;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0;
+}
+
+.carousel-track::-webkit-scrollbar {
+  height: 4px;
+}
+
+.carousel-track::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 2px;
+}
+
+.carousel-track::-webkit-scrollbar-thumb {
+  background: #F44027;
+  border-radius: 2px;
+}
+
+.carousel-arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.carousel-arrow:hover {
+  transform: scale(1.1);
+}
+
+.carousel-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel-arrow svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.carousel-image {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid #E0E0E0;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  position: relative;
+  background: white;
+}
+
+.carousel-image:hover {
+  border-color: #F44027;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.carousel-image.active {
+  border-color: #F44027;
+  box-shadow: 0 4px 16px rgba(244, 64, 39, 0.25);
+}
+
+.carousel-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  color: #666;
+}
+
+/* Informações do Produto */
+.product-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px 0;
+}
+
+.product-header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: white;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Garantir ordem visual: Título acima da descrição, mesmo com cache */
+.product-header .product-title { order: 2; }
+.product-header .product-desc { order: 3; }
+.product-header .product-rating { order: 1; }
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 4px;
+}
+
+.star {
+  color: #FFD700;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.rating-divider {
+  width: 1px;
+  height: 16px;
+  background: #E0E0E0;
+}
+
+.rating-count {
+  font-size: 14px;
+  color: #666;
+}
+
+.product-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2D2D2D;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.product-desc {
+  position: relative;
+}
+
+.product-desc__content {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.7;
+  margin: 0;
+  max-height: 140px;
+  overflow: hidden;
+}
+
+.product-desc--expanded .product-desc__content {
+  max-height: none;
+}
+
+.product-desc__toggle {
+  margin-top: 10px;
+  background: transparent;
+  color: #5A3838;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Esconder o botão se não houver conteúdo */
+.product-desc:empty + .product-desc__toggle { display: none; }
+
+.product-desc__toggle:hover {
+  text-decoration: underline;
+}
+
+/* Formulário */
+.product-form-main {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background: white;
+  padding: 32px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.flavor-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flavor-pill-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.flavor-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.flavor-pill {
+  padding: 12px 20px;
+  border: 2px solid #E0E0E0;
+  border-radius: 24px;
+  font-size: 14px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  text-align: center;
+}
+
+.flavor-pill:hover {
+  border-color: #F44027;
+  color: #F44027;
+}
+
+.flavor-pill.active {
+  background: #F44027;
+  color: white;
+  border-color: #F44027;
+}
+
+/* ====== Grade de Sabores (Cards) ====== */
+.flavor-grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flavor-grid-header .flavor-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+.flavor-grid-header .flavor-help {
+  font-size: 13px;
+  color: #1a73e8;
+  text-decoration: none;
+}
+.flavor-grid-header .flavor-help:hover { text-decoration: underline; }
+
+.flavor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.flavor-card {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #E0E0E0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.flavor-card:hover { border-color: #F44027; box-shadow: 0 4px 12px rgba(244,64,39,0.12); }
+.flavor-card.active { border-color: #F44027; box-shadow: 0 4px 16px rgba(244,64,39,0.2); }
+
+.flavor-card-top {
+  height: 120px;
+  background: var(--flavor-color, #ECECEC);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 8px;
+}
+.flavor-card-top img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+}
+.flavor-card-label {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  background: #fff;
+}
+
+.flavor-card-price {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: #F44027;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Cards de Quantidade */
+.quantity-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.qty-card {
+  display: block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.qty-card input[type="radio"] {
+  display: none;
+}
+
+.qty-card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border: 2px solid #E8E8E8;
+  border-radius: 20px;
+  background: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.qty-card-body-col {
+  padding: 24px;
+  border: 2px solid #E8E8E8;
+  border-radius: 20px;
+  background: white;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.qty-card input[type="radio"]:checked + .qty-card-body,
+.qty-card input[type="radio"]:checked + .qty-card-body-col {
+  border-color: #F44027;
+  background: #FFF5F4;
+  box-shadow: 0 4px 16px rgba(244, 64, 39, 0.1);
+  transform: translateY(-2px);
+}
+
+.qty-card:hover .qty-card-body,
+.qty-card:hover .qty-card-body-col {
+  border-color: #F44027;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(244, 64, 39, 0.08);
+}
+
+.qty-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.qty-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2D2D2D;
+}
+
+.qty-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-check {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.check-circle {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #00C851;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.check-mark {
+  width: 6px;
+  height: 10px;
+  border: 2px solid #00C851;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 5px;
+}
+
+.qty-info span {
+  font-size: 14px;
+  color: #666;
+}
+
+.qty-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.price-from {
+  font-size: 14px;
+  color: #999;
+  text-align: right;
+  min-width: 80px;
+}
+
+.price-now {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2D2D2D;
+  text-align: right;
+  min-width: 80px;
+}
+
+.qty-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.benefit-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 24px;
+}
+
+.benefit-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qty-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.badge-free {
+  background: #00C851;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Botão de Compra */
+.add-to-cart-btn {
+  width: 100%;
+  padding: 18px 24px;
+  background: #F44027;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  background: #E03A23;
+  transform: translateY(-2px);
+}
+
+/* Badges de Confiança */
+.trust-badges {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.trust-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.trust-icon {
+  flex-shrink: 0;
+}
+
+/* Responsivo */
+@media (max-width: 1024px) {
+  .product-container-figma {
+    gap: 60px;
+  }
+  
+  .product-gallery-col {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Reset da Seção Principal */
+  .product-section-figma {
+    padding: 24px 0;
+    overflow: visible !important;
+    width: 100%;
+    max-width: 100vw;
+    background: #FAFAFA;
+  }
+  
+  .product-container-figma {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 0 16px;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible !important;
+    box-sizing: border-box;
+  }
+  
+  /* Galeria */
+  .product-gallery-col {
+    width: 100%;
+    gap: 16px;
+  }
+  
+  .product-image-main {
+    aspect-ratio: 1;
+    border-radius: 16px;
+    margin: 0;
+  }
+  
+  .product-image-main:hover {
+    transform: none;
+  }
+  
+  /* Informações do Produto */
+  .product-info-col {
+    width: 100%;
+    gap: 24px;
+  }
+  
+  .product-header {
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 16px;
+  }
+  
+  .product-title {
+    font-size: 24px;
+    line-height: 1.3;
+    margin: 16px 0;
+  }
+  
+  .product-rating {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .rating-count {
+    font-size: 13px;
+  }
+  
+  /* Descrição */
+  .product-desc {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  /* Formulário */
+  .product-form-main {
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 16px;
+  }
+  
+  .flavor-selection {
+    gap: 8px;
+  }
+  
+  .flavor-pill {
+    padding: 10px 16px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+  
+  /* Seletor de Quantidade */
+  .quantity-options {
+    gap: 12px;
+  }
+  
+  .qty-card-body {
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 12px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .qty-card-body-col {
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 12px;
+    gap: 12px;
+  }
+  
+  .qty-left {
+    gap: 6px;
+    width: 100%;
+  }
+  
+  .qty-title {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  
+  .qty-info {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .qty-per-unit {
+    font-size: 12px;
+  }
+  
+  .qty-header {
+    margin-bottom: 0;
+    width: 100%;
+  }
+  
+  .qty-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .qty-price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .qty-price {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  
+  .qty-price-original {
+    font-size: 14px;
+  }
+  
+  .qty-discount {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+  
+  .qty-savings {
+    font-size: 11px;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .qty-details {
+    gap: 8px;
+  }
+  
+  .qty-detail-row {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
+  .qty-detail-label,
+  .qty-detail-value {
+    font-size: 12px;
+  }
+  
+  /* Badges de Confiança */
+  .trust-badges {
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+  }
+  
+  .trust-badge {
+    font-size: 13px;
+    justify-content: center;
+  }
+  
+  /* Botões */
+  .add-to-cart-btn {
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 16px;
+    border-radius: 12px;
+    margin-top: 20px;
+  }
+  
+  .buy-now-btn {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+  
+  /* Inputs e Selects */
+  input[type="number"],
+  select {
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  /* Labels */
+  .form-label {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  /* Preço */
+  .product-price,
+  #variant-price {
+    font-size: 28px;
+    font-weight: 700;
+  }
+  
+  .price-compare {
+    font-size: 18px;
+  }
+  
+  /* Cards de Quantidade - Layout em Coluna */
+  .qty-card-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .qty-card-body-col {
+    min-height: auto;
+  }
+  
+  /* Descrição Toggle */
+  .product-desc__toggle {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-top: 8px;
+  }
+  
+  .image-carousel {
+    width: 100%;
+    padding: 16px 0;
+    margin: 0;
+    overflow: visible;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+  }
+  
+  .carousel-container {
+    width: 100%;
+    display: block;
+    overflow: visible;
+    padding: 0 16px;
+  }
+  
+  .carousel-track {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap !important;
+    padding: 8px 0;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    width: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: #F44027 #f0f0f0;
+  }
+  
+  .carousel-track::-webkit-scrollbar {
+    height: 4px;
+  }
+  
+  .carousel-track::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 2px;
+  }
+  
+  .carousel-track::-webkit-scrollbar-thumb {
+    background: #F44027;
+    border-radius: 2px;
+  }
+  
+  .carousel-image {
+    width: 75px;
+    height: 75px;
+    min-width: 75px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  
+  .carousel-image:active {
+    transform: scale(0.95);
+  }
+  
+  .carousel-image.active {
+    border-color: #F44027;
+    box-shadow: 0 2px 12px rgba(244, 64, 39, 0.3);
+  }
+  
+  .carousel-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .carousel-arrow {
+    display: none !important;
+  }
+  
+  .product-image-main {
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+  }
+  
+  .product-gallery-col {
+    width: 100%;
+    max-width: 100%;
+    overflow: visible !important;
+  }
+  
+  .product-info-col {
+    width: 100%;
+    max-width: 100%;
+    overflow: visible !important;
+  }
+}
+</style>
+
+<script>
+// Variáveis globais para o carousel
+let currentImageIndex = 0;
+let totalImages = 0;
+
+// Funções do carousel
+function carouselNext() {
+  if (totalImages > 0) {
+    currentImageIndex = (currentImageIndex + 1) % totalImages;
+    updateCarousel();
+  }
+}
+
+function carouselPrev() {
+  if (totalImages > 0) {
+    currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+    updateCarousel();
+  }
+}
+
+function updateCarousel() {
+  const carouselImages = document.querySelectorAll('.carousel-image');
+  const mainImage = document.getElementById('main-product-image');
+  const carouselTrack = document.getElementById('carousel-track');
+  
+  carouselImages.forEach((img, index) => {
+    img.classList.toggle('active', index === currentImageIndex);
+    
+    if (index === currentImageIndex) {
+      const imageUrl = img.dataset.image;
+      if (mainImage && imageUrl) {
+        mainImage.src = imageUrl;
+      }
+      
+      // Scroll automático para a miniatura ativa no mobile
+      if (carouselTrack && window.innerWidth <= 768) {
+        const imgElement = carouselImages[index];
+        if (imgElement) {
+          const scrollLeft = imgElement.offsetLeft - (carouselTrack.offsetWidth / 2) + (imgElement.offsetWidth / 2);
+          carouselTrack.scrollTo({
+            left: scrollLeft,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Configurar carousel
+  const carouselImages = document.querySelectorAll('.carousel-image');
+  totalImages = carouselImages.length;
+  
+  console.log('🖼️ Carousel configurado com', totalImages, 'imagens');
+  
+  // Configurar clique nas miniaturas
+  carouselImages.forEach((img, index) => {
+    img.addEventListener('click', function() {
+      currentImageIndex = index;
+      updateCarousel();
+    });
+    img.style.cursor = 'pointer';
+  });
+  
+  // Seleção de sabores/variantes
+  const flavorCards = document.querySelectorAll('.flavor-card');
+  const variantIdInput = document.getElementById('variant-id');
+  const variantPriceDisplay = document.getElementById('variant-price');
+  
+  flavorCards.forEach(card => {
+    card.addEventListener('click', function() {
+      const group = this.dataset.group || 'single';
+      
+      // Remover active apenas do grupo específico
+      if (group === 'single') {
+        document.querySelectorAll('.flavor-card:not([data-group])').forEach(c => c.classList.remove('active'));
+      } else {
+        document.querySelectorAll(`.flavor-card[data-group="${group}"]`).forEach(c => c.classList.remove('active'));
+      }
+      
+      this.classList.add('active');
+      
+      // Atualizar variante selecionada
+      const variantId = this.dataset.variantId;
+      const variantPrice = this.dataset.variantPrice;
+      
+      if (group === 'whey') {
+        const wheyInput = document.getElementById('whey-variant-id');
+        if (wheyInput && variantId) {
+          wheyInput.value = variantId;
+        }
+      } else if (group === 'caps') {
+        const capsInput = document.getElementById('choc-variant-id');
+        if (capsInput && variantId) {
+          capsInput.value = variantId;
+        }
+      } else {
+      if (variantIdInput && variantId) {
+        variantIdInput.value = variantId;
+        }
+      }
+      
+      if (variantPriceDisplay && variantPrice) {
+        variantPriceDisplay.textContent = 'R$ ' + variantPrice;
+      }
+      
+      // Atualizar imagem principal (se disponível)
+      const mainImage = document.getElementById('main-product-image');
+      const variantImage = this.dataset.image;
+      if (mainImage && variantImage) {
+        mainImage.src = variantImage;
+      }
+
+      // Atualizar preços imediatamente após trocar variante
+      setTimeout(() => {
+        updatePrices();
+      }, 50);
+    });
+  });
+  
+  // Seleção de quantidade com cálculo automático
+  const quantityRadios = document.querySelectorAll('input[name="quantity"]');
+  
+  function updatePrices() {
+    // Usar sempre o preço base do produto, independente das variantes selecionadas
+    const basePrice = {{ product.selected_or_first_available_variant.price | divided_by: 100.0 }};
+
+    // Descontos das opções de quantidade (usa settings já existentes)
+    const discount2 = {{ section.settings.qty2_discount | default: 8 }};
+    const discount3 = {{ section.settings.qty3_discount | default: 12 }};
+
+    const price1 = basePrice;
+    const price2Normal = basePrice * 2;
+    const price2Total = price2Normal * (1 - (Number(discount2) / 100));
+    const savings2 = price2Normal - price2Total;
+    const price3Normal = basePrice * 3;
+    const price3Total = price3Normal * (1 - (Number(discount3) / 100));
+    const savings3 = price3Normal - price3Total;
+
+    function formatPrice(price) { return Number(price || 0).toFixed(2).replace('.', ','); }
+
+    const variantPriceDisplay = document.getElementById('variant-price');
+    if (variantPriceDisplay) { variantPriceDisplay.textContent = 'R$ ' + formatPrice(price1); }
+
+    const card2Old = document.getElementById('card2-price-old');
+    const card2New = document.getElementById('card2-price-new');
+    const card2Savings = document.getElementById('card2-savings');
+    if (card2Old) card2Old.textContent = formatPrice(price2Normal);
+    if (card2New) card2New.textContent = formatPrice(price2Total);
+    if (card2Savings) card2Savings.textContent = formatPrice(savings2);
+
+    const card3Old = document.getElementById('card3-price-old');
+    const card3New = document.getElementById('card3-price-new');
+    const card3Savings = document.getElementById('card3-savings');
+    if (card3Old) card3Old.textContent = formatPrice(price3Normal);
+    if (card3New) card3New.textContent = formatPrice(price3Total);
+    if (card3Savings) card3Savings.textContent = formatPrice(savings3);
+  }
+  
+  // Configurar seleção de quantidade
+  quantityRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      if (this.checked) {
+        console.log('✅ Quantidade selecionada:', this.value);
+        
+        // Atualizar visual dos cards
+        document.querySelectorAll('.qty-card').forEach(card => {
+          card.classList.remove('selected');
+        });
+        this.closest('.qty-card').classList.add('selected');
+        
+        // Atualizar preços
+        updatePrices();
+        
+        // Verificar estoque
+        const quantity = parseInt(this.value);
+        checkStockAvailability(quantity);
+      }
+    });
+  });
+  
+  // Adicionar evento de click nos labels dos cards para garantir que funcione
+  document.querySelectorAll('.qty-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+      // Não fazer nada se clicou no input
+      if (e.target.type === 'radio') return;
+      
+      const radio = this.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+        radio.dispatchEvent(new Event('change'));
+        console.log('📌 Card clicado, quantidade:', radio.value);
+      }
+    });
+  });
+  
+  // Função para verificar disponibilidade de estoque
+  async function checkStockAvailability(quantity) {
+    try {
+      const variantIdInput = document.getElementById('variant-id');
+      const variantId = variantIdInput ? variantIdInput.value : null;
+      
+      if (!variantId) return;
+      
+      // Buscar informações da variante
+      const response = await fetch(`/products/{{ product.handle }}.js`);
+      if (response.ok) {
+        const product = await response.json();
+        const variant = product.variants.find(v => v.id == variantId);
+        
+        if (variant && variant.inventory_quantity !== null) {
+          const availableStock = variant.inventory_quantity;
+          console.log('📦 Estoque disponível:', availableStock, 'Solicitado:', quantity);
+          
+          if (quantity > availableStock) {
+            // Desabilitar botão de compra e mostrar aviso
+            const addToCartBtn = document.querySelector('.add-to-cart-btn');
+            if (addToCartBtn) {
+              addToCartBtn.disabled = true;
+              addToCartBtn.style.opacity = '0.5';
+              addToCartBtn.style.cursor = 'not-allowed';
+              addToCartBtn.innerHTML = `<span>Apenas ${availableStock} disponível(is)</span>`;
+              
+              // Remover event listener para prevenir clique
+              addToCartBtn.onclick = null;
+            }
+            
+            // Mostrar notificação
+            showStockWarning(availableStock, quantity);
+          } else {
+            // Reabilitar botão de compra
+            const addToCartBtn = document.querySelector('.add-to-cart-btn');
+            if (addToCartBtn) {
+              addToCartBtn.disabled = false;
+              addToCartBtn.style.opacity = '1';
+              addToCartBtn.style.cursor = 'pointer';
+              addToCartBtn.innerHTML = `<span>{{ section.settings.button_text }}</span>`;
+              
+              // Restaurar event listener
+              addToCartBtn.onclick = function(e) {
+                e.preventDefault();
+                handleAddToCart();
+              };
+            }
+            
+            // Remover avisos anteriores
+            const existingWarning = document.querySelector('.stock-warning');
+            if (existingWarning) {
+              existingWarning.remove();
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error('❌ Erro ao verificar estoque:', error);
+    }
+  }
+  
+  // Função para mostrar aviso de estoque
+  function showStockWarning(available, requested) {
+    // Remover avisos anteriores
+    const existingWarning = document.querySelector('.stock-warning');
+    if (existingWarning) {
+      existingWarning.remove();
+    }
+    
+    // Criar aviso
+    const warning = document.createElement('div');
+    warning.className = 'stock-warning';
+    warning.innerHTML = `
+      <div style="
+        background: #FFF3CD;
+        border: 1px solid #FFEAA7;
+        color: #856404;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin: 16px 0;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      ">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 9V13M12 17H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Apenas ${available} unidades disponíveis no estoque (você selecionou ${requested}).
+      </div>
+    `;
+    
+    // Inserir aviso antes do botão de compra
+    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+    if (addToCartBtn && addToCartBtn.parentNode) {
+      addToCartBtn.parentNode.insertBefore(warning, addToCartBtn);
+    }
+  }
+
+  // Atualizar preços ao trocar sabor - SEM DELAY
+  flavorCards.forEach(card => {
+    card.addEventListener('click', function() {
+      updatePrices();
+    });
+  });
+  
+  // INICIALIZAR SISTEMA DE PREÇOS - IMEDIATO
+  console.log('🔥 INICIANDO SISTEMA DE PREÇOS INSTANTÂNEO');
+  
+  // Executar imediatamente
+  updatePrices();
+  
+  // Executar quando a página carregar
+  window.addEventListener('load', updatePrices);
+  
+  // Função para adicionar ao carrinho
+  async function handleAddToCart() {
+    const addBtn = document.querySelector('.add-to-cart-btn');
+    const quantitySelected = document.querySelector('input[name="quantity"]:checked');
+    const quantity = quantitySelected ? parseInt(quantitySelected.value) : 1;
+    const maxQty = {{ section.settings.combo_max_qty | default: 3 }};
+
+    if (!quantity || quantity < 1) {
+      alert('Por favor, selecione uma quantidade válida.');
+      return;
+    }
+    // limite segue válido para combos futuros, mas aqui não aplicamos combo
+
+    // Desabilitar botão durante a requisição
+    if (addBtn) {
+      addBtn.disabled = true;
+      addBtn.style.opacity = '0.6';
+      addBtn.innerHTML = '<span>Adicionando ' + quantity + ' un...</span>';
+    }
+
+    try {
+        const variantId = document.getElementById('variant-id').value;
+      if (!variantId) { alert('Por favor, selecione os sabores.'); return; }
+      const payload = { id: parseInt(variantId, 10), quantity };
+
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        if (window.cartDrawer) {
+          await window.cartDrawer.refreshCart();
+          window.cartDrawer.open();
+        } else {
+          window.location.href = '/cart';
+        }
+      } else {
+        console.error('❌ Erro ao adicionar:', result);
+        if (result && result.message) alert('Erro: ' + result.message);
+        else alert('Erro ao adicionar produto ao carrinho.');
+      }
+    } catch (error) {
+      console.error('❌ Erro na requisição:', error);
+      alert('Erro ao adicionar produto ao carrinho. Tente novamente.');
+    } finally {
+      if (addBtn) {
+        addBtn.disabled = false;
+        addBtn.style.opacity = '1';
+        addBtn.innerHTML = '<span>{{ section.settings.button_text }}</span>';
+      }
+    }
+  }
+  
+  // Adicionar ao carrinho com AJAX
+  const productForm = document.querySelector('.product-form-main');
+  if (productForm) {
+    productForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      await handleAddToCart();
+    });
+  }
+
+  // Ver mais / Ver menos da descrição
+  const descWrapper = document.getElementById('product-desc');
+  const descToggle = document.getElementById('product-desc-toggle');
+  if (descWrapper && descToggle) {
+    // Mostrar botão sempre e controlar estado
+    const content = descWrapper.querySelector('.product-desc__content');
+    const collapsedHeight = 140;
+    
+    function updateToggleLabel() {
+      const expanded = descWrapper.classList.contains('product-desc--expanded');
+      descToggle.textContent = expanded ? 'Ver menos' : 'Ver mais';
+      descToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    }
+    
+    // Iniciar estado recolhido
+    descWrapper.classList.remove('product-desc--expanded');
+    updateToggleLabel();
+    
+    descToggle.addEventListener('click', function() {
+      const expanded = descWrapper.classList.toggle('product-desc--expanded');
+      // Se expandir, remover limite; se recolher, rolar para o início do bloco
+      if (!expanded && content) {
+        content.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      updateToggleLabel();
+    });
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Produto principal (ALT)",
+  "class": "product-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "📊 Avaliações"
+    },
+    {
+      "type": "text",
+      "id": "rating_count",
+      "label": "Número de avaliações",
+      "default": "2939 avaliações"
+    },
+    {
+      "type": "header",
+      "content": "📦 Opção 1 - Quantidade"
+    },
+    {
+      "type": "text",
+      "id": "qty1_title",
+      "label": "Título",
+      "default": "1 Unidade"
+    },
+    {
+      "type": "text",
+      "id": "qty1_info",
+      "label": "Informação adicional",
+      "default": "Rende 18 doses"
+    },
+    {
+      "type": "header",
+      "content": "📦 Opção 2 - Quantidade"
+    },
+    {
+      "type": "text",
+      "id": "qty2_title",
+      "label": "Título",
+      "default": "2 Unidades"
+    },
+    {
+      "type": "text",
+      "id": "qty2_info",
+      "label": "Informação adicional",
+      "default": "Rende 54 doses"
+    },
+    {
+      "type": "range",
+      "id": "qty2_discount",
+      "label": "Desconto adicional (%)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 8,
+      "info": "Desconto adicional aplicado em 2 unidades"
+    },
+    {
+      "type": "header",
+      "content": "📦 Opção 3 - Quantidade"
+    },
+    {
+      "type": "text",
+      "id": "qty3_title",
+      "label": "Título",
+      "default": "3 Unidades"
+    },
+    {
+      "type": "text",
+      "id": "qty3_info",
+      "label": "Informação adicional",
+      "default": "Rende 36 doses"
+    },
+    {
+      "type": "range",
+      "id": "qty3_discount",
+      "label": "Desconto adicional (%)",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "default": 12,
+      "info": "Desconto adicional aplicado em 3 unidades"
+    },
+    {
+      "type": "text",
+      "id": "qty3_badge",
+      "label": "Badge especial",
+      "default": "Frete Grátis!"
+    },
+    {
+      "type": "header",
+      "content": "✅ Badges de Confiança"
+    },
+    {
+      "type": "text",
+      "id": "badge1_text",
+      "label": "Badge 1",
+      "default": "Entrega rápida"
+    },
+    {
+      "type": "text",
+      "id": "badge2_text",
+      "label": "Badge 2",
+      "default": "Frete grátis"
+    },
+    {
+      "type": "text",
+      "id": "badge3_text",
+      "label": "Badge 3",
+      "default": "Garantia"
+    },
+    {
+      "type": "header",
+      "content": "🛒 Botão de Compra"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto do botão",
+      "default": "Comprar Agora"
+    },
+    {
+      "type": "header",
+      "content": "🍬 Seletor de sabores"
+    },
+    {
+      "type": "text",
+      "id": "flavor_help_text",
+      "label": "Texto do link de ajuda",
+      "default": "Não sabe qual escolher?"
+    },
+    {
+      "type": "url",
+      "id": "flavor_help_link",
+      "label": "Link de ajuda"
+    },
+    {
+      "type": "color",
+      "id": "flavor_default_color",
+      "label": "Cor padrão dos cards de sabor",
+      "default": "#ECECEC"
+    },
+    {
+      "type": "header",
+      "content": "🥤 Combo — Produtos"
+    },
+    {
+      "type": "product",
+      "id": "whey_product",
+      "label": "Produto Wheypuccino (Whey)",
+      "info": "Selecione o produto de Wheypuccino. O cliente escolherá o sabor (variante)."
+    },
+    {
+      "type": "product",
+      "id": "choc_product",
+      "label": "Produto Choco Caps",
+      "info": "Selecione o produto de Choco Caps. O cliente escolherá o sabor (variante)."
+    },
+    {
+      "type": "range",
+      "id": "combo_max_qty",
+      "label": "Limite de quantidade do combo",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 3,
+      "info": "Controla até quantas unidades o cliente pode escolher (mostra apenas os cards até esse limite)."
+    },
+    {
+      "type": "header",
+      "content": "🔢 Limites por Variante"
+    },
+    {
+      "type": "paragraph",
+      "content": "Configure quantas unidades de cada variante o cliente pode escolher. Deixe em branco para permitir quantidade ilimitada."
+    },
+    {
+      "type": "text",
+      "id": "variant_limits",
+      "label": "Limites por variante (JSON)",
+      "info": "Formato: {\"variante_id\": limite_maximo, \"123456\": 5, \"789012\": 3}",
+      "default": "{}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "flavor_style",
+      "name": "Estilo do sabor",
+      "limit": 20,
+      "settings": [
+        {
+          "type": "text",
+          "id": "flavor_name",
+          "label": "Nome do sabor (igual ao título da variante)"
+        },
+        {
+          "type": "color",
+          "id": "flavor_color",
+          "label": "Cor da faixa superior",
+          "default": "#ECECEC"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Produto Principal"
+    }
+  ]
+}
+{% endschema %}

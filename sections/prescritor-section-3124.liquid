@@ -1,0 +1,148 @@
+{% comment %} Página Prescritor – Seção (Node 89-3124) {% endcomment %}
+
+<section
+  class="prescritor-3124-hero"
+  style="--bg-image: url('{% if section.settings.bg_image != blank %}{{ section.settings.bg_image | image_url: width: 2000 }}{% else %}{{ 'prescritor-3124-banner.png' | asset_url }}{% endif %}'); background: {{ section.settings.background | default: '#FFFFFF' }};"
+>
+  <div class="prescritor-3124-hero-bg"></div>
+  <div class="prescritor-3124-hero-overlay"></div>
+
+  <div class="prescritor-3124-hero-inner">
+    <div class="prescritor-3124-panel">
+      <h2 class="panel-title">{{ section.settings.title | default: 'Por que ser\nprescritor Wheypuccino' }}</h2>
+      <div class="panel-items">
+        {% for block in section.blocks %}
+          <div class="panel-item">
+            {% if block.settings.heading != blank %}
+              <h3 class="item-heading">{{ block.settings.heading }}</h3>
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <p class="item-text">{{ block.settings.text }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.prescritor-3124-hero {
+  position: relative;
+  width: 100%;
+  min-height: 780px;
+  isolation: isolate;
+  font-family: 'Inter', sans-serif;
+}
+.prescritor-3124-hero-bg {
+  position: absolute; inset: 0;
+  background-image: var(--bg-image);
+  background-size: cover; background-repeat: no-repeat; background-position: center;
+}
+.prescritor-3124-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.40) 35%, rgba(0,0,0,0.00) 100%);
+}
+.prescritor-3124-hero-inner {
+  position: relative; z-index: 1;
+  max-width: 1540px; margin: 0 auto; padding: 0 40px;
+  min-height: 780px;
+  display: flex; align-items: center;
+}
+.prescritor-3124-panel {
+  width: 712px; max-width: 95vw;
+  background: rgba(0,0,0,0.06);
+  border-radius: 40px;
+  padding: 56px 48px;
+  color: #FFFFFF;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.panel-title {
+  margin: 0 0 36px 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: pre-line;
+  font-size: 45.63px; /* Figma 45.62899 */
+  line-height: 47.91px; /* Figma 47.9104 */
+}
+.panel-items { display: flex; flex-direction: column; gap: 32px; }
+.panel-item { display: flex; flex-direction: column; gap: 10px; }
+.item-heading {
+  margin: 0;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 34.5px;
+  padding-left: 24px;
+  position: relative;
+}
+.item-heading::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #FFFFFF;
+  font-size: 30px;
+}
+.item-text {
+  margin: 0;
+  font-weight: 300;
+  font-size: 23.18px; /* Figma */
+  line-height: 26.21px;
+  padding-left: 24px;
+}
+
+/* Responsivo */
+@media (max-width: 1024px) {
+  .prescritor-3124-hero { min-height: 640px; }
+  .prescritor-3124-hero-inner { padding: 0 20px; }
+  .prescritor-3124-panel { width: 560px; padding: 40px 28px; }
+}
+@media (max-width: 768px) {
+  .prescritor-3124-hero { min-height: 560px; }
+  .prescritor-3124-hero-bg { background-position: center center; }
+  .prescritor-3124-hero-overlay { background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.00) 100%); }
+  .prescritor-3124-panel { width: 100%; border-radius: 24px; padding: 28px 20px; }
+  .panel-title { font-size: 28px; line-height: 34px; margin-bottom: 18px; }
+  .item-heading { font-size: 20px; line-height: 24px; }
+  .item-text { font-size: 16px; line-height: 22px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Prescritor • Seção 3124",
+  "settings": [
+    { "type": "image_picker", "id": "bg_image", "label": "Imagem de fundo (banner)" },
+    { "type": "color", "id": "background", "label": "Cor de fundo fallback" },
+    { "type": "text", "id": "title", "label": "Título" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "limit": 4,
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título do item" },
+        { "type": "textarea", "id": "text", "label": "Texto do item" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Prescritor • Seção 3124",
+      "settings": {
+        "title": "Por que ser\nprescritor Wheypuccino"
+      },
+      "blocks": [
+        { "type": "item", "settings": { "heading": "Qualidade assegurada", "text": "Zero lactose, sabor incrivelmente bom" } },
+        { "type": "item", "settings": { "heading": "Confiança", "text": "Zero adição de açúcar, energia e bestar com uma marca de confiança" } },
+        { "type": "item", "settings": { "heading": "Suporte exclusivo", "text": "Materiais científicos e técnicos, testes especiais." } },
+        { "type": "item", "settings": { "heading": "Valorização comerciais", "text": "Loren ipsum" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+

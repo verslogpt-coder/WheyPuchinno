@@ -1,0 +1,975 @@
+{% comment %}
+  Header section based on Figma design - Section 10
+{% endcomment %}
+
+<header class="header" id="header-{{ section.id }}">
+  <!-- Discount Bar -->
+  {% if section.settings.show_announcement_bar %}
+    <div class="header__discount-bar">
+      <div class="header__discount-container">
+        <p class="header__discount-text">{{ section.settings.announcement_text | default: '10% OFF na sua primeira compra!' }}</p>
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Main Header -->
+  <div class="header__main">
+    <div class="header__container">
+      <!-- Mobile Menu Toggle -->
+      <button class="header__mobile-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span class="header__hamburger"></span>
+        <span class="header__hamburger"></span>
+        <span class="header__hamburger"></span>
+      </button>
+
+      <!-- Logo -->
+      <div class="header__logo">
+        <a href="{{ routes.root_url }}" class="header__logo-link">
+          {% if section.settings.logo %}
+            <img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" width="120" height="40" loading="eager">
+          {% else %}
+            <h1 class="header__logo-text">{{ shop.name }}</h1>
+          {% endif %}
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="header__nav" aria-label="Main navigation">
+        <ul class="header__nav-list">
+          {% if section.settings.menu != blank and linklists[section.settings.menu] %}
+            {% for link in linklists[section.settings.menu].links %}
+              {% assign is_star = false %}
+              {% assign title_down = link.title | downcase %}
+              {% assign url_down = link.url | downcase %}
+              {% if title_down contains 'influ' or title_down contains 'revenda' or url_down contains 'influ' or url_down contains 'revenda' %}
+                {% assign is_star = true %}
+              {% endif %}
+              <li class="header__nav-item{% if link.links.size > 0 %} header__nav-item--dropdown{% endif %}">
+                <a href="{{ link.url }}" class="header__nav-link{% if is_star %} header__nav-link--star{% endif %}" {% if link.links.size > 0 %}aria-haspopup="true" aria-expanded="false"{% endif %}>
+                  {% if is_star %}
+                    <svg class="header__nav-star" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M8.827 18.657H6.346C5.792 18.657 5.343 18.208 5.343 17.654V15.172C5.343 14.906 5.237 14.651 5.049 14.463L3.294 12.708C2.902 12.316 2.902 11.681 3.294 11.29L5.067 9.517C5.244 9.34 5.343 9.101 5.343 8.851V6.346C5.343 5.792 5.792 5.343 6.346 5.343H8.828C9.094 5.343 9.349 5.237 9.537 5.049L11.292 3.294C11.684 2.902 12.319 2.902 12.71 3.294L14.465 5.049C14.653 5.237 14.908 5.343 15.174 5.343H17.656C18.21 5.343 18.659 5.792 18.659 6.346V8.828C18.659 9.094 18.765 9.349 18.953 9.537L20.708 11.292C21.1 11.684 21.1 12.319 20.708 12.71L18.953 14.465C18.765 14.653 18.659 14.908 18.659 15.174V17.656C18.659 18.21 18.21 18.659 17.656 18.659H15.174C14.908 18.659 14.653 18.765 14.465 18.953L12.71 20.708C12.318 21.1 11.683 21.1 11.292 20.708L9.537 18.953C9.348 18.762 9.093 18.657 8.827 18.657Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M15 10.5L11.25 14.25L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% endif %}
+                  {{ link.title }}
+                  {% if link.links.size > 0 %}
+                    <svg class="header__nav-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 10L12 14L16 10" stroke="#FBFBFD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  {% endif %}
+                </a>
+                {% if link.links.size > 0 %}
+                  <div class="header__dropdown" role="menu">
+                    <ul class="header__dropdown-list">
+                      {% for child in link.links %}
+                        <li class="header__dropdown-item">
+                          <a href="{{ child.url }}" class="header__dropdown-link">{{ child.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+              </li>
+            {% endfor %}
+          {% endif %}
+          
+          
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header__actions">
+        {% if section.settings.show_influencer_btn %}
+        <a href="{% if section.settings.influencer_link != blank %}{{ section.settings.influencer_link }}{% else %}/pages/influencer{% endif %}" class="header__influencer-btn" aria-label="Tornar-se Influencer">
+          <svg class="header__influencer-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.827 18.657H6.346C5.792 18.657 5.343 18.208 5.343 17.654V15.172C5.343 14.906 5.237 14.651 5.049 14.463L3.294 12.708C2.902 12.316 2.902 11.681 3.294 11.29L5.067 9.517C5.244 9.34 5.343 9.101 5.343 8.851V6.346C5.343 5.792 5.792 5.343 6.346 5.343H8.828C9.094 5.343 9.349 5.237 9.537 5.049L11.292 3.294C11.684 2.902 12.319 2.902 12.71 3.294L14.465 5.049C14.653 5.237 14.908 5.343 15.174 5.343H17.656C18.21 5.343 18.659 5.792 18.659 6.346V8.828C18.659 9.094 18.765 9.349 18.953 9.537L20.708 11.292C21.1 11.684 21.1 12.319 20.708 12.71L18.953 14.465C18.765 14.653 18.659 14.908 18.659 15.174V17.656C18.659 18.21 18.21 18.659 17.656 18.659H15.174C14.908 18.659 14.653 18.765 14.465 18.953L12.71 20.708C12.318 21.1 11.683 21.1 11.292 20.708L9.537 18.953C9.348 18.762 9.093 18.657 8.827 18.657Z" stroke="#5A3838" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 10.5L11.25 14.25L9 12" stroke="#5A3838" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="header__influencer-text">{{ section.settings.influencer_text | default: 'Tornar-se Influencer' }}</span>
+        </a>
+        {% endif %}
+        {% if section.settings.show_revender_btn %}
+        <a href="{% if section.settings.revender_link != blank %}{{ section.settings.revender_link }}{% else %}/pages/revender{% endif %}" class="header__revender-btn" aria-label="Revender">
+          <svg class="header__revender-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <path d="M10.5 3L5 12H11L9.5 21L19 9H13L14.5 3H10.5Z" stroke="#5A3838" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <span class="header__revender-text">{{ section.settings.revender_text | default: 'Revender' }}</span>
+        </a>
+        {% endif %}
+
+        <a href="{{ routes.cart_url }}" class="header__cart" aria-label="Cart">
+          <div class="header__cart-icon">
+            <!-- Shopping Bag Icon from Figma -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8401 21H6.16012C4.99512 21 4.07712 20.008 4.16612 18.847L4.92912 8.924C4.96912 8.402 5.40312 8 5.92612 8H18.0741C18.5971 8 19.0311 8.402 19.0711 8.923L19.8341 18.846C19.9241 20.008 19.0051 21 17.8401 21V21Z" stroke="#FFFCFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 8V7V7C8 4.791 9.791 3 12 3V3C14.209 3 16 4.791 16 7V7V8" stroke="#FFFCFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {% if cart.item_count > 0 %}
+              <span class="header__cart-count">{{ cart.item_count }}</span>
+            {% endif %}
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="header__mobile-menu">
+    <div class="header__mobile-menu-inner">
+      <!-- Close Button -->
+      <button class="header__mobile-close" aria-label="Fechar menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      
+      <!-- Mobile Menu Items -->
+      <nav class="header__mobile-nav">
+        <ul class="header__mobile-nav-list">
+          {% if section.settings.menu != blank and linklists[section.settings.menu] %}
+            {% for link in linklists[section.settings.menu].links %}
+              <li class="header__mobile-nav-item">
+                <a href="{{ link.url }}" class="header__mobile-nav-link">
+                  {{ link.title }}
+                </a>
+                {% if link.links.size > 0 %}
+                  <ul class="header__mobile-subnav">
+                    {% for child in link.links %}
+                      <li class="header__mobile-subnav-item">
+                        <a href="{{ child.url }}" class="header__mobile-subnav-link">{{ child.title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          {% endif %}
+        </ul>
+      </nav>
+
+      <!-- Mobile Menu Buttons -->
+      <div class="header__mobile-actions">
+        {% if section.settings.show_influencer_btn %}
+        <a href="{% if section.settings.influencer_link != blank %}{{ section.settings.influencer_link }}{% else %}/pages/influencer{% endif %}" class="header__mobile-btn header__mobile-btn--influencer">
+          <svg class="header__mobile-btn-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.827 18.657H6.346C5.792 18.657 5.343 18.208 5.343 17.654V15.172C5.343 14.906 5.237 14.651 5.049 14.463L3.294 12.708C2.902 12.316 2.902 11.681 3.294 11.29L5.067 9.517C5.244 9.34 5.343 9.101 5.343 8.851V6.346C5.343 5.792 5.792 5.343 6.346 5.343H8.828C9.094 5.343 9.349 5.237 9.537 5.049L11.292 3.294C11.684 2.902 12.319 2.902 12.71 3.294L14.465 5.049C14.653 5.237 14.908 5.343 15.174 5.343H17.656C18.21 5.343 18.659 5.792 18.659 6.346V8.828C18.659 9.094 18.765 9.349 18.953 9.537L20.708 11.292C21.1 11.684 21.1 12.319 20.708 12.71L18.953 14.465C18.765 14.653 18.659 14.908 18.659 15.174V17.656C18.659 18.21 18.21 18.659 17.656 18.659H15.174C14.908 18.659 14.653 18.765 14.465 18.953L12.71 20.708C12.318 21.1 11.683 21.1 11.292 20.708L9.537 18.953C9.348 18.762 9.093 18.657 8.827 18.657Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 10.5L11.25 14.25L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ section.settings.influencer_text | default: 'Influencer' }}
+        </a>
+        {% endif %}
+        {% if section.settings.show_revender_btn %}
+        <a href="{% if section.settings.revender_link != blank %}{{ section.settings.revender_link }}{% else %}/pages/revender{% endif %}" class="header__mobile-btn header__mobile-btn--revender">
+          <svg class="header__mobile-btn-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.5 3L5 12H11L9.5 21L19 9H13L14.5 3H10.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          {{ section.settings.revender_text | default: 'Revender' }}
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
+
+{% stylesheet %}
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* Discount Bar */
+  .header__discount-bar {
+    background: #5A3737;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .header__discount-container {
+    max-width: 1920px;
+    width: 100%;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  .header__discount-text {
+    color: #FCFCFE;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  /* Main Header */
+  .header__main {
+    background: #F32D35;
+    height: 80px;
+    display: flex;
+    align-items: center;
+  }
+
+  .header__container {
+    max-width: 1920px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  /* Logo */
+  .header__logo {
+    flex-shrink: 0;
+  }
+
+  .header__logo-link {
+    display: block;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .header__logo-link:hover {
+    opacity: 0.8;
+  }
+
+  .header__logo img {
+    height: 20px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  .header__logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #FCFCFE;
+  }
+
+  /* Navigation */
+  .header__nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .header__nav-link {
+    text-decoration: none;
+    color: #FCFCFE;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .header__nav-link:hover {
+    opacity: 0.8;
+  }
+
+  .header__nav-arrow {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+  }
+
+  .header__nav-item--dropdown:hover .header__nav-arrow {
+    transform: rotate(180deg);
+  }
+
+  /* Dropdown */
+  .header__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 10px 12px;
+    min-width: 220px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    display: none;
+    z-index: 1200;
+  }
+
+  .header__nav-item--dropdown {
+    position: relative;
+  }
+
+  .header__nav-item--dropdown:hover .header__dropdown {
+    display: block;
+  }
+
+  .header__nav-item--dropdown.is-open .header__dropdown {
+    display: block;
+  }
+
+  .header__dropdown-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .header__dropdown-link {
+    display: block;
+    color: #5A3838;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .header__dropdown-link:hover {
+    background: #FFF3D1;
+    color: #5A3838;
+  }
+
+  .header__nav-link--star {
+    gap: 8px;
+    color: #5A3838;
+    background: linear-gradient(180deg, #FFD76A 0%, #FFC53D 100%);
+    border-radius: 999px;
+    padding: 8px 14px;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.12) inset, 0 4px 12px rgba(255, 197, 61, 0.35);
+  }
+
+  .header__nav-star {
+    width: 24px;
+    height: 24px;
+  }
+
+  .header__nav-star path {
+    stroke: currentColor;
+    fill: none;
+  }
+
+  /* Actions */
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Influencer Button - estilo gold igual ao star link */
+  .header .header__influencer-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    background: linear-gradient(180deg, #FFD76A 0%, #FFC53D 100%);
+    border-radius: 100px;
+    text-decoration: none;
+    color: #5A3838;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.12) inset, 0 4px 12px rgba(255, 197, 61, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .header .header__influencer-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .header .header__influencer-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+  }
+
+  .header .header__influencer-text {
+    color: #5A3838;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
+  }
+
+  /* Revender Button - Exact Design (pílula branca + raio) */
+  /* Aumentar especificidade para garantir aplicação sobre estilos globais */
+  .header .header__revender-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px !important;
+    padding: 0 16px !important;
+    background: #FFFFFF;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .header__revender-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  .header .header__revender-icon {
+    width: 18px !important;
+    height: 18px !important;
+    flex: 0 0 auto;
+  }
+
+  .header .header__revender-text {
+    color: #5A3838;
+    font-size: 16px !important;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
+  }
+
+  .header__cart {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 44px;
+    background: rgba(255, 252, 252, 0.2);
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .header__cart:hover {
+    background: rgba(255, 252, 252, 0.3);
+  }
+
+  .header__cart-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FCFCFE;
+  }
+
+  .header__cart-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .header__cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #FCFCFE;
+    color: #5A3737;
+    border-radius: 100px;
+    min-width: 24px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 0 8px;
+    border: 2px solid #F32D35;
+  }
+
+  /* Mobile Menu Toggle */
+  .header__mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    gap: 6px;
+  }
+
+  .header__hamburger {
+    width: 24px;
+    height: 2px;
+    background: #FFFCFC;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .header__mobile-toggle.active .header__hamburger:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .header__mobile-toggle.active .header__hamburger:nth-child(2) {
+    opacity: 0;
+  }
+
+  .header__mobile-toggle.active .header__hamburger:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Mobile Menu */
+  .header__mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 85%;
+    max-width: 400px;
+    height: 100vh;
+    background: #F32D35;
+    z-index: 9999;
+    transition: left 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .header__mobile-menu.active {
+    left: 0;
+  }
+
+  .header__mobile-menu-inner {
+    padding: 80px 20px 40px;
+    position: relative;
+  }
+
+  .header__mobile-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: #FFFFFF;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+  }
+
+  .header__mobile-close:hover {
+    opacity: 0.7;
+  }
+
+  .header__mobile-close svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .header__mobile-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__mobile-nav-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .header__mobile-nav-link {
+    display: block;
+    padding: 16px 0;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+  }
+
+  .header__mobile-nav-link:hover {
+    opacity: 0.8;
+  }
+
+  .header__mobile-subnav {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 16px 20px;
+  }
+
+  .header__mobile-subnav-item {
+    padding: 8px 0;
+  }
+
+  .header__mobile-subnav-link {
+    display: block;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+    transition: opacity 0.2s ease;
+  }
+
+  .header__mobile-subnav-link:hover {
+    opacity: 1;
+  }
+
+  .header__mobile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .header__mobile-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 48px;
+    padding: 0 20px;
+    border-radius: 100px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+  }
+
+  .header__mobile-btn:active {
+    transform: scale(0.98);
+  }
+
+  .header__mobile-btn--influencer {
+    background: linear-gradient(180deg, #FFD76A 0%, #FFC53D 100%);
+    color: #5A3838;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.12) inset, 0 4px 12px rgba(255, 197, 61, 0.35);
+  }
+
+  .header__mobile-btn--revender {
+    background: #FFFFFF;
+    color: #5A3838;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .header__mobile-btn-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .header__nav-list {
+      gap: 20px;
+    }
+    
+    .header__actions {
+      gap: 15px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header__discount-text {
+      font-size: 12px;
+    }
+
+    .header__main {
+      height: 70px;
+    }
+
+    .header__container {
+      padding: 0 15px;
+      position: relative;
+    }
+
+    .header__mobile-toggle {
+      display: flex;
+    }
+
+    .header__nav {
+      display: none;
+    }
+
+    .header__actions .header__influencer-btn,
+    .header__actions .header__revender-btn {
+      display: none;
+    }
+
+    .header__logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .header__logo img {
+      height: 18px;
+    }
+
+    .header__cart {
+      width: 50px;
+      height: 40px;
+      margin-left: auto;
+    }
+
+    .header__cart-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header__discount-bar {
+      height: 40px;
+    }
+
+    .header__discount-text {
+      font-size: 11px;
+    }
+
+    .header__main {
+      height: 60px;
+    }
+
+    .header__container {
+      padding: 0 10px;
+    }
+
+    .header__logo img {
+      height: 16px;
+    }
+
+    .header__logo-text {
+      font-size: 1.25rem;
+    }
+
+    .header .header__revender-btn {
+      height: 36px !important;
+      padding: 0 12px !important;
+      gap: 8px;
+    }
+
+    .header .header__revender-icon {
+      width: 16px !important;
+      height: 16px !important;
+    }
+
+    .header__cart {
+      width: 44px;
+      height: 36px;
+    }
+
+    .header__cart-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .header__cart-count {
+      min-width: 20px;
+      height: 14px;
+      font-size: 10px;
+    }
+  }
+{% endstylesheet %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const header = document.getElementById('header-{{ section.id }}');
+  const mobileToggle = header.querySelector('.header__mobile-toggle');
+  const mobileMenu = header.querySelector('.header__mobile-menu');
+  const mobileClose = header.querySelector('.header__mobile-close');
+  
+  // Function to close mobile menu
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('active');
+    mobileToggle.classList.remove('active');
+    mobileToggle.setAttribute('aria-expanded', 'false');
+    mobileToggle.setAttribute('aria-label', 'Abrir menu');
+    document.body.style.overflow = '';
+  }
+  
+  // Function to open mobile menu
+  function openMobileMenu() {
+    mobileMenu.classList.add('active');
+    mobileToggle.classList.add('active');
+    mobileToggle.setAttribute('aria-expanded', 'true');
+    mobileToggle.setAttribute('aria-label', 'Fechar menu');
+    document.body.style.overflow = 'hidden';
+  }
+  
+  // Mobile menu toggle
+  if (mobileToggle && mobileMenu) {
+    mobileToggle.addEventListener('click', function() {
+      const isActive = mobileMenu.classList.contains('active');
+      
+      if (isActive) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+    
+    // Close button
+    if (mobileClose) {
+      mobileClose.addEventListener('click', function() {
+        closeMobileMenu();
+      });
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!mobileMenu.contains(e.target) && !mobileToggle.contains(e.target) && mobileMenu.classList.contains('active')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Close menu on resize to desktop
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 768 && mobileMenu.classList.contains('active')) {
+        closeMobileMenu();
+      }
+    });
+  }
+  
+  // Header scroll effect
+  let lastScrollTop = 0;
+  window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > 100) {
+      header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+    } else {
+      header.style.boxShadow = 'none';
+    }
+    
+    lastScrollTop = scrollTop;
+  });
+
+  // Dropdown open/close (hover desktop, click mobile)
+  const dropdownItems = header.querySelectorAll('.header__nav-item--dropdown');
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  dropdownItems.forEach(function(item) {
+    const link = item.querySelector('.header__nav-link');
+    const dropdown = item.querySelector('.header__dropdown');
+    if (!link || !dropdown) return;
+
+    // Desktop hover already handled by CSS; reinforce aria
+    item.addEventListener('mouseenter', function() {
+      link.setAttribute('aria-expanded', 'true');
+    });
+    item.addEventListener('mouseleave', function() {
+      link.setAttribute('aria-expanded', 'false');
+    });
+
+    // Touch/click toggle for mobile/tablet
+    link.addEventListener('click', function(e) {
+      if (isTouch || window.innerWidth <= 1024) {
+        e.preventDefault();
+        const isOpen = item.classList.contains('is-open');
+        // close others
+        dropdownItems.forEach(function(it){ it.classList.remove('is-open'); it.querySelector('.header__nav-link')?.setAttribute('aria-expanded','false'); });
+        if (!isOpen) {
+          item.classList.add('is-open');
+          link.setAttribute('aria-expanded', 'true');
+        } else {
+          item.classList.remove('is-open');
+          link.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Barra de Anúncio"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement_bar",
+      "label": "Mostrar Barra de Anúncio",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Texto do Anúncio",
+      "default": "10% OFF na sua primeira compra!"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Botão Influencer"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_influencer_btn",
+      "label": "Mostrar Botão Influencer",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "influencer_link",
+      "label": "Link do Influencer",
+      "info": "Adicione o link para a página de influenciadores"
+    },
+    {
+      "type": "text",
+      "id": "influencer_text",
+      "label": "Texto do Botão",
+      "default": "Influencer",
+      "info": "Texto que aparecerá no botão"
+    },
+    {
+      "type": "header",
+      "content": "Botão Revender"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_revender_btn",
+      "label": "Mostrar Botão Revender",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "revender_link",
+      "label": "Link do botão Revender",
+      "info": "Defina o link do botão Revender"
+    },
+    {
+      "type": "text",
+      "id": "revender_text",
+      "label": "Texto do botão Revender",
+      "default": "Revender"
+    }
+  ]
+}
+{% endschema %}

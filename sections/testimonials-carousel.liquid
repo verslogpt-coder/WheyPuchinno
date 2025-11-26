@@ -1,0 +1,469 @@
+<style>
+.testimonials-carousel-section {
+  background: #FFFFFF;
+  padding: 80px 20px;
+  position: relative;
+}
+
+.testimonials-carousel-container {
+  max-width: 1535px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.testimonials-carousel-wrapper {
+  display: flex;
+  gap: 24px;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 40px 20px;
+  scroll-snap-type: x mandatory;
+}
+
+.testimonials-carousel-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonial-card {
+  flex: 0 0 auto;
+  width: 431px;
+  background: #E4E4E4;
+  border-radius: 17px;
+  padding: 36px 32px 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 286px;
+  scroll-snap-align: center;
+}
+
+.testimonial-card.featured {
+  border: 1px solid #4A4C4D;
+  width: 497px;
+  min-height: 330px;
+  padding: 40px 36px 44px 36px;
+}
+
+.testimonial-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+}
+
+.testimonial-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.testimonial-name {
+  font-family: 'Kayak Sans', 'Inter', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 44px;
+  color: #4A4C4D;
+  text-align: center;
+  margin: 0;
+}
+
+.testimonial-card.featured .testimonial-name {
+  font-size: 44px;
+  line-height: 50px;
+}
+
+.testimonial-date {
+  font-family: 'Kayak Sans', 'Inter', sans-serif;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 20px;
+  color: #4A4C4D;
+  text-align: center;
+  margin: 0;
+}
+
+.testimonial-card.featured .testimonial-date {
+  font-size: 20px;
+  line-height: 23px;
+}
+
+.testimonial-text {
+  font-family: 'Kayak Sans', 'Inter', sans-serif;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #4A4C4D;
+  text-align: center;
+  margin: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonial-card.featured .testimonial-text {
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.testimonial-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.testimonial-rating svg {
+  width: 23px;
+  height: 23px;
+}
+
+.testimonial-card.featured .testimonial-rating svg {
+  width: 27px;
+  height: 27px;
+}
+
+/* Controles de navegação */
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 10;
+  padding: 0 20px;
+}
+
+.carousel-btn {
+  width: 45px;
+  height: 45px;
+  background: #3A3D3F;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: all;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.carousel-btn:hover {
+  background: #2A2D2F;
+  transform: scale(1.05);
+}
+
+.carousel-btn:active {
+  transform: scale(0.95);
+}
+
+.carousel-btn svg {
+  width: 11px;
+  height: 19px;
+}
+
+.carousel-btn-next {
+  transform: rotate(180deg);
+}
+
+.carousel-btn-next:hover {
+  transform: rotate(180deg) scale(1.05);
+}
+
+.carousel-btn-next:active {
+  transform: rotate(180deg) scale(0.95);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .testimonials-carousel-section {
+    padding: 50px 0;
+    overflow: visible;
+  }
+
+  .testimonials-carousel-container {
+    overflow: visible;
+  }
+
+  .testimonials-carousel-wrapper {
+    padding: 30px 20px;
+    gap: 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .testimonials-carousel-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .testimonial-card {
+    width: 85vw;
+    max-width: 340px;
+    min-width: 300px;
+    padding: 34px 26px;
+    min-height: 280px;
+    scroll-snap-align: center;
+  }
+
+  .testimonial-card.featured {
+    width: 88vw;
+    max-width: 380px;
+    min-height: 310px;
+    padding: 38px 28px;
+  }
+
+  .testimonial-name {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .testimonial-card.featured .testimonial-name {
+    font-size: 34px;
+    line-height: 40px;
+  }
+
+  .testimonial-date {
+    font-size: 15px;
+    line-height: 18px;
+  }
+
+  .testimonial-card.featured .testimonial-date {
+    font-size: 17px;
+    line-height: 20px;
+  }
+
+  .testimonial-text {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .testimonial-card.featured .testimonial-text {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .testimonial-rating {
+    gap: 10px;
+  }
+
+  .testimonial-rating svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .testimonial-card.featured .testimonial-rating svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .carousel-controls {
+    display: none;
+  }
+
+  .testimonial-content {
+    gap: 20px;
+  }
+}
+</style>
+
+<div class="testimonials-carousel-section">
+  <div class="testimonials-carousel-container">
+    <div class="carousel-controls">
+      <button class="carousel-btn carousel-btn-prev" onclick="scrollCarousel('prev')" aria-label="Anterior">
+        <svg width="11" height="19" viewBox="0 0 11 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.5 2L2 9.5L9.5 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="carousel-btn carousel-btn-next" onclick="scrollCarousel('next')" aria-label="Próximo">
+        <svg width="11" height="19" viewBox="0 0 11 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9.5 2L2 9.5L9.5 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="testimonials-carousel-wrapper" id="testimonialsCarousel">
+      {% for block in section.blocks %}
+        {% if block.type == 'testimonial' %}
+          <div class="testimonial-card {% if block.settings.featured %}featured{% endif %}">
+            <div class="testimonial-content">
+              <div class="testimonial-header">
+                <h3 class="testimonial-name">{{ block.settings.name }}</h3>
+                <p class="testimonial-date">{{ block.settings.date }}</p>
+              </div>
+              
+              <p class="testimonial-text">"{{ block.settings.text }}"</p>
+            </div>
+            
+            <div class="testimonial-rating">
+              {% for i in (1..5) %}
+                <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.5 2L14.5 8.5L21.5 9.5L16.5 14.5L17.5 21.5L11.5 18L5.5 21.5L6.5 14.5L1.5 9.5L8.5 8.5L11.5 2Z" fill="#FFC000"/>
+                </svg>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+function scrollCarousel(direction) {
+  const carousel = document.getElementById('testimonialsCarousel');
+  if (!carousel) return;
+  
+  const scrollAmount = 520;
+  
+  if (direction === 'next') {
+    carousel.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth'
+    });
+  } else {
+    carousel.scrollBy({
+      left: -scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+}
+
+// Suporte para touch/swipe no mobile
+let startX = 0;
+let scrollLeft = 0;
+
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = document.getElementById('testimonialsCarousel');
+  
+  if (carousel) {
+    carousel.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].pageX - carousel.offsetLeft;
+      scrollLeft = carousel.scrollLeft;
+    });
+
+    carousel.addEventListener('touchmove', (e) => {
+      if (!startX) return;
+      
+      const x = e.touches[0].pageX - carousel.offsetLeft;
+      const walk = (x - startX) * 2;
+      carousel.scrollLeft = scrollLeft - walk;
+    });
+
+    carousel.addEventListener('touchend', () => {
+      startX = 0;
+    });
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Carrossel de Depoimentos",
+  "tag": "section",
+  "class": "testimonials-carousel-section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Depoimento",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nome",
+          "default": "Cliente"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Data",
+          "default": "00/00/0000"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Texto do depoimento",
+          "default": "Escreva o depoimento aqui"
+        },
+        {
+          "type": "checkbox",
+          "id": "featured",
+          "label": "Depoimento em destaque",
+          "default": false,
+          "info": "Torna este card maior e com borda"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carrossel de Depoimentos",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Mariana",
+            "date": "05/01/2025",
+            "text": "Comecei a tomar o Wheypuccino no lugar do café da manhã e simplesmente amei! Além de nutritivo, o sabor é incrível.",
+            "featured": false
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Carlos Eduardo",
+            "date": "12/01/2025",
+            "text": "Melhor investimento que fiz! O Wheypuccino me dá energia para os treinos e ainda tem aquele gostinho de café gourmet. Recomendo demais!",
+            "featured": true
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Juliana",
+            "date": "18/01/2025",
+            "text": "Estava cética no início, mas depois de experimentar fiquei viciada. O sabor é surpreendentemente bom!",
+            "featured": false
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Rafael",
+            "date": "22/01/2025",
+            "text": "Perfeito para quem quer unir proteína e café em um só produto. A textura é cremosa e o sabor é equilibrado.",
+            "featured": false
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Beatriz",
+            "date": "28/01/2025",
+            "text": "Não consigo mais começar o dia sem meu Wheypuccino! Substituiu meu café da manhã e me mantém saciada até o almoço.",
+            "featured": false
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Lucas M.",
+            "date": "03/02/2025",
+            "text": "Já testei várias marcas de whey protein com café e essa é disparada a melhor. Sabor autêntico e qualidade premium.",
+            "featured": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

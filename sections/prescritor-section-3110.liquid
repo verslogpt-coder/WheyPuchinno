@@ -1,0 +1,127 @@
+{% comment %}
+  Página Prescritor – Seção (Node 89-3110)
+  Estrutura responsiva pronta para receber textos, cores e SVGs do Figma.
+{% endcomment %}
+
+<section class="prescritor-3110-section" style="background: {{ section.settings.background | default: '#FFFFFF' }};">
+  <div class="prescritor-3110-container">
+    {% if section.settings.logo != blank %}
+    <div class="prescritor-3110-logo">
+      <img src="{{ section.settings.logo | image_url: width: 600 }}" alt="Logo" loading="lazy">
+    </div>
+    {% endif %}
+    
+
+    <h2 class="prescritor-3110-title">{{ section.settings.title | default: 'Indique Wheypuccino e transforme a rotina dos seus pacientes' }}</h2>
+
+    <p class="prescritor-3110-subtitle">{{ section.settings.subtitle | default: 'Ofereça saúde, energia e bem-estar com uma marca de confiança\ne qualidade premium.' }}</p>
+
+    <a href="{{ section.settings.cta_url | default: '#' }}" class="prescritor-3110-btn">{{ section.settings.cta_label | default: 'QUERO SER PRESCRITOR' }}</a>
+  </div>
+</section>
+
+<style>
+.prescritor-3110-section {
+  width: 100%;
+  padding: 80px 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.prescritor-3110-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+  text-align: center;
+}
+
+.prescritor-3110-logo { display:flex; align-items:center; justify-content:center; margin-bottom: 6px; }
+.prescritor-3110-logo img { height: 32px; width: auto; }
+
+.prescritor-3110-badge { display: none; }
+
+.prescritor-3110-title {
+  font-size: 63.68px; /* Figma: 63.6813 */
+  line-height: 73.26px; /* Figma: 73.2583 */
+  font-weight: 700;
+  color: #000000;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.prescritor-3110-subtitle {
+  font-size: 32.71px; /* Figma: 32.7122 */
+  line-height: 37.63px; /* Figma: 37.6318 */
+  color: #4A4C4D; /* Figma solid(0.2902,0.2980,0.3020) */
+  margin: 0;
+  white-space: pre-line;
+}
+
+.prescritor-3110-grid { display:none; }
+.prescritor-3110-richtext { display:none; }
+
+.prescritor-3110-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  background: #FD6C11;
+  color: #FFFFFF;
+  border-radius: 9.9px; /* Figma: 9.8979 */
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 18px;
+  align-self: center;
+}
+
+.prescritor-3110-image-wrap {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #F4F4F4;
+}
+
+.prescritor-3110-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .prescritor-3110-section { padding: 50px 0; }
+  .prescritor-3110-container { padding: 0 20px; gap: 16px; }
+  .prescritor-3110-logo img { height: 24px; }
+  .prescritor-3110-title { font-size: 28px; line-height: 36px; }
+  .prescritor-3110-subtitle { font-size: 16px; line-height: 24px; }
+  .prescritor-3110-grid { display:none; }
+  .prescritor-3110-btn { width: auto; padding: 14px 20px; border-radius: 12px; }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .prescritor-3110-container { padding: 0 32px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Prescritor • Seção 3110",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (SVG/PNG)" },
+    { "type": "color", "id": "background", "label": "Cor de fundo" },
+    { "type": "image_picker", "id": "badge_icon", "label": "Ícone do badge" },
+    { "type": "text", "id": "badge_text", "label": "Texto do badge" },
+    { "type": "text", "id": "title", "label": "Título" },
+    { "type": "text", "id": "subtitle", "label": "Subtítulo" },
+    { "type": "richtext", "id": "richtext", "label": "Texto" },
+    { "type": "image_picker", "id": "image", "label": "Imagem" },
+    { "type": "text", "id": "cta_label", "label": "Texto do botão" },
+    { "type": "url", "id": "cta_url", "label": "Link do botão" }
+  ],
+  "presets": [ { "name": "Prescritor • Seção 3110" } ]
+}
+{% endschema %}
+
+

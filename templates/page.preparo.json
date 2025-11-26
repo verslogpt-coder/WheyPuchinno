@@ -1,0 +1,80 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "how-to-prepare",
+      "blocks": {
+        "step_FqbKjw": {
+          "type": "wheypuccino_step",
+          "settings": {
+            "title": "Adicione 1 scoop (25 g)",
+            "description": "de Wheypuccino em um copo ou shaker."
+          }
+        },
+        "step_CWw9pQ": {
+          "type": "wheypuccino_step",
+          "settings": {
+            "title": "Despeje 150 ml de água ou leite",
+            "description": "quente ou frio, como preferir."
+          }
+        },
+        "step_XjHtQ4": {
+          "type": "wheypuccino_step",
+          "settings": {
+            "title": "Misture bem",
+            "description": "com uma colher, mixer ou mini espumador até que fique cremoso e homogêneo."
+          }
+        },
+        "cioccolato_step_g7wFiF": {
+          "type": "chococaps_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61309.svg",
+            "title": "Aqueça 200ml de leite semi-desnatado.",
+            "description": ""
+          }
+        },
+        "cioccolato_step_LgPyYr": {
+          "type": "chococaps_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61310.svg",
+            "title": "Coloque 2 cápsulas de wheypuccino.",
+            "description": ""
+          }
+        },
+        "cioccolato_step_4EfKW8": {
+          "type": "chococaps_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61311.svg",
+            "title": "Misture bem até que esteja completamente dissolvido.",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "step_FqbKjw",
+        "step_CWw9pQ",
+        "step_XjHtQ4",
+        "cioccolato_step_g7wFiF",
+        "cioccolato_step_LgPyYr",
+        "cioccolato_step_4EfKW8"
+      ],
+      "settings": {
+        "kicker": "Guia rápido",
+        "title": "Como preparar o seu Wheypuccino",
+        "subtitle": "Resultados consistentes em 3 passos.",
+        "reels_url": "https://cdn.shopify.com/videos/c/o/v/70afcaaddffb4b70b6d4d375507d6f03.mp4"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

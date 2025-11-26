@@ -1,0 +1,128 @@
+{% comment %}
+  Renders a product thumbnail with responsive images
+
+  Accepts:
+  - media: {Object} Product Media object
+  - position: {Int} Position in the gallery
+  - loop: {Boolean} Enable video looping
+  - modal_id: {String} Modal id
+  - xr_button: {Boolean} Show XR button for 3D models
+  - media_width: {Float} Width of the media in viewport
+  - lazy_load: {Boolean} Lazy load the image
+
+  Usage:
+  {% render 'product-thumbnail', media: media, position: 1 %}
+{% endcomment %}
+
+<div
+  class="product__media-item media"
+  data-media-id="{{ media.id }}"
+>
+  {%- if media.media_type == 'image' -%}
+    {%- liquid
+      if lazy_load == false
+        assign loading = 'eager'
+        assign fetch_priority = 'high'
+      else
+        assign loading = 'lazy'
+        assign fetch_priority = 'auto'
+      endif
+
+      assign image_height = media.width | divided_by: media.aspect_ratio
+      if section.settings.thumbnail_image == 'cover'
+        assign sizes = '(min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)'
+      else
+        assign sizes = '(min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)'
+      endif
+    -%}
+    {{
+      media
+      | image_url: width: media.width
+      | image_tag:
+        loading: loading,
+        fetchpriority: fetch_priority,
+        width: media.width,
+        height: image_height,
+        class: 'product__media-image',
+        sizes: sizes,
+        widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+        alt: media.alt
+      | escape
+    }}
+  {%- elsif media.media_type == 'model' -%}
+    <product-model data-model-id="{{ media.id }}">
+      {{ media | model_viewer_tag: image_size: '1024x1024', toggleable: true, data-model-id: media.id }}
+    </product-model>
+    <button
+      class="product__media-toggle"
+      type="button"
+      aria-label="{{ 'products.product.media.open_media' | t: index: position }}"
+      data-product-popup="#ProductModal-{{ modal_id }}"
+    >
+      {%- render 'icon-3d-model' -%}
+    </button>
+  {%- elsif media.media_type == 'video' or media.media_type == 'external_video' -%}
+    <deferred-media>
+      <button
+        id="Deferred-Poster-Modal-{{ media.id }}"
+        class="deferred-media__poster full-unstyled-link"
+        type="button"
+        aria-label="{{ 'products.product.media.open_media' | t: index: position }}"
+        aria-haspopup="dialog"
+        data-media-id="{{ media.id }}"
+      >
+        <span class="deferred-media__poster-button motion-reduce">
+          {%- render 'icon-play' -%}
+        </span>
+        {{
+          media.preview_image
+          | image_url: width: 1946
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw - 4rem)',
+            widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946',
+            alt: media.alt
+        }}
+      </button>
+      <template>
+        {%- if media.media_type == 'video' -%}
+          {{
+            media
+            | video_tag:
+              image_size: '1024x1024',
+              loop: loop,
+              controls: true,
+              preload: 'none',
+              muted: true,
+              autoplay: true
+          }}
+        {%- else -%}
+          {{
+            media
+            | external_video_url:
+              color: 'white',
+              loop: loop,
+              playlist: media.external_id
+            | external_video_tag:
+              loading: 'lazy',
+              class: 'js-player',
+              allow: 'autoplay; encrypted-media; picture-in-picture',
+              allowfullscreen: true
+          }}
+        {%- endif -%}
+      </template>
+    </deferred-media>
+  {%- endif -%}
+
+  {%- if media.media_type == 'image' -%}
+    <button
+      class="product__media-toggle quick-add-hidden"
+      type="button"
+      aria-label="{{ 'products.product.media.open_media' | t: index: position }}"
+      data-product-popup="#ProductModal-{{ modal_id }}"
+    >
+      {% render 'icon-zoom' %}
+    </button>
+  {%- endif -%}
+</div>
+

@@ -1,0 +1,165 @@
+{% comment %}
+  Seção FAQ
+  Perguntas frequentes com accordion
+{% endcomment %}
+
+<!-- 11ª Seção - FAQ -->
+<section class="section-11" aria-label="Perguntas frequentes">
+  <div class="container section-11__inner">
+    <div class="section-11__left">
+      <span class="chip chip--red">
+        <span class="chip__icon" aria-hidden="true">
+          {% if section.settings.chip_icon %}
+            <img src="{{ section.settings.chip_icon | image_url: width: 24 }}" alt="" width="24" height="27" />
+          {% else %}
+            <svg width="24" height="27" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.0021 3.36218V3.95476C17.0021 4.30332 17.0744 4.64709 17.2133 4.95885L18.5827 8.03201C18.859 8.65008 19.0029 9.332 19.0029 10.0235C19.0029 12.5228 19.0029 18.2914 19.0029 19.8719C19.0029 20.0924 18.9709 20.3115 18.9081 20.5205L18.4935 21.916C18.244 22.8846 17.4589 23.5559 16.5604 23.569H7.4396C6.57838 23.569 5.81378 22.9506 5.54143 22.0338L5.20245 20.8927C5.06643 20.4355 4.99709 19.9566 4.99709 19.4746C4.99709 17.4888 4.99709 12.3453 4.99709 10.0235C4.99709 9.33201 5.14097 8.6501 5.41726 8.03204L6.7869 4.95835C6.92575 4.64676 6.998 4.30315 6.99792 3.95477V3.36218" stroke="#F44027" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11.6282 10.9397L10.4994 13.4656H13.5006L12.3718 15.9914" stroke="#F44027" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18.9871 20.1274H5.04121" stroke="#F44027" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18.0947 6.9368H5.90533" stroke="#F44027" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17.5023 3.36219H6.49771" stroke="#F44027" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          {% endif %}
+        </span>
+        {{ section.settings.chip_text | default: "Prepare-se" }}
+      </span>
+      <h2 class="section-11__title">{{ section.settings.title | default: "Perguntas frequentes" }}</h2>
+      <div class="section-11__contact-card">
+        <h3 class="section-11__contact-title">{{ section.settings.contact_title | default: "Ainda tem dúvidas?" }}</h3>
+        <p class="section-11__contact-text">{{ section.settings.contact_text | default: "Entre em contato com o nosso suporte via whatsapp, estamos prontos para lhe atender." }}</p>
+      </div>
+    </div>
+    
+    <div class="section-11__right">
+      <div class="section-11__accordion">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'faq_item' %}
+              <div class="faq-item {% if forloop.first %}active{% endif %}">
+                <button class="faq-item__question" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}">
+                  <span>{{ block.settings.question }}</span>
+                  <span class="faq-item__icon" aria-hidden="true">
+                    {% if forloop.first %}
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 8L10 13L5 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    {% else %}
+                      +
+                    {% endif %}
+                  </span>
+                </button>
+                <div class="faq-item__answer">
+                  <p>{{ block.settings.answer }}</p>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Seção FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "chip_text",
+      "label": "Texto do Chip",
+      "default": "Prepare-se"
+    },
+    {
+      "type": "image_picker",
+      "id": "chip_icon",
+      "label": "Ícone do Chip"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "Perguntas frequentes"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Título do Card de Contato",
+      "default": "Ainda tem dúvidas?"
+    },
+    {
+      "type": "text",
+      "id": "contact_text",
+      "label": "Texto do Card de Contato",
+      "default": "Entre em contato com o nosso suporte via whatsapp, estamos prontos para lhe atender."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Pergunta FAQ",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Pergunta"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Resposta"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Seção FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Como devo preparar o Wheypuccino?",
+            "answer": "Adicione 200 a 250 ml de água ou leite na coqueteleira. Acrescente 35 g (aproximadamente 2 colheres de sopa) do produto. Tampe e agite por 20 segundos até a mistura ficar homogênea e cremosa."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Quais sabores de Wheypuccino estão disponíveis?",
+            "answer": "Temos diversos sabores deliciosos: Tradicional, Chococaps, Ciocollato e muito mais. Confira todos na nossa página de produtos."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "O Wheypuccino contém cafeína?",
+            "answer": "Sim! O Wheypuccino contém café premium de verdade, proporcionando energia natural além da proteína."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "O produto é adequado para dietas vegetarianas ou veganas?",
+            "answer": "O Wheypuccino é adequado para vegetarianos. Para veganos, consulte nossa linha específica de produtos plant-based."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "O Wheypuccino pode ser consumido quente ou frio?",
+            "answer": "Sim! Você pode preparar o Wheypuccino tanto com água quente quanto gelada, conforme sua preferência."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "O Wheypuccino substitui uma refeição completa?",
+            "answer": "O Wheypuccino é um complemento proteico. Para substituição de refeições, recomendamos consultar um nutricionista."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

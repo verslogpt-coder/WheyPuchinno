@@ -1,0 +1,450 @@
+{% comment %}
+  Product Features Section
+  Layout centralizado com imagem do produto no meio e características nas laterais
+{% endcomment %}
+
+<div class="product-features-section">
+  <div class="container">
+    <div class="features-layout">
+      
+      <!-- Coluna Esquerda -->
+      <div class="features-column features-left">
+        {% for block in section.blocks %}
+          {% if forloop.index <= 2 %}
+            <div class="feature-card" {{ block.shopify_attributes }}>
+              <div class="feature-icon">
+                {% if block.settings.icon_image != blank %}
+                  <img src="{{ block.settings.icon_image | image_url: width: 100 }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% elsif block.settings.icon != blank %}
+                  {{ block.settings.icon }}
+                {% else %}
+                  <div class="icon-placeholder"></div>
+                {% endif %}
+              </div>
+              <h3 class="feature-title">{{ block.settings.title }}</h3>
+              <p class="feature-description">{{ block.settings.description }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <!-- Imagem Central -->
+      <div class="product-image-container">
+        {% if section.settings.product_image != blank %}
+          <img src="{{ section.settings.product_image | img_url: '600x800' }}" 
+               alt="{{ section.settings.product_image.alt | default: 'Produto' }}"
+               class="product-image">
+        {% else %}
+          <div class="product-image-placeholder">
+            <p>Adicione uma imagem do produto</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Coluna Direita -->
+      <div class="features-column features-right">
+        {% for block in section.blocks %}
+          {% if forloop.index > 2 %}
+            <div class="feature-card" {{ block.shopify_attributes }}>
+              <div class="feature-icon">
+                {% if block.settings.icon_image != blank %}
+                  <img src="{{ block.settings.icon_image | image_url: width: 100 }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% elsif block.settings.icon != blank %}
+                  {{ block.settings.icon }}
+                {% else %}
+                  <div class="icon-placeholder"></div>
+                {% endif %}
+              </div>
+              <h3 class="feature-title">{{ block.settings.title }}</h3>
+              <p class="feature-description">{{ block.settings.description }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </div>
+
+    <!-- Conteúdo Mobile -->
+    <div class="features-mobile-wrapper">
+      <!-- Imagem do produto no mobile -->
+      <div class="product-image-container-mobile">
+        {% if section.settings.product_image != blank %}
+          <img src="{{ section.settings.product_image | img_url: '600x800' }}" 
+               alt="{{ section.settings.product_image.alt | default: 'Produto' }}"
+               class="product-image">
+        {% else %}
+          <div class="product-image-placeholder">
+            <p>Adicione uma imagem do produto</p>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Grid Mobile 2x2 - Todas as features juntas -->
+      <div class="features-grid-mobile">
+        {% for block in section.blocks %}
+          <div class="feature-card" {{ block.shopify_attributes }}>
+            <div class="feature-icon">
+              {% if block.settings.icon_image != blank %}
+                <img src="{{ block.settings.icon_image | image_url: width: 100 }}" alt="{{ block.settings.title }}" loading="lazy">
+              {% elsif block.settings.icon != blank %}
+                {{ block.settings.icon }}
+              {% else %}
+                <div class="icon-placeholder"></div>
+              {% endif %}
+            </div>
+            <h3 class="feature-title">{{ block.settings.title }}</h3>
+            <p class="feature-description">{{ block.settings.description }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .product-features-section {
+    padding: 80px 0;
+    background: #5A3838;
+    position: relative;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .features-layout {
+    display: grid;
+    grid-template-columns: 1fr 400px 1fr;
+    gap: 60px;
+    align-items: center;
+    min-height: 600px;
+  }
+
+  .features-column {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .feature-card {
+    background: transparent;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .feature-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+    background: #fff;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .feature-card:hover .feature-icon {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .feature-icon svg,
+  .feature-icon img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .icon-placeholder {
+    width: 50px;
+    height: 50px;
+    background: #e9ecef;
+    border-radius: 8px;
+  }
+
+  .feature-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .feature-description {
+    font-size: 1rem;
+    color: #e0e0e0;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  .product-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .product-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
+    transform: rotate(-5deg);
+    transition: transform 0.3s ease;
+  }
+
+  .product-image:hover {
+    transform: rotate(-5deg) scale(1.05);
+  }
+
+  .product-image-placeholder {
+    width: 300px;
+    height: 400px;
+    background: #fff;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7B766E;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  /* Wrapper Mobile - escondido por padrão */
+  .features-mobile-wrapper {
+    display: none;
+  }
+
+  .product-image-container-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+
+  /* Responsividade */
+  @media (max-width: 1200px) {
+    .features-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+
+    .features-column {
+      flex-direction: row;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .product-image {
+      transform: rotate(0deg);
+      max-height: 400px;
+    }
+
+    .product-image:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .product-features-section {
+      padding: 60px 0;
+    }
+
+    /* Esconde o layout desktop */
+    .features-layout {
+      display: none;
+    }
+
+    /* Mostra o wrapper mobile */
+    .features-mobile-wrapper {
+      display: block;
+    }
+
+    /* Imagem do produto no mobile */
+    .product-image-container-mobile .product-image {
+      max-height: 350px;
+      transform: rotate(0deg);
+    }
+
+    .product-image-container-mobile .product-image-placeholder {
+      width: 250px;
+      height: 300px;
+    }
+
+    /* Mostra e configura o grid mobile 2x2 */
+    .features-grid-mobile {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .features-grid-mobile .feature-card {
+      padding: 20px 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+    }
+
+    .features-grid-mobile .feature-icon {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 12px;
+    }
+
+    .features-grid-mobile .feature-icon svg,
+    .features-grid-mobile .feature-icon img {
+      width: 35px;
+      height: 35px;
+    }
+
+    .features-grid-mobile .feature-title {
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .features-grid-mobile .feature-description {
+      font-size: 0.85rem;
+      line-height: 1.3;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .features-grid-mobile {
+      gap: 12px;
+    }
+
+    .features-grid-mobile .feature-card {
+      padding: 16px 10px;
+    }
+
+    .features-grid-mobile .feature-icon {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    .features-grid-mobile .feature-icon svg,
+    .features-grid-mobile .feature-icon img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .features-grid-mobile .feature-title {
+      font-size: 1rem;
+    }
+
+    .features-grid-mobile .feature-description {
+      font-size: 0.8rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Características",
+  "tag": "section",
+  "class": "section-product-features",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Imagem do Produto",
+      "info": "Imagem central do produto"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Ícone (SVG ou PNG)",
+          "info": "Faça upload de um ícone SVG ou PNG. Recomendado: 100x100px"
+        },
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Ícone SVG (código)",
+          "info": "Use este campo apenas se não fizer upload de imagem acima"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Benefício"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrição",
+          "default": "Descrição do benefício"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Texto do Link"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "URL do Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Características",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Energético",
+            "description": "Sabor e Energia",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#F44027\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"></polygon></svg>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Saboroso",
+            "description": "Sabor e Energia",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#F44027\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1\"></path><path d=\"M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.9.94 5.34 2.81 7.76\"></path><path d=\"M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6\"></path><path d=\"M12 5v8\"></path></svg>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Prático",
+            "description": "Sabor e Energia",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#F44027\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"></polyline></svg>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Nutritivo",
+            "description": "Sabor e Energia",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#F44027\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 12h-4l-3 9L9 3l-3 9H2\"></path></svg>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

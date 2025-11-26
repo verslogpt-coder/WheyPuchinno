@@ -1,0 +1,285 @@
+<div class="how-to-prepare-steps-section">
+  <div class="container">
+    
+    <!-- Header -->
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title | default: "Como Preparar" }}</h2>
+      {% if section.settings.subtitle != blank %}
+        <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Steps Grid -->
+    <div class="steps-container">
+      {% for block in section.blocks %}
+        <div class="step-card" {{ block.shopify_attributes }}>
+          
+          <!-- Step Number -->
+          <div class="step-number">{{ block.settings.step_number | default: forloop.index | prepend: '0' }}</div>
+          
+          <!-- Step Instruction -->
+          <div class="step-instruction">{{ block.settings.instruction }}</div>
+          
+          <!-- Step Button -->
+          <div class="step-button">
+            <span class="step-button-text">{{ block.settings.button_text | default: "Saiba mais" }}</span>
+          </div>
+          
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+
+<style>
+.how-to-prepare-steps-section {
+  padding: 80px 0;
+  background-color: #FFFFFF;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #5A3838;
+  margin-bottom: 16px;
+  line-height: 1.2;
+  font-family: 'Inter', sans-serif;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #7B766E;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+}
+
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.step-card {
+  position: relative;
+  width: 100%;
+  height: 288px; /* 72 * 4 = 288px */
+  background: #F44027;
+  border-radius: 30px;
+  padding: 38px 69px 58px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.step-number {
+  font-size: 60px; /* text-4xl = 36px, mas você mostrou leading-[60px] */
+  font-weight: 700; /* font-bold */
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  line-height: 60px;
+  margin-bottom: 30px;
+}
+
+.step-instruction {
+  font-size: 20px; /* text-xl = 20px */
+  font-weight: 400; /* font-normal */
+  color: #FFFFFF;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5; /* leading-loose */
+  margin-bottom: 20px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-button {
+  position: absolute;
+  bottom: 14px;
+  left: 9.48px;
+  right: 9.48px;
+  height: 56px; /* h-14 = 56px */
+  background: #FFFFFF;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - 18.96px);
+}
+
+.step-button-text {
+  font-size: 16px; /* text-base = 16px */
+  font-weight: 400; /* font-normal */
+  color: #5A3838; /* text-stone-700 aproximado */
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5; /* leading-normal */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .how-to-prepare-steps-section {
+    padding: 60px 0;
+  }
+
+  .steps-container {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .step-card {
+    height: 250px;
+    padding: 30px 40px 50px;
+  }
+
+  .step-number {
+    font-size: 48px;
+    line-height: 48px;
+    margin-bottom: 20px;
+  }
+
+  .step-instruction {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .step-button {
+    height: 50px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    width: calc(100% - 20px);
+  }
+
+  .step-button-text {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .step-card {
+    height: 220px;
+    padding: 25px 30px 45px;
+  }
+
+  .step-number {
+    font-size: 40px;
+    line-height: 40px;
+    margin-bottom: 15px;
+  }
+
+  .step-instruction {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .step-button {
+    height: 45px;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    width: calc(100% - 16px);
+  }
+
+  .step-button-text {
+    font-size: 13px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Como Preparar - Passos",
+  "tag": "section",
+  "class": "section-how-to-prepare-steps",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "Como Preparar"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "info": "Opcional"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Passo",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_number",
+          "label": "Número do Passo",
+          "default": "01",
+          "info": "Ex: 01, 02, 03"
+        },
+        {
+          "type": "textarea",
+          "id": "instruction",
+          "label": "Instrução",
+          "default": "Instrução do passo"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Texto do Botão",
+          "default": "Saiba mais"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Como Preparar - Passos",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "step_number": "01",
+            "instruction": "Misture o dosador (25g) em 150ml de água.",
+            "button_text": "Saiba mais"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_number": "02",
+            "instruction": "Misture bem até que esteja completamente dissolvido.",
+            "button_text": "Saiba mais"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_number": "03",
+            "instruction": "Pode ser consumido quente ou gelado.",
+            "button_text": "Saiba mais"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

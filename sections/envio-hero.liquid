@@ -1,0 +1,96 @@
+{% comment %}
+  Seção Hero para página de Envio
+{% endcomment %}
+
+<div class="envio-hero" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};">
+  <div class="envio-hero__inner">
+    <div class="envio-hero__content">
+      <h1 class="envio-hero__title">{{ section.settings.title }}</h1>
+      <p class="envio-hero__subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .envio-hero {
+    padding: 80px 0;
+    text-align: center;
+  }
+  
+  .envio-hero__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .envio-hero__title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 16px 0;
+    font-family: Inter, sans-serif;
+  }
+  
+  .envio-hero__subtitle {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.9;
+  }
+  
+  @media (max-width: 768px) {
+    .envio-hero {
+      padding: 60px 0;
+    }
+    
+    .envio-hero__title {
+      font-size: 36px;
+    }
+    
+    .envio-hero__subtitle {
+      font-size: 18px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Envio",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Envio"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Entregamos seu Wheypuccino com rapidez e segurança"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#5A3838"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Envio"
+    }
+  ]
+}
+{% endschema %}
+
+
+
+

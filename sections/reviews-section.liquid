@@ -1,0 +1,253 @@
+{% comment %}
+  Seção de Vídeos Reels
+  Carrossel infinito de vídeos do Shopify em formato Reels (9:16)
+{% endcomment %}
+
+<!-- Seção de Vídeos Reels -->
+<section class="section-09" aria-label="Vídeos Wheypuccino">
+  <div class="container section-09__inner">
+    <div class="section-09__header">
+      <div class="section-09__chips">
+        <span class="chip chip--info">
+          <span class="chip__icon" aria-hidden="true">
+            {% if section.settings.chip_icon %}
+              <img src="{{ section.settings.chip_icon | image_url: width: 24 }}" alt="" width="24" height="24" />
+            {% else %}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" stroke="#61A1CD" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+                <rect x="10" y="10" width="4" height="4" rx="1" stroke="#61A1CD" stroke-width="1.2"/>
+              </svg>
+            {% endif %}
+          </span>
+          {{ section.settings.chip_text | default: "Vídeos reais de quem já provou." }}
+        </span>
+        <span class="section-09__chip-secondary section-09__chip-heart">
+          <img src="{{ 'heart-icon.svg' | asset_url }}" alt="Coração" class="heart-icon-img" width="24" height="24" />
+        </span>
+      </div>
+      <h2 class="section-09__title">{{ section.settings.title | default: "Veja os vídeos reais de quem já experimentou o Wheypuccino." }}</h2>
+    </div>
+
+    <!-- Grid de Vídeos (espelhado do product-videos) -->
+    <div class="videos-grid" id="s09Carousel">
+      {% for block in section.blocks %}
+        {% if block.type == 'review_video' and block.settings.video %}
+          <div class="video-card">
+            <div class="video-placeholder">
+              {{- block.settings.video | video_tag:
+                image_size: "1080x",
+                autoplay: false,
+                loop: true,
+                controls: true,
+                muted: false,
+                playsinline: true,
+                class: "video-reel video-iframe"
+              -}}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Navegação Mobile (dots) -->
+    <div class="videos-dots">
+      {% assign video_blocks = section.blocks | where: 'type', 'review_video' %}
+      {% for b in video_blocks %}
+        {% if b.settings.video %}
+          <button class="video-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Slide {{ forloop.index }}"></button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Grid de Vídeos (baseado em product-videos) */
+  .videos-grid {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 60px 16px 60px;
+    scroll-snap-type: x mandatory;
+  }
+  .videos-grid::-webkit-scrollbar { height: 6px; }
+  .videos-grid::-webkit-scrollbar-track { background: #f0f0f0; border-radius: 3px; }
+  .videos-grid::-webkit-scrollbar-thumb { background: #619CCE; border-radius: 3px; }
+
+  .video-card { width: 280px; flex-shrink: 0; scroll-snap-align: center; }
+  .video-placeholder { width: 100%; aspect-ratio: 9 / 16; background: #F0F0F0; border-radius: 20px; overflow: hidden; position: relative; }
+  .video-iframe { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Dots de Navegação Mobile */
+  .videos-dots { display: none; gap: 8px; justify-content: center; margin-top: -20px; }
+  .video-dot { width: 8px; height: 8px; border-radius: 50%; background: #D9D9D9; border: none; padding: 0; cursor: pointer; transition: all 0.3s ease; }
+  .video-dot.active { background: #619CCE; width: 24px; border-radius: 4px; }
+
+  /* Responsivo Mobile */
+  @media (max-width: 768px) {
+    .videos-grid {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      padding: 0 calc((100vw - 70vw) / 2) 20px;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+    .videos-grid::-webkit-scrollbar { display: none; }
+    .video-card { width: 70vw; max-width: 300px; min-width: 220px; flex-shrink: 0; scroll-snap-align: center; }
+    .video-placeholder { aspect-ratio: 9 / 16; border-radius: 16px; }
+    .videos-dots { display: flex; margin-top: 0; padding: 0 20px; }
+    .video-dot { width: 8px; height: 8px; }
+    .video-dot.active { width: 24px; border-radius: 4px; }
+  }
+
+  /* Responsivo Tablet */
+  @media (max-width: 1024px) and (min-width: 769px) {
+    .videos-grid { gap: 20px; }
+    .video-card { width: 240px; }
+    .video-placeholder { aspect-ratio: 9 / 16; }
+  }
+
+  /* Desktop - Scroll Horizontal */
+  @media (min-width: 1025px) { .videos-grid { justify-content: flex-start; } }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const videosCarousel = document.getElementById('s09Carousel');
+  const dots = document.querySelectorAll('.video-dot');
+  if (!videosCarousel) return;
+
+  function updateActiveDot() {
+    const cards = videosCarousel.querySelectorAll('.video-card');
+    if (cards.length === 0 || dots.length === 0) return;
+    const scrollLeft = videosCarousel.scrollLeft;
+    const carouselWidth = videosCarousel.offsetWidth;
+    const viewportCenter = scrollLeft + (carouselWidth / 2);
+    let closestIndex = 0;
+    let minDistance = Infinity;
+    cards.forEach((card, index) => {
+      const cardLeft = card.offsetLeft;
+      const cardWidth = card.offsetWidth;
+      const cardCenter = cardLeft + (cardWidth / 2);
+      const distance = Math.abs(viewportCenter - cardCenter);
+      if (distance < minDistance) { minDistance = distance; closestIndex = index; }
+    });
+    dots.forEach((dot, index) => { dot.classList.toggle('active', index === closestIndex); });
+  }
+
+  let scrollTimeout;
+  videosCarousel.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateActiveDot, 100);
+  }, { passive: true });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', function() {
+      const cards = videosCarousel.querySelectorAll('.video-card');
+      if (cards[index]) {
+        const cardLeft = cards[index].offsetLeft;
+        const cardWidth = cards[index].offsetWidth;
+        const carouselWidth = videosCarousel.offsetWidth;
+        const scrollPosition = cardLeft - (carouselWidth / 2) + (cardWidth / 2);
+        videosCarousel.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Drag em desktop
+  let startX = 0; let scrollLeftStart = 0; let isDragging = false;
+  videosCarousel.addEventListener('mousedown', function(e) {
+    isDragging = true; startX = e.pageX - videosCarousel.offsetLeft; scrollLeftStart = videosCarousel.scrollLeft; videosCarousel.style.cursor = 'grabbing';
+  });
+  videosCarousel.addEventListener('mouseleave', function() { isDragging = false; videosCarousel.style.cursor = 'grab'; });
+  videosCarousel.addEventListener('mouseup', function() { isDragging = false; videosCarousel.style.cursor = 'grab'; });
+  videosCarousel.addEventListener('mousemove', function(e) {
+    if (!isDragging) return; e.preventDefault(); const x = e.pageX - videosCarousel.offsetLeft; const walk = (x - startX) * 2; videosCarousel.scrollLeft = scrollLeftStart - walk;
+  });
+
+  videosCarousel.style.cursor = 'grab';
+  updateActiveDot();
+  window.addEventListener('resize', updateActiveDot);
+});
+</script>
+
+{% schema %}
+{
+  "name": "Seção de Vídeos Reels",
+  "settings": [
+    {
+      "type": "text",
+      "id": "chip_text",
+      "label": "Texto do Chip",
+      "default": "Vídeos reais de quem já provou."
+    },
+    {
+      "type": "image_picker",
+      "id": "chip_icon",
+      "label": "Ícone do Chip"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "Veja os vídeos reais de quem já experimentou o Wheypuccino."
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Ativar rotação automática",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_interval",
+      "label": "Intervalo da rotação (ms)",
+      "min": 2000,
+      "max": 9000,
+      "step": 500,
+      "default": 5000
+    },
+    {
+      "type": "checkbox",
+      "id": "debug_mode",
+      "label": "Ativar logs de debug (temporário)",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review_video",
+      "name": "Vídeo Reels",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Vídeo",
+          "info": "Faça upload do vídeo em formato vertical (9:16) - Ideal para formato de Reels"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Seção de Vídeos Reels",
+      "blocks": [
+        { "type": "review_video" },
+        { "type": "review_video" },
+        { "type": "review_video" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+

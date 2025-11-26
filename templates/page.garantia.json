@@ -1,0 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "garantia_hero": {
+      "type": "garantia-hero",
+      "settings": {
+        "title": "Tempo de Garantia",
+        "subtitle": "Garantimos a qualidade do seu Wheypuccino",
+        "background_color": "#5A3838",
+        "text_color": "#FFFFFF"
+      }
+    },
+    "garantia_content": {
+      "type": "garantia-content",
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "garantia_hero",
+    "garantia_content"
+  ]
+}

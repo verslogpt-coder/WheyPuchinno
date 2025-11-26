@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group">
+<path id="Path" fill-rule="evenodd" clip-rule="evenodd" d="M2.8812 13.8115V9.23809C2.8812 7.69953 3.69946 6.27717 5.02865 5.50309L9.35045 2.9878C10.6941 2.20604 12.3546 2.20604 13.6982 2.9878L18.02 5.50309C19.3501 6.27717 20.1684 7.69953 20.1684 9.23809V13.8115C20.1684 15.3501 19.3501 16.7724 18.0209 17.5465L13.6991 20.0618C12.3555 20.8436 10.695 20.8436 9.35141 20.0618L5.02961 17.5465C3.69946 16.7724 2.8812 15.3501 2.8812 13.8115Z" stroke="var(--stroke-0, #61A1CD)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<g id="Group_2">
+<path id="Path_2" d="M11.5248 7.6832C12.7032 7.6832 13.6588 8.6388 13.6588 9.81721C13.6588 10.9956 12.7032 11.9512 11.5248 11.9512C10.3464 11.9512 9.39079 10.9956 9.39079 9.81721C9.39079 8.6388 10.3464 7.6832 11.5248 7.6832" stroke="var(--stroke-0, #61A1CD)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Path_3" d="M15.3664 15.3664C15.255 15.085 15.0812 14.8334 14.8593 14.6279V14.6279C14.4838 14.2802 13.994 14.0862 13.4821 14.0862C12.6283 14.0862 10.4223 14.0862 9.56847 14.0862C9.05657 14.0862 8.56581 14.2802 8.19029 14.6279V14.6279C7.96844 14.8324 7.79557 15.085 7.6832 15.3664" stroke="var(--stroke-0, #61A1CD)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<g id="Rectangle">
+</g>
+</g>
+</svg>

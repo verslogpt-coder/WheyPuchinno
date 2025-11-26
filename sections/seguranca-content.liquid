@@ -1,0 +1,261 @@
+{% comment %}
+  Seção de conteúdo para página de Segurança - Política de Segurança
+{% endcomment %}
+
+<div class="policy-content" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="policy-content__inner">
+    
+    <div class="policy-intro">
+      <p>Na Wheypuccino, a segurança dos seus dados é nossa prioridade. Implementamos as melhores práticas e tecnologias para garantir que suas informações estejam sempre protegidas.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>1. Proteção de Dados Pessoais</h2>
+      <p>Todos os dados pessoais coletados durante o processo de compra são tratados com o máximo sigilo e segurança. Utilizamos criptografia SSL 256-bit em todas as páginas do site, garantindo que suas informações trafeguem de forma segura pela internet.</p>
+      <p>Seus dados nunca serão compartilhados com terceiros sem sua autorização expressa, exceto quando necessário para processar seu pedido (transportadora, gateway de pagamento, etc.).</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>2. Segurança nas Transações</h2>
+      <p>Todas as transações financeiras realizadas em nosso site são processadas através de gateways de pagamento certificados e em conformidade com o PCI DSS (Payment Card Industry Data Security Standard).</p>
+      <p>Não armazenamos dados completos de cartão de crédito em nossos servidores. Todas as informações de pagamento são processadas diretamente pelas instituições financeiras autorizadas.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>3. Certificações e Conformidade</h2>
+      <p>Nossa loja possui as seguintes certificações de segurança:</p>
+      <ul>
+        <li><strong>SSL/TLS:</strong> Certificado de segurança que criptografa todas as comunicações entre você e nosso servidor</li>
+        <li><strong>PCI Compliance:</strong> Conformidade com os padrões internacionais de segurança para processamento de pagamentos</li>
+        <li><strong>LGPD:</strong> Adequação à Lei Geral de Proteção de Dados Pessoais</li>
+      </ul>
+    </div>
+
+    <div class="policy-section">
+      <h2>4. Prevenção de Fraudes</h2>
+      <p>Utilizamos sistemas avançados de detecção e prevenção de fraudes que analisam cada transação em tempo real. Isso garante que tanto você quanto a Wheypuccino estejam protegidos contra atividades fraudulentas.</p>
+      <p>Em caso de suspeita de fraude, podemos solicitar documentos adicionais para confirmar sua identidade antes de processar o pedido.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>5. Privacidade e Cookies</h2>
+      <p>Utilizamos cookies para melhorar sua experiência de navegação e personalizar o conteúdo exibido. Você pode configurar seu navegador para recusar cookies, mas isso pode afetar algumas funcionalidades do site.</p>
+      <p>Para mais informações sobre como tratamos seus dados, consulte nossa <a href="/pages/politica-privacidade">Política de Privacidade</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>6. Seus Direitos</h2>
+      <p>De acordo com a LGPD, você tem direito a:</p>
+      <ul>
+        <li>Acessar seus dados pessoais armazenados</li>
+        <li>Corrigir dados incompletos ou desatualizados</li>
+        <li>Solicitar a exclusão de seus dados</li>
+        <li>Revogar consentimentos previamente dados</li>
+        <li>Solicitar a portabilidade de seus dados</li>
+      </ul>
+      <p>Para exercer qualquer um desses direitos, entre em contato conosco através do email <a href="mailto:privacidade@wheypuccino.com">privacidade@wheypuccino.com</a>.</p>
+    </div>
+
+    <div class="policy-section">
+      <h2>7. Atualizações de Segurança</h2>
+      <p>Nossos sistemas são constantemente atualizados com as últimas correções de segurança. Realizamos auditorias periódicas e testes de penetração para identificar e corrigir possíveis vulnerabilidades.</p>
+    </div>
+
+    <div class="policy-contact">
+      <h3>Dúvidas sobre Segurança?</h3>
+      <p>Se você tiver alguma dúvida ou preocupação sobre a segurança de seus dados, entre em contato conosco:</p>
+      <p><strong>Email:</strong> <a href="mailto:seguranca@wheypuccino.com">seguranca@wheypuccino.com</a><br>
+      <strong>Telefone:</strong> (11) 9999-9999<br>
+      <strong>Horário:</strong> Segunda a sexta, das 9h às 18h</p>
+    </div>
+
+    <div class="policy-update">
+      <p><em>Última atualização: {{ "now" | date: "%d/%m/%Y" }}</em></p>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .policy-content {
+    background: #FFFFFF;
+  }
+  
+  .policy-content__inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .policy-intro {
+    background: linear-gradient(135deg, #5A3838, #8B4513);
+    color: white;
+    padding: 40px;
+    border-radius: 12px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  
+  .policy-intro p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin: 0;
+  }
+  
+  .policy-section {
+    margin-bottom: 50px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  
+  .policy-section:last-of-type {
+    border-bottom: none;
+  }
+  
+  .policy-section h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #5A3838;
+    margin: 0 0 20px 0;
+    font-family: Inter, sans-serif;
+  }
+  
+  .policy-section p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    margin: 0 0 16px 0;
+  }
+  
+  .policy-section ul {
+    margin: 20px 0;
+    padding-left: 30px;
+  }
+  
+  .policy-section li {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 12px;
+  }
+  
+  .policy-section strong {
+    color: #5A3838;
+    font-weight: 600;
+  }
+  
+  .policy-section a {
+    color: #5A3838;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  
+  .policy-section a:hover {
+    color: #8B4513;
+  }
+  
+  .policy-contact {
+    background: #f8f9fa;
+    padding: 40px;
+    border-radius: 12px;
+    margin: 50px 0 30px 0;
+    border-left: 4px solid #5A3838;
+  }
+  
+  .policy-contact h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #5A3838;
+    margin: 0 0 20px 0;
+    font-family: Inter, sans-serif;
+  }
+  
+  .policy-contact p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    margin: 0 0 10px 0;
+  }
+  
+  .policy-contact a {
+    color: #5A3838;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .policy-contact a:hover {
+    text-decoration: underline;
+  }
+  
+  .policy-update {
+    text-align: center;
+    padding: 30px 0;
+    border-top: 2px solid #f0f0f0;
+  }
+  
+  .policy-update p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .policy-intro {
+      padding: 30px 20px;
+    }
+    
+    .policy-intro p {
+      font-size: 16px;
+    }
+    
+    .policy-section h2 {
+      font-size: 24px;
+    }
+    
+    .policy-section p,
+    .policy-section li {
+      font-size: 15px;
+    }
+    
+    .policy-contact {
+      padding: 30px 20px;
+    }
+    
+    .policy-contact h3 {
+      font-size: 20px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Conteúdo Segurança",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Conteúdo Segurança"
+    }
+  ]
+}
+{% endschema %}

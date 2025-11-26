@@ -1,0 +1,638 @@
+{% comment %}
+  Seção Hero de Lançamento com Contador Regressivo
+{% endcomment %}
+
+<style>
+.lancamento-hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FFFCFC 0%, #F5F0EB 50%, #EFEFEF 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.lancamento-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(244,64,39,0.08) 0%, transparent 70%);
+  animation: pulse-bg 8s ease-in-out infinite;
+}
+
+@keyframes pulse-bg {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.6; }
+}
+
+/* Elementos decorativos de fundo */
+.lancamento-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(180deg, transparent 0%, rgba(90,56,56,0.03) 100%);
+  pointer-events: none;
+}
+
+.lancamento-container {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.lancamento-badge {
+  display: inline-block;
+  background: #F44027;
+  color: #FFFCFC;
+  padding: 12px 32px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 32px;
+  animation: float 3s ease-in-out infinite;
+  box-shadow: 0 8px 32px rgba(244,64,39,0.25);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.lancamento-title {
+  font-size: 64px;
+  font-weight: 900;
+  color: #5A3838;
+  margin-bottom: 24px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+}
+
+.lancamento-title span {
+  color: #F44027;
+}
+
+.lancamento-subtitle {
+  font-size: 24px;
+  color: #342222;
+  margin-bottom: 48px;
+  line-height: 1.5;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Contador Regressivo */
+.countdown-wrapper {
+  margin-bottom: 48px;
+}
+
+.countdown-title {
+  font-size: 18px;
+  color: #5A3838;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 48px;
+  padding: 0 20px;
+}
+
+.countdown-item {
+  background: #FFFFFF;
+  border: 2px solid #EFEFEF;
+  border-radius: 16px;
+  padding: 24px;
+  min-width: 120px;
+  width: 120px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.countdown-item:hover {
+  transform: translateY(-8px);
+  background: #FFFFFF;
+  border-color: #F44027;
+  box-shadow: 0 12px 32px rgba(244,64,39,0.2);
+}
+
+.countdown-number {
+  font-size: 56px;
+  font-weight: 900;
+  color: #F44027;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.countdown-label {
+  font-size: 12px;
+  color: #5A3838;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  text-align: center;
+  word-wrap: break-word;
+  width: 100%;
+}
+
+/* Wrapper do Formulário */
+.lancamento-form-wrapper {
+  max-width: 600px;
+  margin: 0 auto 48px;
+}
+
+.form-row {
+  margin-bottom: 16px;
+}
+
+/* Estilização do Shopify Forms App */
+.lancamento-form-wrapper form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.lancamento-form-wrapper input[type="text"],
+.lancamento-form-wrapper input[type="email"],
+.lancamento-form-wrapper input[type="tel"],
+.lancamento-form-wrapper textarea {
+  width: 100%;
+  padding: 20px 24px;
+  background: #FFFFFF;
+  border: 2px solid #EFEFEF;
+  border-radius: 12px;
+  color: #342222;
+  font-size: 16px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  margin-bottom: 16px;
+}
+
+.lancamento-form-wrapper input::placeholder,
+.lancamento-form-wrapper textarea::placeholder {
+  color: #7B766E;
+}
+
+.lancamento-form-wrapper input:focus,
+.lancamento-form-wrapper textarea:focus {
+  outline: none;
+  background: #FFFFFF;
+  border-color: #F44027;
+  box-shadow: 0 0 0 4px rgba(244,64,39,0.1);
+}
+
+.lancamento-form-wrapper button[type="submit"],
+.lancamento-form-wrapper input[type="submit"] {
+  width: 100%;
+  padding: 20px 48px;
+  background: #F44027;
+  border: none;
+  border-radius: 12px;
+  color: #FFFCFC;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 8px 32px rgba(244,64,39,0.25);
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+.lancamento-form-wrapper button[type="submit"]::before,
+.lancamento-form-wrapper input[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.lancamento-form-wrapper button[type="submit"]:hover::before,
+.lancamento-form-wrapper input[type="submit"]:hover::before {
+  left: 100%;
+}
+
+.lancamento-form-wrapper button[type="submit"]:hover,
+.lancamento-form-wrapper input[type="submit"]:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(244,64,39,0.6);
+}
+
+.lancamento-form-wrapper button[type="submit"]:active,
+.lancamento-form-wrapper input[type="submit"]:active {
+  transform: translateY(-2px);
+}
+
+.lancamento-form-wrapper button[type="submit"]:disabled,
+.lancamento-form-wrapper input[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Labels do formulário */
+.lancamento-form-wrapper label {
+  display: block;
+  color: #5A3838;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+/* Mensagens de sucesso/erro do Shopify Forms */
+.lancamento-form-wrapper .form-message,
+.lancamento-form-wrapper .form__message {
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.lancamento-form-wrapper .form-message--success,
+.lancamento-form-wrapper .form__message--success {
+  background: rgba(76,175,80,0.2);
+  border: 2px solid rgba(76,175,80,0.5);
+  color: #2E7D32;
+}
+
+.lancamento-form-wrapper .form-message--error,
+.lancamento-form-wrapper .form__message--error {
+  background: rgba(244,67,54,0.2);
+  border: 2px solid rgba(244,67,54,0.5);
+  color: #C62828;
+}
+
+/* Imagem do Produto */
+.lancamento-product {
+  margin: 32px auto 48px;
+  max-width: 500px;
+  position: relative;
+  animation: float-product 6s ease-in-out infinite;
+}
+
+@keyframes float-product {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+.lancamento-product img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 20px 60px rgba(244,64,39,0.3));
+  transition: all 0.5s ease;
+}
+
+.lancamento-product:hover img {
+  filter: drop-shadow(0 30px 80px rgba(244,64,39,0.4));
+  transform: scale(1.02);
+}
+
+
+/* Stats/Números do Lançamento */
+.lancamento-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 48px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 48px;
+  font-weight: 900;
+  color: #F44027;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  color: #5A3838;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .lancamento-title {
+    font-size: 40px;
+  }
+
+  .lancamento-subtitle {
+    font-size: 18px;
+  }
+
+  .countdown {
+    gap: 12px;
+  }
+
+  .countdown-item {
+    min-width: 80px;
+    padding: 16px 12px;
+  }
+
+  .countdown-number {
+    font-size: 40px;
+  }
+
+  .countdown-label {
+    font-size: 11px;
+  }
+
+  .lancamento-form-wrapper {
+    padding: 0 20px;
+  }
+
+  .lancamento-form-wrapper button[type="submit"],
+  .lancamento-form-wrapper input[type="submit"] {
+    width: 100%;
+    padding: 16px 32px;
+    font-size: 16px;
+  }
+
+  .lancamento-product {
+    max-width: 320px;
+    margin: 24px auto 32px;
+  }
+
+
+  .lancamento-stats {
+    gap: 32px;
+  }
+
+  .stat-number {
+    font-size: 36px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+  }
+}
+</style>
+
+<section class="lancamento-hero">
+  <div class="lancamento-container">
+    <div class="lancamento-badge">
+      {{ section.settings.badge_text }}
+    </div>
+
+    <h1 class="lancamento-title">
+      {{ section.settings.title | replace: '[highlight]', '<span>' | replace: '[/highlight]', '</span>' }}
+    </h1>
+
+    <p class="lancamento-subtitle">
+      {{ section.settings.subtitle }}
+    </p>
+
+    <div class="countdown-wrapper">
+      <div class="countdown-title">{{ section.settings.countdown_title }}</div>
+      <div class="countdown" id="countdown">
+        <div class="countdown-item">
+          <div class="countdown-number" id="days">00</div>
+          <div class="countdown-label">Dias</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="hours">00</div>
+          <div class="countdown-label">Horas</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="minutes">00</div>
+          <div class="countdown-label">Minutos</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="seconds">00</div>
+          <div class="countdown-label">Segundos</div>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%}
+      ÁREA PARA O SHOPIFY FORMS APP
+    {%- endcomment -%}
+    
+    <div class="lancamento-form-wrapper" id="shopify-forms-container">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {%- render block -%}
+          {%- when 'shopify-app' -%}
+            {{ block.settings.app_code }}
+          {%- else -%}
+            {{ block }}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    {% if section.settings.product_image %}
+    <div class="lancamento-product">
+      <img src="{{ section.settings.product_image | image_url: width: 1000 }}" alt="Wheypuccino" loading="lazy" />
+    </div>
+    {% endif %}
+
+
+    {% if section.settings.show_stats %}
+    <div class="lancamento-stats">
+      <div class="stat-item">
+        <div class="stat-number">{{ section.settings.stat_1_number }}</div>
+        <div class="stat-label">{{ section.settings.stat_1_label }}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{{ section.settings.stat_2_number }}</div>
+        <div class="stat-label">{{ section.settings.stat_2_label }}</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">{{ section.settings.stat_3_number }}</div>
+        <div class="stat-label">{{ section.settings.stat_3_label }}</div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+(function() {
+  // Configurar data de lançamento (amanhã às 09:00)
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(9, 0, 0, 0); // 9h da manhã
+  
+  const launchDateStr = '{{ section.settings.launch_date }}';
+  const launchDate = (launchDateStr === 'auto' || launchDateStr === '') ? tomorrow : new Date(launchDateStr);
+  const countdownDate = launchDate.getTime() > 0 ? launchDate : tomorrow;
+
+  // Função para atualizar o contador
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+
+    if (distance < 0) {
+      document.getElementById('days').textContent = '00';
+      document.getElementById('hours').textContent = '00';
+      document.getElementById('minutes').textContent = '00';
+      document.getElementById('seconds').textContent = '00';
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+  }
+
+  // Atualizar contador a cada segundo
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Lançamento Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Texto do Badge",
+      "default": "Lançamento Exclusivo"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Título",
+      "default": "Algo [highlight]INCRÍVEL[/highlight] está chegando",
+      "info": "Use [highlight] e [/highlight] para destacar palavras"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Cadastre-se agora e seja o primeiro a saber quando lançarmos!"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Imagem do Produto",
+      "info": "Imagem do Wheypuccino para destaque"
+    },
+    {
+      "type": "text",
+      "id": "countdown_title",
+      "label": "Título do Contador",
+      "default": "Faltam apenas"
+    },
+    {
+      "type": "text",
+      "id": "launch_date",
+      "label": "Data de Lançamento",
+      "info": "Formato: 2025-10-21T00:00:00 (use 'auto' para amanhã às 00:00)",
+      "default": "auto"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Mostrar Estatísticas",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stat_1_number",
+      "label": "Estatística 1 - Número",
+      "default": "10K+"
+    },
+    {
+      "type": "text",
+      "id": "stat_1_label",
+      "label": "Estatística 1 - Texto",
+      "default": "Clientes Satisfeitos"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_number",
+      "label": "Estatística 2 - Número",
+      "default": "4.9★"
+    },
+    {
+      "type": "text",
+      "id": "stat_2_label",
+      "label": "Estatística 2 - Texto",
+      "default": "Avaliação Média"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_number",
+      "label": "Estatística 3 - Número",
+      "default": "2015"
+    },
+    {
+      "type": "text",
+      "id": "stat_3_label",
+      "label": "Estatística 3 - Texto",
+      "default": "No Mercado"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "shopify-app",
+      "name": "Shopify Forms App",
+      "settings": [
+        {
+          "type": "html",
+          "id": "app_code",
+          "label": "Código do Shopify Forms",
+          "info": "Cole aqui o código do app do Shopify Forms (ID: 708153)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lançamento Hero",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}
+

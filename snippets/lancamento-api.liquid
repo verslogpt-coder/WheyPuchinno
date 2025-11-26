@@ -1,0 +1,51 @@
+{% comment %}
+  App Proxy para criar customers via API do Shopify
+  URL: /apps/lancamento-api/create-customer
+{% endcomment %}
+
+{% if request.method == 'POST' %}
+  {% assign customer_data = request.body | parse_json %}
+  
+  {% if customer_data.customer %}
+    {% assign customer = customer_data.customer %}
+    
+    {% comment %} Criar customer via Shopify API {% endcomment %}
+    {% assign customer_json = customer | json %}
+    
+    <script>
+      // Enviar para Shopify Admin API via JavaScript
+      fetch('/admin/api/2023-10/customers.json', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Shopify-Access-Token': '{{ shop.metafields.lancamento.api_token }}'
+        },
+        body: {{ customer_json | json }}
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Customer criado:', data);
+      })
+      .catch(error => {
+        console.error('Erro ao criar customer:', error);
+      });
+    </script>
+    
+    {% comment %} Resposta de sucesso {% endcomment %}
+    {
+      "success": true,
+      "message": "Customer criado com sucesso",
+      "customer": {{ customer | json }}
+    }
+  {% else %}
+    {
+      "success": false,
+      "message": "Dados do customer não fornecidos"
+    }
+  {% endif %}
+{% else %}
+  {
+    "success": false,
+    "message": "Método não permitido. Use POST."
+  }
+{% endif %}

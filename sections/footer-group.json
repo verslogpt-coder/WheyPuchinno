@@ -1,0 +1,43 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:general.footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "logo": "shopify://shop_images/Vector.svg",
+        "logo_text": "WHEYPUCCINO®",
+        "description": "Wheypuccino é a fusão pioneira entre o sabor autêntico de um cappuccino cremoso e a potência nutricional do whey protein, criado para quem não abre mão do prazer nem da performance.",
+        "facebook": "",
+        "instagram": "",
+        "linkedin": "",
+        "tiktok": "",
+        "social_handle": "@wheypuccino",
+        "menu_1_title": "Institucional",
+        "menu_1": "footer",
+        "menu_2_title": "Categorias",
+        "menu_2": "main-menu",
+        "contact_heading_1": "Formas de pagamento",
+        "contact_heading_2": "Selos de segurança",
+        "contact_heading_3": "Rastreio",
+        "contact_title": "Atendimento",
+        "contact_phone": "(41) 99122-1625",
+        "contact_email": "contato@wheypuccino.com.br",
+        "legal_menu": "",
+        "show_powered": false
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

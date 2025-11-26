@@ -1,0 +1,96 @@
+{% comment %}
+  Seção Hero para página de Trocas e Devoluções
+{% endcomment %}
+
+<div class="trocas-hero" style="background-color: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};">
+  <div class="trocas-hero__inner">
+    <div class="trocas-hero__content">
+      <h1 class="trocas-hero__title">{{ section.settings.title }}</h1>
+      <p class="trocas-hero__subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .trocas-hero {
+    padding: 80px 0;
+    text-align: center;
+  }
+  
+  .trocas-hero__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .trocas-hero__title {
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 16px 0;
+    font-family: Inter, sans-serif;
+  }
+  
+  .trocas-hero__subtitle {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 0;
+    opacity: 0.9;
+  }
+  
+  @media (max-width: 768px) {
+    .trocas-hero {
+      padding: 60px 0;
+    }
+    
+    .trocas-hero__title {
+      font-size: 36px;
+    }
+    
+    .trocas-hero__subtitle {
+      font-size: 18px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Trocas",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Trocas e Devoluções"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Política transparente de trocas e devoluções"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#5A3838"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto",
+      "default": "#FFFFFF"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Trocas"
+    }
+  ]
+}
+{% endschema %}
+
+
+
+

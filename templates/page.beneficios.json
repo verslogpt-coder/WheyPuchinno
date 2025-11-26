@@ -1,0 +1,64 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "benefits-content",
+      "blocks": {
+        "benefit_hzXNzT": {
+          "type": "benefit",
+          "settings": {
+            "title": "Proteína de alta qualidade",
+            "description": "Nutrição superior com sabor incrível.",
+            "icon": "shopify://shop_images/Clip_path_group-2.png"
+          }
+        },
+        "benefit_UyayTB": {
+          "type": "benefit",
+          "settings": {
+            "title": "Proteína de alta qualidade",
+            "description": "Nutrição superior com sabor incrível.",
+            "icon": "shopify://shop_images/Clip_path_group-3.png"
+          }
+        },
+        "benefit_VVBwPQ": {
+          "type": "benefit",
+          "settings": {
+            "title": "Proteína de alta qualidade",
+            "description": "Nutrição superior com sabor incrível.",
+            "icon": "shopify://shop_images/Clip_path_group-4.png"
+          }
+        },
+        "benefit_BqbbhK": {
+          "type": "benefit",
+          "settings": {
+            "title": "Proteína de alta qualidade",
+            "description": "Nutrição superior com sabor incrível.",
+            "icon": "shopify://shop_images/Clip_path_group.png"
+          }
+        }
+      },
+      "block_order": [
+        "benefit_hzXNzT",
+        "benefit_UyayTB",
+        "benefit_VVBwPQ",
+        "benefit_BqbbhK"
+      ],
+      "settings": {
+        "kicker": "Benefícios",
+        "title": "Benefícios do Wheypuccino",
+        "subtitle": "Tudo o que seu dia precisa: sabor, energia e proteína."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

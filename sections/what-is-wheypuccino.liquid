@@ -1,0 +1,175 @@
+{% comment %}
+  Seção "O que é Wheypuccino"
+  Explicação detalhada do produto com benefícios
+{% endcomment %}
+
+<!-- Seção O que é Wheypuccino -->
+<section class="whey-figma-section" aria-label="O que é Wheypuccino">
+  <div class="whey-figma-coin-decoration">
+    <img src="{{ 'coin-icon.svg' | asset_url }}" alt="Decoração moeda" class="whey-coin-icon" />
+  </div>
+  <div class="whey-figma-container">
+    <div class="whey-figma-grid">
+      <div class="whey-figma-image-section">
+        <div class="whey-figma-image-container">
+          {% if section.settings.main_image %}
+            <img src="{{ section.settings.main_image | image_url: width: 600, format: 'pjpg' }}" alt="{{ section.settings.main_image.alt | default: 'Pessoas segurando copos de Wheypuccino' }}" class="whey-figma-main-image" loading="lazy" />
+          {% else %}
+            <img src="{{ 'c7a11e03c6c2b75d19d5ce6bf5f1abe8137ddc09.png' | asset_url }}" alt="Pessoas segurando copos de Wheypuccino" class="whey-figma-main-image" />
+          {% endif %}
+          <div class="whey-figma-reviews-card">
+            <div class="whey-figma-reviews-text">{{ section.settings.reviews_text | default: "+300 avaliações" }}</div>
+            <div class="whey-figma-reviews-avatars">
+              {% if section.settings.avatar_1 %}
+                <img src="{{ section.settings.avatar_1 | image_url: width: 50 }}" alt="Avaliação cliente" class="whey-figma-avatar-img" />
+              {% else %}
+                <img src="{{ '0e34f8aff90d37c431f4c27086d74d50eb622e9d.png' | asset_url }}" alt="Avaliação cliente" class="whey-figma-avatar-img" />
+              {% endif %}
+              {% if section.settings.avatar_2 %}
+                <img src="{{ section.settings.avatar_2 | image_url: width: 50 }}" alt="Avaliação cliente" class="whey-figma-avatar-img" />
+              {% else %}
+                <img src="{{ '13a89d6feac4dede0c7b70ddde7d7fb4d9171d65.png' | asset_url }}" alt="Avaliação cliente" class="whey-figma-avatar-img" />
+              {% endif %}
+              {% if section.settings.avatar_3 %}
+                <img src="{{ section.settings.avatar_3 | image_url: width: 50 }}" alt="Avaliação cliente" class="whey-figma-avatar-img" />
+              {% else %}
+                <img src="{{ '783418f9fb521f94c9c2c17ab6b33f7dcacabeb6.png' | asset_url }}" alt="Avaliação cliente" class="whey-figma-avatar-img" />
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="whey-figma-content-section">
+        <h2 class="whey-figma-main-title">{{ section.settings.title | default: "O que é o Wheypuccino?" }}</h2>
+        <p class="whey-figma-description">
+          {{ section.settings.description | default: "O Wheypuccino é o primeiro cappuccino proteico do mundo (desde 2015), uma opção prática e saborosa, entregando energia real que nutre, sustenta e acompanha o seu lifestyle. Uma fusão entre café gourmet premium com whey protein em uma bebida cremosa, nutritiva e irresistível. Beba quente ou gelado!" }}
+        </p>
+        
+        <div class="whey-features-grid" id="whey-features-carousel">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'feature' %}
+                <div class="whey-feature-item">
+                  {% if block.settings.seal_image %}
+                    <img src="{{ block.settings.seal_image | image_url: width: 200 }}" alt="Selo {{ forloop.index }}" class="whey-feature-icon" />
+                  {% endif %}
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+        
+        
+        <p class="whey-figma-quote-text">
+          <span class="quote-part-1">{{ section.settings.quote_part_1 | default: "É mais que um suplemento" }}</span><span class="quote-part-2">{{ section.settings.quote_part_2 | default: ", é um alimento inteligente para quem vive com " }}</span><span class="quote-intensidade"> {{ section.settings.quote_accent | default: "intensidade" }} </span><span class="quote-part-3">{{ section.settings.quote_part_3 | default: ", mas sem abrir mão do sabor." }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "O que é Wheypuccino",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "O que é o Wheypuccino?"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrição Principal",
+      "default": "O Wheypuccino é o primeiro cappuccino proteico do mundo (desde 2015), uma opção prática e saborosa, entregando energia real que nutre, sustenta e acompanha o seu lifestyle. Uma fusão entre café gourmet premium com whey protein em uma bebida cremosa, nutritiva e irresistível. Beba quente ou gelado! 11g de proteína por dose • Zero Lactose • Não contém glúten • Zero adição de açúcares • Café Premium de verdade."
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Imagem Principal"
+    },
+    {
+      "type": "text",
+      "id": "reviews_text",
+      "label": "Texto das Avaliações",
+      "default": "+300 avaliações"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_1",
+      "label": "Avatar Cliente 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_2",
+      "label": "Avatar Cliente 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_3",
+      "label": "Avatar Cliente 3"
+    },
+    {
+      "type": "text",
+      "id": "quote_part_1",
+      "label": "Primeira parte da citação",
+      "default": "É mais que um suplemento"
+    },
+    {
+      "type": "text",
+      "id": "quote_part_2",
+      "label": "Segunda parte da citação",
+      "default": ", é um alimento inteligente para quem vive com "
+    },
+    {
+      "type": "text",
+      "id": "quote_accent",
+      "label": "Palavra de destaque",
+      "default": "intensidade"
+    },
+    {
+      "type": "text",
+      "id": "quote_part_3",
+      "label": "Terceira parte da citação",
+      "default": ", mas sem abrir mão do sabor."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Selo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "seal_image",
+          "label": "Imagem do Selo (SVG)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "O que é Wheypuccino",
+      "blocks": [
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

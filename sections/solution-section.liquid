@@ -1,0 +1,164 @@
+{% comment %}
+  Seção Solução/Meta de Proteína
+  Foco na meta de proteína diária com estatísticas
+{% endcomment %}
+
+<!-- Seção 6 - Solução/Meta de Proteína -->
+<section class="solution" aria-label="A solução para sua meta de proteína" data-layer="Section/Solution">
+  <div class="container solution__inner">
+    <div class="solution__media">
+      <span class="solution__decor solution__decor--tl" aria-hidden="true"></span>
+      <span class="solution__decor solution__decor--bl" aria-hidden="true"></span>
+      {% if section.settings.main_image %}
+        <img class="solution__img" src="{{ section.settings.main_image | image_url: width: 600, format: 'pjpg' }}" alt="{{ section.settings.main_image.alt | default: 'Pessoa segurando Wheypuccino' }}" loading="lazy" />
+      {% else %}
+        <img class="solution__img" src="{{ 'solution-main.png' | asset_url }}" alt="Pessoa segurando Wheypuccino" loading="lazy" />
+      {% endif %}
+    </div>
+    <div class="solution__content">
+      <span class="solution__badge" aria-hidden="true">
+        <span class="solution__badge-box">
+          {% if section.settings.badge_icon %}
+            <img src="{{ section.settings.badge_icon | image_url: width: 24 }}" alt="" width="24" height="30" />
+          {% else %}
+            <img src="{{ 'header.svg' | asset_url }}" alt="" width="24" height="30" />
+          {% endif %}
+        </span>
+      </span>
+      <h2 class="solution__title">{{ section.settings.title | default: "A solução para sua meta de proteína diária!" }}</h2>
+      <p class="solution__lead">{{ section.settings.lead_text | default: "Imagine transformar a pausa mais aguardada e saborosa do seu dia em um gesto poderoso para sua saúde muscular e bem‑estar." }}</p>
+      <p class="solution__desc">{{ section.settings.description | default: "Com WHEYPUCCINO®, o capuccino proteico pioneiro no mundo desde 2015, você não precisa mais escolher entre o prazer e a disciplina. Nutrir seu corpo com a proteína que ele precisa agora é o seu novo hábito delicioso." }}</p>
+      <ul class="solution__stats" aria-label="Benefícios">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'statistic' %}
+              <li><b>{{ block.settings.title }}</b>: {{ block.settings.description }}</li>
+          {% endcase %}
+        {% endfor %}
+      </ul>
+      {% if section.settings.button_text != blank %}
+        <div class="solution__cta-wrapper">
+          <a 
+            href="{{ section.settings.button_url | default: '#' }}" 
+            class="p-card__cta solution__cta"
+            aria-label="{{ section.settings.button_text }}"
+            style="max-width: fit-content;"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8401 21H6.16012C4.99512 21 4.07712 20.008 4.16612 18.847L4.92912 8.924C4.96912 8.402 5.40312 8 5.92612 8H18.0741C18.5971 8 19.0311 8.402 19.0711 8.923L19.8341 18.846C19.9241 20.008 19.0051 21 17.8401 21V21Z" fill="currentColor"/>
+              <path d="M8 8V7V7C8 4.791 9.791 3 12 3V3C14.209 3 16 4.791 16 7V7V8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {{ section.settings.button_text }}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  @media screen and (max-width: 768px) {
+    .solution__cta-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Seção Solução",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "A solução para sua meta de proteína diária!"
+    },
+    {
+      "type": "textarea",
+      "id": "lead_text",
+      "label": "Texto de Destaque",
+      "default": "Imagine transformar a pausa mais aguardada e saborosa do seu dia em um gesto poderoso para sua saúde muscular e bem‑estar."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrição Principal",
+      "default": "Com WHEYPUCCINO®, o capuccino proteico pioneiro no mundo desde 2015, você não precisa mais escolher entre o prazer e a disciplina. Nutrir seu corpo com a proteína que ele precisa agora é o seu novo hábito delicioso."
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Imagem Principal"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_icon",
+      "label": "Ícone do Badge"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto do Botão",
+      "default": "Comprar Agora"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Link do Botão"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "statistic",
+      "name": "Benefício",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título do Benefício"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrição do Benefício"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Seção Solução",
+      "blocks": [
+        {
+          "type": "statistic",
+          "settings": {
+            "title": "Proteja sua saúde muscular",
+            "description": "a proteína do Wheypuccino ajuda a manter força e vitalidade em qualquer idade."
+          }
+        },
+        {
+          "type": "statistic",
+          "settings": {
+            "title": "Mais sabor, menos culpa",
+            "description": "um verdadeiro cappuccino cremoso e proteico que ajuda a manter a disciplina sem abrir mão do prazer."
+          }
+        },
+        {
+          "type": "statistic",
+          "settings": {
+            "title": "Prazer que vira hábito",
+            "description": "com sabor premium, o Wheypuccino transforma nutrição e benefícios em uma rotina extremamente deliciosa."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

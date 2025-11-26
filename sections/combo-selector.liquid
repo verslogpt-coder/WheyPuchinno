@@ -1,0 +1,251 @@
+{% comment %}
+  Seletor de Sabores com Quantidades por Produto (Combo)
+  - Use blocos para configurar os produtos componentes e as quantidades exigidas.
+  - O cliente distribui a quantidade entre sabores (variantes) e, no envio, todos os itens são adicionados ao carrinho via /cart/add.js.
+
+  Observações importantes:
+  - Se cada combo precisa ter um preço único (um SKU só), considere usar Shopify Bundles. Este seletor soma os itens individuais no carrinho.
+  - Se a opção de sabor tiver outro nome (ex.: "Flavor"), ajuste no bloco.
+{% endcomment %}
+
+<section class="combo-selector" aria-label="Monte seu combo">
+  <div class="combo-selector__inner">
+    <h2 class="combo-selector__title">{{ section.settings.title | default: "Monte seu Combo" }}</h2>
+
+    <form id="comboForm" class="combo-form" data-redirect="{{ section.settings.redirect_to_cart | default: true }}">
+      {% for block in section.blocks %}
+        {% if block.type == 'component' and block.settings.component_product != blank %}
+          {% assign product_obj = block.settings.component_product %}
+          {% if product_obj == blank and block.settings.component_product != blank %}
+            {% assign product_obj = all_products[block.settings.component_product] %}
+          {% endif %}
+
+          {% assign required_qty = block.settings.required_qty | default: 1 %}
+          {% assign flavor_option_name = block.settings.flavor_option_name | default: "Sabor" %}
+
+          {% if product_obj %}
+          <div class="combo-component" data-product-id="{{ product_obj.id }}" data-required="{{ required_qty }}">
+            <div class="combo-component__header">
+              <h3 class="combo-component__title">
+                {{ block.settings.component_title | default: product_obj.title }}
+              </h3>
+              <p class="combo-component__info">
+                Selecione {{ required_qty }} unidade(s) de {{ flavor_option_name }} para este produto.
+                Restam: <span class="combo-remaining">{{ required_qty }}</span>
+              </p>
+            </div>
+
+            <div class="combo-component__flavors">
+              {% comment %} Descobrir índice da opção de sabor (case-insensitive) {% endcomment %}
+              {% assign flavor_index = 0 %}
+              {% assign flavor_option_compare = flavor_option_name | downcase %}
+              {% for opt in product_obj.options_with_values %}
+                {% assign opt_name_downcase = opt.name | downcase %}
+                {% if opt_name_downcase == flavor_option_compare %}
+                  {% assign flavor_index = forloop.index0 %}
+                {% endif %}
+              {% endfor %}
+
+              {% comment %}
+                Agrupar por valor de sabor e escolher uma variante disponível para aquele sabor.
+              {% endcomment %}
+              {% assign seen = "" %}
+              {% for v in product_obj.variants %}
+                {% assign flavor_value = v.options[flavor_index] %}
+                {% assign key = "||" | append: flavor_value | append: "||" %}
+                {% unless seen contains key %}
+                  {% assign seen = seen | append: key %}
+                  {% assign variant_id_for_flavor = nil %}
+                  {% for vv in product_obj.variants %}
+                    {% if vv.options[flavor_index] == flavor_value and vv.available %}
+                      {% assign variant_id_for_flavor = vv.id %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+
+                  <div class="flavor-row" data-flavor="{{ flavor_value }}" data-variant-id="{{ variant_id_for_flavor }}">
+                    <div class="flavor-row__label">
+                      <span class="flavor-name">{{ flavor_value }}</span>
+                      {% if variant_id_for_flavor == nil %}
+                        <small class="flavor-unavailable">Indisponível</small>
+                      {% endif %}
+                    </div>
+                    <div class="flavor-row__controls">
+                      <button type="button" class="qty-btn qty-minus" aria-label="Diminuir quantidade">−</button>
+                      <input type="number" class="qty-input" value="0" min="0" max="{{ required_qty }}" {% if variant_id_for_flavor == nil %}disabled{% endif %} />
+                      <button type="button" class="qty-btn qty-plus" aria-label="Aumentar quantidade">+</button>
+                    </div>
+                  </div>
+                {% endunless %}
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      <div class="combo-actions">
+        <button type="submit" class="combo-submit" disabled>Adicionar combo ao carrinho</button>
+        <div class="combo-error" role="alert" aria-live="polite"></div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<style>
+  .combo-selector { padding: 24px 0; }
+  .combo-selector__title { margin: 0 0 16px; font-size: 24px; font-weight: 600; }
+  .combo-component { border: 1px solid #eee; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  .combo-component__header { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  .combo-component__title { margin: 0; font-size: 18px; font-weight: 600; }
+  .combo-component__info { margin: 0; color: #555; font-size: 14px; }
+  .combo-component__flavors { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .flavor-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; }
+  .flavor-row__label { display: flex; align-items: center; gap: 8px; }
+  .flavor-unavailable { color: #b00; }
+  .flavor-row__controls { display: flex; align-items: center; gap: 8px; }
+  .qty-input { width: 56px; text-align: center; height: 36px; border: 1px solid #ddd; border-radius: 6px; }
+  .qty-btn { width: 32px; height: 32px; border: 1px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; line-height: 30px; text-align: center; }
+  .combo-actions { margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+  .combo-submit[disabled] { opacity: 0.5; cursor: not-allowed; }
+  .combo-error { color: #b00; min-height: 20px; font-size: 14px; }
+  @media (min-width: 768px) {
+    .combo-component__flavors { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const form = document.getElementById('comboForm');
+  if (!form) return;
+
+  const components = Array.from(form.querySelectorAll('.combo-component'));
+  const submitBtn = form.querySelector('.combo-submit');
+  const errorBox = form.querySelector('.combo-error');
+
+  function validateAll(){
+    let ok = true;
+    components.forEach(comp => {
+      const required = parseInt(comp.dataset.required, 10) || 0;
+      const inputs = Array.from(comp.querySelectorAll('.qty-input'));
+      const sum = inputs.reduce((acc, el) => acc + (parseInt(el.value, 10) || 0), 0);
+      const remaining = Math.max(0, required - sum);
+      const remEl = comp.querySelector('.combo-remaining');
+      if (remEl) remEl.textContent = remaining;
+      if (sum !== required) ok = false;
+    });
+    submitBtn.disabled = !ok;
+    errorBox.textContent = ok ? '' : 'Distribua as quantidades exatamente como solicitado em cada produto.';
+  }
+
+  components.forEach(comp => {
+    comp.addEventListener('click', (e) => {
+      const required = parseInt(comp.dataset.required, 10) || 0;
+      const row = e.target.closest('.flavor-row');
+      if (!row) return;
+      const input = row.querySelector('.qty-input');
+      if (!input || input.disabled) return;
+
+      const inputs = Array.from(comp.querySelectorAll('.qty-input'));
+      const sumBefore = inputs.reduce((acc, el) => acc + (parseInt(el.value, 10) || 0), 0);
+
+      if (e.target.classList.contains('qty-plus')){
+        if (sumBefore < required){
+          input.value = (parseInt(input.value, 10) || 0) + 1;
+        }
+      } else if (e.target.classList.contains('qty-minus')){
+        input.value = Math.max(0, (parseInt(input.value, 10) || 0) - 1);
+      }
+      validateAll();
+    });
+
+    comp.addEventListener('change', (e) => {
+      if (e.target.classList.contains('qty-input')){
+        const required = parseInt(comp.dataset.required, 10) || 0;
+        let val = parseInt(e.target.value, 10);
+        if (isNaN(val) || val < 0) val = 0;
+        const inputs = Array.from(comp.querySelectorAll('.qty-input'));
+        const sumOthers = inputs.filter(el => el !== e.target)
+          .reduce((acc, el) => acc + (parseInt(el.value, 10) || 0), 0);
+        e.target.value = Math.min(val, Math.max(0, required - sumOthers));
+        validateAll();
+      }
+    });
+  });
+
+  validateAll();
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    errorBox.textContent = '';
+    submitBtn.disabled = true;
+
+    const items = [];
+    components.forEach(comp => {
+      const rows = Array.from(comp.querySelectorAll('.flavor-row'));
+      rows.forEach(row => {
+        const variantId = row.dataset.variantId;
+        const qty = parseInt(row.querySelector('.qty-input').value, 10) || 0;
+        if (variantId && qty > 0){
+          items.push({ id: Number(variantId), quantity: qty, properties: { _bundle: 'Combo personalizado' } });
+        }
+      });
+    });
+
+    if (!items.length){
+      errorBox.textContent = 'Selecione pelo menos 1 unidade em algum produto.';
+      submitBtn.disabled = false;
+      return;
+    }
+
+    try {
+      const res = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items })
+      });
+      if (!res.ok) throw new Error('Falha ao adicionar ao carrinho');
+      await res.json();
+
+      const redirect = String(form.dataset.redirect) === 'true';
+      if (redirect) window.location.href = '/cart';
+      else {
+        submitBtn.disabled = false;
+        // Opcional: disparar evento para atualizar mini-carrinho
+        document.dispatchEvent(new CustomEvent('cart:refresh'));
+      }
+    } catch (err){
+      console.error(err);
+      errorBox.textContent = 'Não foi possível adicionar ao carrinho. Tente novamente.';
+      submitBtn.disabled = false;
+    }
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Combo de Sabores",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Monte seu Combo" },
+    { "type": "checkbox", "id": "redirect_to_cart", "label": "Ir para o carrinho após adicionar", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "component",
+      "name": "Produto do Combo",
+      "limit": 8,
+      "settings": [
+        { "type": "product", "id": "component_product", "label": "Produto componente" },
+        { "type": "text", "id": "component_title", "label": "Título (opcional)" },
+        { "type": "number", "id": "required_qty", "label": "Quantidade exigida", "default": 1 },
+        { "type": "text", "id": "flavor_option_name", "label": "Nome da opção de sabor", "default": "Sabor" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Combo de Sabores" }
+  ]
+}
+{% endschema %}
+

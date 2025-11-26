@@ -1,0 +1,23 @@
+{% comment %}
+  Template especial para retornar apenas os itens do carrinho via AJAX
+{% endcomment %}
+
+<div id="cart-drawer-items">
+  {% if cart.item_count > 0 %}
+    {% render 'cart-drawer-items' %}
+  {% else %}
+    <div class="cart-drawer__empty">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8401 21H6.16012C4.99512 21 4.07712 20.008 4.16612 18.847L4.92912 8.924C4.96912 8.402 5.40312 8 5.92612 8H18.0741C18.5971 8 19.0311 8.402 19.0711 8.923L19.8341 18.846C19.9241 20.008 19.0051 21 17.8401 21V21Z" stroke="#5A3838" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8 8V7V7C8 4.791 9.791 3 12 3V3C14.209 3 16 4.791 16 7V7V8" stroke="#5A3838" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h3>Seu carrinho está vazio</h3>
+      <p>Adicione produtos para começar suas compras!</p>
+      <a href="/collections/all" class="cart-drawer__continue-btn">Continuar Comprando</a>
+    </div>
+  {% endif %}
+</div>
+
+
+
+

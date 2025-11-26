@@ -1,0 +1,42 @@
+{% comment %}
+  Renders a product media gallery
+
+  Accepts:
+  - variant_images: {Array} Array of variant images
+
+  Usage:
+  {% render 'product-media-gallery', variant_images: variant_images %}
+{% endcomment %}
+
+{%- if product.media.size > 0 -%}
+  <div class="product__media-wrapper">
+    <div class="product__media-list">
+      {%- for media in product.media -%}
+        <div class="product__media-item" data-media-id="{{ media.id }}">
+          {%- case media.media_type -%}
+            {%- when 'image' -%}
+              <img
+                src="{{ media | image_url: width: 1946 }}"
+                alt="{{ media.alt | escape }}"
+                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                width="{{ media.width }}"
+                height="{{ media.height }}"
+              >
+            {%- when 'video' -%}
+              {{ media | video_tag: controls: true, muted: true }}
+            {%- when 'external_video' -%}
+              {{ media | external_video_tag }}
+            {%- when 'model' -%}
+              {{ media | model_viewer_tag }}
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- else -%}
+  <div class="product__media-wrapper">
+    <div class="product__media-item">
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  </div>
+{%- endif -%}

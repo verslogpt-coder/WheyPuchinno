@@ -1,0 +1,220 @@
+{% comment %}
+  Seção de Depoimentos
+  Lista de benefícios + carrossel de depoimentos em vídeo
+{% endcomment %}
+
+<!-- 5ª Seção - Depoimentos -->
+<section class="testimonials" aria-label="Depoimentos" data-layer="Section/Testimonials">
+  <div class="container testimonials__inner">
+    <div class="testimonials__left">
+      <span class="chip chip--info" aria-hidden="true">
+        <span class="chip__icon" aria-hidden="true">
+          {% if section.settings.chip_icon %}
+            <img src="{{ section.settings.chip_icon | image_url: width: 24 }}" alt="" width="24" height="27" />
+          {% else %}
+            <img src="{{ 'header.svg' | asset_url }}" alt="" width="24" height="27" />
+          {% endif %}
+        </span>
+        {{ section.settings.chip_text | default: "Prepare-se" }}
+      </span>
+      <h2 class="testimonials__title">{{ section.settings.title | default: "Energia que Alimenta e não que esgota;" }}</h2>
+      <ul class="testimonials__bullets">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'benefit' %}
+              <li>
+                <span class="bullet__icon">
+                  {% if block.settings.icon %}
+                    <img src="{{ block.settings.icon | image_url: width: 20 }}" alt="" width="20" height="20" />
+                  {% else %}
+                    <img src="{{ 'biceps.svg' | asset_url }}" alt="" width="20" height="20" />
+                  {% endif %}
+                </span>
+                <div class="bullet__content"><span>{{ block.settings.text }}</span></div>
+              </li>
+          {% endcase %}
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="testimonials__carousel">
+      <div class="t-rail">
+        <div class="t-track">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'testimonial' %}
+                <article class="t-card">
+                  {% if block.settings.image %}
+                    <img class="t-card__img" src="{{ block.settings.image | image_url: width: 300 }}" alt="{{ block.settings.name }}, {{ block.settings.role }}" />
+                  {% else %}
+                    <img class="t-card__img" src="{{ 'image 19.png' | asset_url }}" alt="{{ block.settings.name }}, {{ block.settings.role }}" />
+                  {% endif %}
+                  <div class="t-card__overlay"></div>
+                  {% if block.settings.has_video %}
+                    <button class="t-card__play" aria-label="Assistir vídeo da {{ block.settings.name }}">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="11" stroke="#FFFCFC" stroke-width="2"/>
+                        <path d="M10 8L16 12L10 16V8Z" fill="#FFFCFC"/>
+                      </svg>
+                    </button>
+                  {% endif %}
+                  <div class="t-card__meta">
+                    <strong>{{ block.settings.name }}</strong>
+                    <span>{{ block.settings.role }}</span>
+                  </div>
+                </article>
+            {% endcase %}
+          {% endfor %}
+          
+          <!-- Duplicado para efeito de loop -->
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'testimonial' %}
+                <article class="t-card">
+                  {% if block.settings.image %}
+                    <img class="t-card__img" src="{{ block.settings.image | image_url: width: 300 }}" alt="{{ block.settings.name }}, {{ block.settings.role }}" />
+                  {% else %}
+                    <img class="t-card__img" src="{{ 'image 19.png' | asset_url }}" alt="{{ block.settings.name }}, {{ block.settings.role }}" />
+                  {% endif %}
+                  <div class="t-card__overlay"></div>
+                  <div class="t-card__meta">
+                    <strong>{{ block.settings.name }}</strong>
+                    <span>{{ block.settings.role }}</span>
+                  </div>
+                </article>
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Depoimentos Wheypuccino",
+  "settings": [
+    {
+      "type": "text",
+      "id": "chip_text",
+      "label": "Texto do Chip",
+      "default": "Prepare-se"
+    },
+    {
+      "type": "image_picker",
+      "id": "chip_icon",
+      "label": "Ícone do Chip"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "Energia que Alimenta e não que esgota;"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefício",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto do Benefício"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Ícone do Benefício"
+        }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Depoimento",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nome da Pessoa"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Função/Profissão"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Foto da Pessoa"
+        },
+        {
+          "type": "checkbox",
+          "id": "has_video",
+          "label": "Tem Vídeo",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Depoimentos Wheypuccino",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Aporte proteico no seu dia;"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Rotina cada vez mais saudável;"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Praticidade inteligente, pronto em 1 minuto;"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "text": "Sabor Irresistível, cremoso e marcante de um verdadeiro capuccino."
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Alana Passos",
+            "role": "Corredora"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Silvio Rocha",
+            "role": "Atleta"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Patrick Fernando",
+            "role": "Atleta"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "name": "Lucas",
+            "role": "Amador"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

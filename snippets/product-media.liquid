@@ -1,0 +1,120 @@
+{% comment %}
+  Renders a product media for modal
+
+  Accepts:
+  - media: {Object} Product Media object
+  - loop: {Boolean} Enable video looping
+  - variant_images: {Array} Array of variant images
+  - sectionId: {String} Section id
+
+  Usage:
+  {% render 'product-media', media: media, loop: loop %}
+{% endcomment %}
+
+{%- liquid
+  assign image_set = false
+  assign image_set_group = ''
+  if variant_images != null and media.alt contains '#'
+    assign image_set_full = media.alt | split: '#' | last
+    if image_set_full contains '_'
+      assign image_set = true
+      assign image_set_group = image_set_full | split: '_' | first
+    endif
+  endif
+-%}
+
+<div
+  class="product-media-container media-type-{{ media.media_type }} media-fit-{{ section.settings.media_fit }} global-media-settings{% if image_set %} media-set media-set--{{ image_set_group }}{% endif %}{% unless featured_media == media %} js{% endunless %}"
+  {% if image_set %}
+    data-media-set="{{ image_set_group }}"
+  {% endif %}
+  data-media-id="template--{{ template.id }}__{{ sectionId }}-{{ media.id }}"
+  tabindex="-1"
+>
+  {%- case media.media_type -%}
+    {%- when 'image' -%}
+      <div class="product-media-container__inner">
+        {{
+          media
+          | image_url: width: media.width
+          | image_tag:
+            loading: 'lazy',
+            sizes: '90vw',
+            widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946, 2048',
+            class: 'product__modal-image',
+            alt: media.alt
+          | escape
+        }}
+      </div>
+    {%- when 'external_video' -%}
+      <deferred-media class="deferred-media media" data-media-id="{{ media.id }}">
+        <button
+          id="Deferred-Poster-Modal-{{ media.id }}"
+          class="deferred-media__poster"
+          type="button"
+        >
+          <span class="deferred-media__poster-button motion-reduce">
+            {%- render 'icon-play' -%}
+          </span>
+          {{
+            media.preview_image
+            | image_url: width: 1946
+            | image_tag: loading: 'lazy', sizes: '90vw', widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+          }}
+        </button>
+        <template>
+          {%- if media.host == 'youtube' -%}
+            <iframe
+              src="https://www.youtube.com/embed/{{ media.external_id }}?enablejsapi=1&autoplay=1{% if loop %}&loop=1&playlist={{ media.external_id }}{% endif %}"
+              class="js-youtube"
+              allow="autoplay; encrypted-media"
+              allowfullscreen
+              title="{{ media.alt | escape }}"
+            ></iframe>
+          {%- else -%}
+            <iframe
+              src="https://player.vimeo.com/video/{{ media.external_id }}?autoplay=1{% if loop %}&loop=1{% endif %}"
+              class="js-vimeo"
+              allow="autoplay; encrypted-media"
+              allowfullscreen
+              title="{{ media.alt | escape }}"
+            ></iframe>
+          {%- endif -%}
+        </template>
+      </deferred-media>
+    {%- when 'video' -%}
+      <deferred-media class="deferred-media media" data-media-id="{{ media.id }}">
+        <button
+          id="Deferred-Poster-Modal-{{ media.id }}"
+          class="deferred-media__poster"
+          type="button"
+        >
+          <span class="deferred-media__poster-button motion-reduce">
+            {%- render 'icon-play' -%}
+          </span>
+          {{
+            media.preview_image
+            | image_url: width: 1946
+            | image_tag: loading: 'lazy', sizes: '90vw', widths: '246, 493, 600, 713, 823, 990, 1100, 1206, 1346, 1426, 1646, 1946'
+          }}
+        </button>
+        <template>
+          {{
+            media
+            | video_tag:
+              image_size: '2048x2048',
+              autoplay: true,
+              loop: loop,
+              controls: true,
+              preload: 'none',
+              muted: false
+          }}
+        </template>
+      </deferred-media>
+    {%- when 'model' -%}
+      <product-model data-model-id="{{ media.id }}">
+        {{ media | model_viewer_tag: image_size: '2048x2048', reveal: 'interaction', toggleable: true }}
+      </product-model>
+  {%- endcase -%}
+</div>
+

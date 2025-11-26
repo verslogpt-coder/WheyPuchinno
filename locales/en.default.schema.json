@@ -1,0 +1,210 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "general": {
+    "404": "Not found",
+    "article": "Article",
+    "block": "Block",
+    "blog": "Blog",
+    "cart": "Cart",
+    "collection": "Collection",
+    "collections": "Collections",
+    "collection_card": "Collection card",
+    "collections_grid": "Collections grid",
+    "colors": "Colors",
+    "column": "Column",
+    "content": "Content",
+    "custom_section": "Custom section",
+    "fonts": "Fonts",
+    "footer": "Footer",
+    "group": "Group",
+    "header": "Header",
+    "layout": "Layout",
+    "main": "Main",
+    "page": "Page",
+    "password": "Password",
+    "primary": "Primary",
+    "product": "Product",
+    "row": "Row",
+    "search": "Search",
+    "secondary": "Secondary",
+    "section": "Section",
+    "settings": "Settings",
+    "sidebar": "Sidebar",
+    "text": "Text",
+    "theme": "Theme",
+    "typography": "Typography"
+  },
+  "labels": {
+    "alignment": "Alignment",
+    "background": "Background",
+    "foreground": "Foreground",
+    "grid_gap": "Grid spacing",
+    "grid_item_width": "Grid item width",
+    "input_corner_radius": "Input corner radius",
+    "layout_direction": "Layout direction",
+    "menu": "Menu",
+    "padding": "Padding",
+    "page_margin": "Page margin",
+    "page_width": "Page width",
+    "show_payment_icons": "Show payment icons",
+    "text_style": "Text style",
+    "text": "Text"
+  },
+  "options": {
+    "alignment": {
+      "left": "Left",
+      "center": "Center",
+      "right": "Right"
+    },
+    "direction": {
+      "horizontal": "Horizontal",
+      "vertical": "Vertical"
+    },
+    "page_width": {
+      "narrow": "Narrow",
+      "wide": "Wide"
+    },
+    "size": {
+      "large": "Large",
+      "small": "Small"
+    },
+    "text_style": {
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "normal": "Normal text"
+    }
+  },
+  "sections": {
+    "all": {
+      "padding": {
+        "section_padding_heading": "Section padding",
+        "padding_top": "Top padding",
+        "padding_bottom": "Bottom padding"
+      },
+      "colors": {
+        "label": "Color scheme"
+      }
+    },
+    "main-product": {
+      "name": "Product information",
+      "blocks": {
+        "text": {
+          "name": "Text"
+        },
+        "title": {
+          "name": "Title"
+        },
+        "price": {
+          "name": "Price"
+        },
+        "quantity_selector": {
+          "name": "Quantity selector"
+        },
+        "variant_picker": {
+          "name": "Variant picker"
+        },
+        "buy_buttons": {
+          "name": "Buy buttons"
+        },
+        "share": {
+          "name": "Share"
+        }
+      },
+      "settings": {
+        "enable_sticky_info": {
+          "label": "Enable sticky product information",
+          "info": "Keep product information visible when scrolling"
+        },
+        "media_size": {
+          "label": "Media size",
+          "options__1": {
+            "label": "Small"
+          },
+          "options__2": {
+            "label": "Medium"
+          },
+          "options__3": {
+            "label": "Large"
+          }
+        },
+        "constrain_to_viewport": {
+          "label": "Constrain media height to screen"
+        },
+        "media_fit": {
+          "label": "Media fit",
+          "options__1": {
+            "label": "Contain"
+          },
+          "options__2": {
+            "label": "Cover"
+          }
+        },
+        "gallery_layout": {
+          "label": "Desktop layout",
+          "options__1": {
+            "label": "Stacked"
+          },
+          "options__2": {
+            "label": "Columns"
+          },
+          "options__3": {
+            "label": "Thumbnails"
+          },
+          "options__4": {
+            "label": "Thumbnail slider"
+          }
+        },
+        "media_position": {
+          "label": "Desktop media position",
+          "options__1": {
+            "label": "Left"
+          },
+          "options__2": {
+            "label": "Right"
+          }
+        },
+        "image_zoom": {
+          "label": "Image zoom",
+          "options__1": {
+            "label": "Open lightbox"
+          },
+          "options__2": {
+            "label": "Zoom on hover"
+          },
+          "options__3": {
+            "label": "No zoom"
+          }
+        },
+        "mobile_thumbnails": {
+          "label": "Mobile layout",
+          "options__1": {
+            "label": "Thumbnails in columns"
+          },
+          "options__2": {
+            "label": "Show thumbnails"
+          },
+          "options__3": {
+            "label": "Hide thumbnails"
+          }
+        },
+        "hide_variants": {
+          "label": "Hide variant media from gallery"
+        },
+        "enable_video_looping": {
+          "label": "Enable video looping"
+        },
+        "header": {
+          "content": "Media"
+        }
+      }
+    }
+  }
+}

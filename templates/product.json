@@ -1,0 +1,471 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "rating_count": "2939 avaliações",
+        "qty1_title": "1 Unidade",
+        "qty1_info": "Rende 18 doses",
+        "qty2_title": "2 Unidades",
+        "qty2_info": "Rende 36 doses",
+        "qty2_discount": 8,
+        "qty3_title": "3 Unidades",
+        "qty3_info": "Rende 54 doses",
+        "qty3_discount": 12,
+        "qty3_badge": "Frete Grátis!",
+        "badge1_text": "Entrega rápida",
+        "badge2_text": "Frete grátis",
+        "badge3_text": "Garantia",
+        "button_text": "Comprar Agora"
+      }
+    },
+    "product_features_MgNRGT": {
+      "type": "product-features",
+      "blocks": {
+        "feature_tgMmRx": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify://shop_images/Clip_path_group-3.png",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"#F44027\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"></polygon></svg>",
+            "title": "Energético",
+            "description": "Sabor e Energia",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "feature_BiHfBf": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify://shop_images/Clip_path_group-4.png",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"#F44027\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1\"></path><path d=\"M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.9.94 5.34 2.81 7.76\"></path><path d=\"M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6\"></path><path d=\"M12 5v8\"></path></svg>",
+            "title": "Saboroso",
+            "description": "Sabor e Energia",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "feature_RyWM8R": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify://shop_images/Clip_path_group.png",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"#F44027\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"></polyline></svg>",
+            "title": "Prático",
+            "description": "Sabor e Energia",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "feature_LnzUfe": {
+          "type": "feature",
+          "settings": {
+            "icon_image": "shopify://shop_images/Clip_path_group-2.png",
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"50\" height=\"50\" viewbox=\"0 0 24 24\" fill=\"none\" stroke=\"#F44027\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 12h-4l-3 9L9 3l-3 9H2\"></path></svg>",
+            "title": "Nutritivo",
+            "description": "Sabor e Energia",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_tgMmRx",
+        "feature_BiHfBf",
+        "feature_RyWM8R",
+        "feature_LnzUfe"
+      ],
+      "settings": {
+        "product_image": "shopify://shop_images/cioccolato_1_0f81f20f-b5e5-47e0-a084-e9124d2559c5.png"
+      }
+    },
+    "solution_section_K3cky9": {
+      "type": "solution-section",
+      "blocks": {
+        "statistic_fJcx73": {
+          "type": "statistic",
+          "settings": {
+            "title": "Proteja sua saúde muscular",
+            "description": "a proteína do Wheypuccino ajuda a manter força e vitalidade em qualquer idade."
+          }
+        },
+        "statistic_NprBEr": {
+          "type": "statistic",
+          "settings": {
+            "title": "Mais sabor, menos culpa",
+            "description": "um verdadeiro cappuccino cremoso e proteico que ajuda a manter a disciplina sem abrir mão do prazer."
+          }
+        },
+        "statistic_PmNFLP": {
+          "type": "statistic",
+          "settings": {
+            "title": "Prazer que vira hábito",
+            "description": "com sabor premium, o Wheypuccino transforma nutrição e benefícios em uma rotina extremamente deliciosa."
+          }
+        }
+      },
+      "block_order": [
+        "statistic_fJcx73",
+        "statistic_NprBEr",
+        "statistic_PmNFLP"
+      ],
+      "name": "Seção Solução",
+      "settings": {
+        "title": "A solução para sua meta de proteína diária!",
+        "lead_text": "Imagine transformar a pausa mais aguardada e saborosa do seu dia em um gesto poderoso para sua saúde muscular e bem‑estar.",
+        "description": "Com WHEYPUCCINO®, o capuccino proteico pioneiro no mundo desde 2015, você não precisa mais escolher entre o prazer e a disciplina. Nutrir seu corpo com a proteína que ele precisa agora é o seu novo hábito delicioso.",
+        "main_image": "shopify://shop_images/image_34.png"
+      }
+    },
+    "how_to_prepare_HHxcLQ": {
+      "type": "how-to-prepare",
+      "blocks": {
+        "wheypuccino_step_VTzX9V": {
+          "type": "wheypuccino_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61314.svg",
+            "title": "Passo",
+            "description": ""
+          }
+        },
+        "wheypuccino_step_cWBpTW": {
+          "type": "wheypuccino_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61315.svg",
+            "title": "Passo",
+            "description": ""
+          }
+        },
+        "wheypuccino_step_Ef9dDW": {
+          "type": "wheypuccino_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61316.svg",
+            "title": "Passo",
+            "description": ""
+          }
+        },
+        "chococaps_step_gEdqEg": {
+          "type": "chococaps_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61309.svg",
+            "title": "Passo",
+            "description": ""
+          }
+        },
+        "chococaps_step_64MbyW": {
+          "type": "chococaps_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61310.svg",
+            "title": "Passo",
+            "description": ""
+          }
+        },
+        "chococaps_step_3qTBT6": {
+          "type": "chococaps_step",
+          "settings": {
+            "step_image": "shopify://shop_images/Group_61311.svg",
+            "title": "Passo",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "wheypuccino_step_VTzX9V",
+        "wheypuccino_step_cWBpTW",
+        "wheypuccino_step_Ef9dDW",
+        "chococaps_step_gEdqEg",
+        "chococaps_step_64MbyW",
+        "chococaps_step_3qTBT6"
+      ],
+      "name": "Como preparar",
+      "settings": {
+        "kicker": "Guia rápido",
+        "title": "Como preparar",
+        "subtitle": "Siga os passos simples para o preparo perfeito.",
+        "reels_url": "https://cdn.shopify.com/videos/c/o/v/70afcaaddffb4b70b6d4d375507d6f03.mp4"
+      }
+    },
+    "how_to_use_DFT4kW": {
+      "type": "how-to-use",
+      "blocks": {
+        "card_jKcmzP": {
+          "type": "card",
+          "settings": {
+            "title": "Com café de verdade!",
+            "description": "Feito com café de verdade para garantir o sabor e a energia que você sente a cada golpe.",
+            "icon": "<svg width=\"24\" height=\"31\" viewbox=\"0 0 24 31\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17.0021 4.65991V5.31707C17.0021 5.70362 17.0744 6.08485 17.2133 6.43059L18.5827 9.83869C18.859 10.5241 19.0029 11.2804 19.0029 12.0472C19.0029 14.8189 19.0029 21.2162 19.0029 22.9689C19.0029 23.2135 18.9709 23.4565 18.9081 23.6882L18.4935 25.2358C18.244 26.31 17.4589 27.0545 16.5604 27.069H7.43959C6.57836 27.069 5.81376 26.3832 5.54142 25.3665L5.20244 24.101C5.06641 23.594 4.99707 23.0629 4.99707 22.5283C4.99707 20.3261 4.99707 14.6221 4.99707 12.0472C4.99707 11.2804 5.14095 10.5241 5.41725 9.83871L6.78689 6.43004C6.92573 6.08449 6.99798 5.70343 6.9979 5.31708V4.65991\" stroke=\"#FFFCFC\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M11.6284 13.0632L10.4995 15.8644H13.5008L12.3719 18.6655\" stroke=\"#FFFCFC\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M18.9874 23.2521H5.0415\" stroke=\"#FFFCFC\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M18.0946 8.62418H5.90527\" stroke=\"#FFFCFC\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M17.5026 4.65983H6.49805\" stroke=\"#FFFCFC\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "card_8V8NnU": {
+          "type": "card",
+          "settings": {
+            "title": "Whey Protein",
+            "description": "Feito com whey zero lactose de alta qualidade para sua dose extra de proteína.",
+            "icon": "<svg width=\"24\" height=\"31\" viewbox=\"0 0 24 31\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17.0021 4.65991V5.31707C17.0021 5.70362 17.0744 6.08485 17.2133 6.43059L18.5827 9.83869C18.859 10.5241 19.0029 11.2804 19.0029 12.0472C19.0029 14.8189 19.0029 21.2162 19.0029 22.9689C19.0029 23.2135 18.9709 23.4565 18.9081 23.6882L18.4935 25.2358C18.244 26.31 17.4589 27.0545 16.5604 27.069H7.43959C6.57836 27.069 5.81376 26.3832 5.54142 25.3665L5.20244 24.101C5.06641 23.594 4.99707 23.0629 4.99707 22.5283C4.99707 20.3261 4.99707 14.6221 4.99707 12.0472C4.99707 11.2804 5.14095 10.5241 5.41725 9.83871L6.78689 6.43004C6.92573 6.08449 6.99798 5.70343 6.9979 5.31708V4.65991\" stroke=\"#FFFCFC\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M11.6284 13.0632L10.4995 15.8644H13.5008L12.3719 18.6655\" stroke=\"#FFFCFC\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M18.9874 23.2521H5.0415\" stroke=\"#FFFCFC\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M18.0946 8.62418H5.90527\" stroke=\"#FFFCFC\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M17.5026 4.65983H6.49805\" stroke=\"#FFFCFC\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "card_zmTHba": {
+          "type": "card",
+          "settings": {
+            "title": "Vai uma dica!",
+            "description": "Para uma textura ainda mais cremosa e uma dose extra de proteína, misture com leite.",
+            "icon": "<svg width=\"24\" height=\"31\" viewbox=\"0 0 24 31\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M17.0021 4.65991V5.31707C17.0021 5.70362 17.0744 6.08485 17.2133 6.43059L18.5827 9.83869C18.859 10.5241 19.0029 11.2804 19.0029 12.0472C19.0029 14.8189 19.0029 21.2162 19.0029 22.9689C19.0029 23.2135 18.9709 23.4565 18.9081 23.6882L18.4935 25.2358C18.244 26.31 17.4589 27.0545 16.5604 27.069H7.43959C6.57836 27.069 5.81376 26.3832 5.54142 25.3665L5.20244 24.101C5.06641 23.594 4.99707 23.0629 4.99707 22.5283C4.99707 20.3261 4.99707 14.6221 4.99707 12.0472C4.99707 11.2804 5.14095 10.5241 5.41725 9.83871L6.78689 6.43004C6.92573 6.08449 6.99798 5.70343 6.9979 5.31708V4.65991\" stroke=\"#5A3838\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M11.6284 13.0632L10.4995 15.8644H13.5008L12.3719 18.6655\" stroke=\"#5A3838\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M18.9874 23.2521H5.0415\" stroke=\"#5A3838\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M18.0946 8.62418H5.90527\" stroke=\"#5A3838\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path><path d=\"M17.5026 4.65983H6.49805\" stroke=\"#5A3838\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "card_jKcmzP",
+        "card_8V8NnU",
+        "card_zmTHba"
+      ],
+      "name": "Como Usar",
+      "settings": {
+        "title": "Escolha o seu!",
+        "subtitle": "A combinação perfeita entre capuccino e whey protein."
+      }
+    },
+    "carousel_tags_Dx8xTR": {
+      "type": "carousel-tags",
+      "blocks": {
+        "tag_cRXdYr": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Saboroso",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "tag_A4NtWT": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Nutritivo",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "tag_cjKTnT": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Irresistível",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "tag_iJphNr": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Energizante",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "tag_cRXdYr",
+        "tag_A4NtWT",
+        "tag_cjKTnT",
+        "tag_iJphNr"
+      ],
+      "name": "Carrossel de Tags",
+      "settings": {}
+    },
+    "solution_section_L3YHpt": {
+      "type": "solution-section",
+      "blocks": {
+        "statistic_3eadjT": {
+          "type": "statistic",
+          "settings": {
+            "title": "Proteja sua saúde muscular",
+            "description": "a proteína do Wheypuccino ajuda a manter força e vitalidade em qualquer idade."
+          }
+        },
+        "statistic_qqRf99": {
+          "type": "statistic",
+          "settings": {
+            "title": "Mais sabor, menos culpa",
+            "description": "um verdadeiro cappuccino cremoso e proteico que ajuda a manter a disciplina sem abrir mão do prazer."
+          }
+        },
+        "statistic_Jc8D8D": {
+          "type": "statistic",
+          "settings": {
+            "title": "Prazer que vira hábito",
+            "description": "com sabor premium, o Wheypuccino transforma nutrição e benefícios em uma rotina extremamente deliciosa."
+          }
+        }
+      },
+      "block_order": [
+        "statistic_3eadjT",
+        "statistic_qqRf99",
+        "statistic_Jc8D8D"
+      ],
+      "name": "Seção Solução",
+      "settings": {
+        "title": "A solução para sua meta de proteína diária!",
+        "lead_text": "Imagine transformar a pausa mais aguardada e saborosa do seu dia em um gesto poderoso para sua saúde muscular e bem‑estar.",
+        "description": "Com WHEYPUCCINO®, o capuccino proteico pioneiro no mundo desde 2015, você não precisa mais escolher entre o prazer e a disciplina. Nutrir seu corpo com a proteína que ele precisa agora é o seu novo hábito delicioso.",
+        "main_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_13.57.22_b46c9b14.jpg"
+      }
+    },
+    "carousel_tags_rPhnN7": {
+      "type": "carousel-tags",
+      "blocks": {
+        "tag_3tynJC": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Saboroso",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "tag_C6zKht": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Nutritivo",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "tag_9c4ntW": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Irresistível",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        },
+        "tag_kB3Q7k": {
+          "type": "tag",
+          "settings": {
+            "tag_text": "Energizante",
+            "show_icon": true,
+            "icon_svg": "<svg width=\"32\" height=\"33\" viewbox=\"0 0 32 33\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M27 21.4401V11.5601C27 10.6868 26.5347 9.88011 25.7773 9.44278L17.2213 4.50278C16.4653 4.06678 15.5333 4.06678 14.7773 4.50278L6.22267 9.44411C5.46533 9.88011 5 10.6868 5 11.5601V21.4388C5 22.3121 5.46533 23.1188 6.22267 23.5561L14.7787 28.4961C15.5347 28.9321 16.4667 28.9321 17.2227 28.4961L25.7787 23.5561C26.5347 23.1201 27 22.3134 27 21.4401Z\" stroke=\"#F44027\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>"
+          }
+        }
+      },
+      "block_order": [
+        "tag_3tynJC",
+        "tag_C6zKht",
+        "tag_9c4ntW",
+        "tag_kB3Q7k"
+      ],
+      "name": "Carrossel de Tags",
+      "settings": {}
+    },
+    "product_journey_KJg4Yb": {
+      "type": "product-journey",
+      "name": "Jornada do Produto",
+      "settings": {}
+    },
+    "cta_final_AAbknj": {
+      "type": "cta-final",
+      "name": "CTA Final",
+      "settings": {
+        "title": "Escolha o seu!",
+        "subtitle": "A combinação perfeita entre capuccino e whey protein.",
+        "cta_text": "Conhecer Sabores",
+        "cta_url": ""
+      }
+    },
+    "product_videos_LNbVRd": {
+      "type": "product-videos",
+      "name": "Vídeos do Produto",
+      "settings": {
+        "video_url_1": "https://cdn.shopify.com/videos/c/o/v/f79d8dfe5d9a43bab9e49787d1d9b2b6.mp4",
+        "video_url_2": "https://cdn.shopify.com/videos/c/o/v/70147904de26491888757974cd694563.mp4",
+        "video_url_3": "https://cdn.shopify.com/videos/c/o/v/72c589cae017454ba0177522e99da83f.mp4",
+        "video_url_4": "https://cdn.shopify.com/videos/c/o/v/d1ef46474bf9470481f927ee119746a9.mp4",
+        "video_url_5": "https://cdn.shopify.com/videos/c/o/v/15ea176a4c5a4b6dac2264356c9ed6eb.mp4",
+        "video_url_6": "https://cdn.shopify.com/videos/c/o/v/c0575efac51f4ca78c9c5562ca9925fb.mp4"
+      }
+    },
+    "faq_section_Nee6Gq": {
+      "type": "faq-section",
+      "blocks": {
+        "faq_item_wK96Dc": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Como devo preparar o Wheypuccino?",
+            "answer": "Preparar o seu Wheypuccino é simples e delicioso: Basta adicionar 1 scoop (25 g) em 150 ml de água ou leite. Quer um cappuccino quente? Use leite ou água quente e sinta o aroma e a cremosidade do café gourmet. Prefere algo gelado? Misture com leite ou água fria e adicione gelo para um frappuccino cremoso e refrescante. Dica: use um mixer ou mini espumador para deixar a textura ainda mais cremosa. Uma verdadeira experiência Wheypuccino!"
+          }
+        },
+        "faq_item_NcCK4i": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Quais sabores de Wheypuccino estão disponíveis?",
+            "answer": "O Wheypuccino está disponível em três sabores irresistíveis, criados para transformar sua rotina em um momento de prazer: Sabor Original: o equilíbrio perfeito entre café gourmet e cremosidade. Chocolate Suíço: intenso e aveludado, com notas de cacau premium. Caramelo: toque adocicado e sofisticado, para quem gosta de um sabor marcante."
+          }
+        },
+        "faq_item_URVfVU": {
+          "type": "faq_item",
+          "settings": {
+            "question": "O Wheypuccino contém cafeína?",
+            "answer": "Sim, o Wheypuccino é feito com café gourmet premium, que naturalmente contém cafeína. Mas diferente de bebidas energéticas tradicionais, ele oferece uma energia inteligente, que alimenta e sustenta o corpo, em vez de esgotar. Cada dose proporciona foco, disposição, bem-estar e saciedade, sem exageros."
+          }
+        },
+        "faq_item_FPMrY3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "O produto é adequado para dietas vegetarianas ou veganas?",
+            "answer": "O Wheypuccino contém proteína do soro do leite (whey protein zero lactose) em sua composição, por isso, não é indicado para dietas veganas. Mas ele é totalmente adequado para dietas vegetarianas, pois não contém carne, ovos ou outros derivados. É uma opção perfeita para quem busca energia inteligente, nutrição e sabor, com o equilíbrio do café gourmet e proteína de mais alta qualidade. Fica de olho: a versão vegana do Wheypuccino já está nos nossos planos para o futuro!"
+          }
+        },
+        "faq_item_ER3NKV": {
+          "type": "faq_item",
+          "settings": {
+            "question": "O Wheypuccino pode ser consumido quente ou frio?",
+            "answer": "O Wheypuccino foi criado para ser versátil e delicioso em qualquer temperatura. Quente, ele se transforma em um cappuccino cremoso, com aroma intenso e sabor marcante. Perfeito para começar o dia ou relaxar. Gelado, vira um frappuccino refrescante, ideal para os dias quentes ou depois do treino. A fórmula do Wheypuccino foi desenvolvida para dissolver facilmente, mantendo a textura cremosa e o sabor equilibrado em ambas as versões. Um produto inteligente, feito para se adaptar ao seu momento. Do aconchego ao movimento."
+          }
+        },
+        "faq_item_DDQWxJ": {
+          "type": "faq_item",
+          "settings": {
+            "question": "O Wheypuccino substitui uma refeição completa?",
+            "answer": "O Wheypuccino não foi criado para substituir uma refeição completa, mas sim para complementar sua rotina alimentar de forma prática e saborosa. Cada dose oferece proteína de alta qualidade, energia inteligente e o prazer de um café gourmet. Ideal para momentos como: início do dia, intervalo do trabalho ou dos estudos, pré ou pós-treino. Pode ser combinado com frutas, pães, tapiocas ou outros alimentos leves, tornando-se uma opção equilibrada e nutritiva quando você precisa de praticidade sem abrir mão do sabor."
+          }
+        }
+      },
+      "block_order": [
+        "faq_item_wK96Dc",
+        "faq_item_NcCK4i",
+        "faq_item_URVfVU",
+        "faq_item_FPMrY3",
+        "faq_item_ER3NKV",
+        "faq_item_DDQWxJ"
+      ],
+      "name": "Seção FAQ",
+      "settings": {
+        "chip_text": "Prepare-se",
+        "title": "Perguntas frequentes",
+        "contact_title": "Ainda tem dúvidas?",
+        "contact_text": "Entre em contato com o nosso suporte via whatsapp, estamos prontos para lhe atender."
+      }
+    },
+    "17609701669cb147d5": {
+      "type": "apps",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "product_features_MgNRGT",
+    "solution_section_K3cky9",
+    "how_to_prepare_HHxcLQ",
+    "how_to_use_DFT4kW",
+    "carousel_tags_Dx8xTR",
+    "solution_section_L3YHpt",
+    "carousel_tags_rPhnN7",
+    "product_journey_KJg4Yb",
+    "cta_final_AAbknj",
+    "product_videos_LNbVRd",
+    "faq_section_Nee6Gq",
+    "17609701669cb147d5"
+  ]
+}

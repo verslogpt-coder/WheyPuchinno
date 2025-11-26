@@ -1,0 +1,104 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "prescritor-section-3110",
+      "settings": {
+        "logo": "shopify://shop_images/Vector_349aab9f-6395-4969-98bd-424c8343a9bd.svg",
+        "background": "",
+        "badge_text": "",
+        "title": "Indique Wheypuccino e transforme a rotina dos seus pacientes",
+        "subtitle": "Ofereça saúde, energia e bem-estar com uma marca de confiançae qualidade premium.",
+        "richtext": "",
+        "image": "shopify://shop_images/Vector_349aab9f-6395-4969-98bd-424c8343a9bd.svg",
+        "cta_label": "",
+        "cta_url": ""
+      }
+    },
+    "prescritor_3124": {
+      "type": "prescritor-section-3124",
+      "blocks": {
+        "item_j6cdga": {
+          "type": "item",
+          "settings": {
+            "heading": "Qualidade assegurada",
+            "text": "Zero lactose, sabor incrivelmente bom"
+          }
+        },
+        "item_aqeHQQ": {
+          "type": "item",
+          "settings": {
+            "heading": "Confiança",
+            "text": "Zero adição de açucar, energia e bestar com uma marca de confiança"
+          }
+        },
+        "item_izVKWc": {
+          "type": "item",
+          "settings": {
+            "heading": "Suporte exclusivo",
+            "text": "Materiais científicos e técnicos, testes especiais."
+          }
+        },
+        "item_yNFXiz": {
+          "type": "item",
+          "settings": {
+            "heading": "Valorização comerciais",
+            "text": "Materiais científicos e técnicos, testes especiais."
+          }
+        }
+      },
+      "block_order": [
+        "item_j6cdga",
+        "item_aqeHQQ",
+        "item_izVKWc",
+        "item_yNFXiz"
+      ],
+      "settings": {
+        "background": "",
+        "title": "Por que serprescritor Wheypuccino"
+      }
+    },
+    "prescritor_3143": {
+      "type": "prescritor-section-3143",
+      "settings": {
+        "background": "",
+        "title": ""
+      }
+    },
+    "prescritor_3176": {
+      "type": "prescritor-section-3176",
+      "settings": {
+        "background": "",
+        "title": "",
+        "subtitle": ""
+      }
+    },
+    "prescritor_3220": {
+      "type": "prescritor-section-3220",
+      "settings": {
+        "background": "",
+        "title": "",
+        "text": "",
+        "cta_label": "",
+        "cta_url": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "prescritor_3124",
+    "prescritor_3143",
+    "prescritor_3176",
+    "prescritor_3220"
+  ]
+}
+
+

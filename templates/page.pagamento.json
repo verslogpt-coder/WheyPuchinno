@@ -1,0 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "pagamento_hero": {
+      "type": "pagamento-hero",
+      "settings": {
+        "title": "Pagamento",
+        "subtitle": "Formas de pagamento seguras e flexíveis",
+        "background_color": "#5A3838",
+        "text_color": "#FFFFFF"
+      }
+    },
+    "pagamento_content": {
+      "type": "pagamento-content",
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "pagamento_hero",
+    "pagamento_content"
+  ]
+}

@@ -1,0 +1,326 @@
+{% comment %}
+  Seção: Como Preparar
+  Guia de preparo com passos e dicas seguindo identidade visual.
+{% endcomment %}
+
+<section class="howto" aria-label="Como preparar">
+  <div class="howto__container">
+    <header class="howto__header">
+      {% if section.settings.kicker != blank %}
+        <span class="howto__kicker">{{ section.settings.kicker }}</span>
+      {% endif %}
+      <h1 class="howto__title">{{ section.settings.title | default: 'Como preparar' }}</h1>
+      {% if section.settings.subtitle != blank %}
+        <p class="howto__subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </header>
+
+    <!-- Tabs de Produto -->
+    <div class="howto__tabs">
+      <button class="howto__tab howto__tab--active" data-tab="wheypuccino">Wheypuccino</button>
+      <button class="howto__tab" data-tab="chococaps">Chococaps</button>
+    </div>
+
+    <!-- Conteúdo Wheypuccino -->
+    <div class="howto__grid howto__grid--wheypuccino howto__tab-content howto__tab-content--active" data-content="wheypuccino">
+      <!-- Vídeo à esquerda -->
+      <div class="howto__media">
+        {% if section.settings.reels_url != blank %}
+          <div class="howto__reels">
+            <video 
+              class="howto__video"
+              src="{{ section.settings.reels_url }}"
+              playsinline
+              muted
+              loop
+              autoplay
+              controlslist="nodownload noplaybackrate nofullscreen"
+              disablepictureinpicture
+              oncontextmenu="return false;"
+              poster="{{ section.settings.reels_poster | image_url: width: 900 }}">
+            </video>
+          </div>
+        {% else %}
+          <div class="howto__reels howto__reels--placeholder">
+            <div class="howto__video--ph"></div>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Quadradinhos de imagens à direita -->
+      <div class="howto__content">
+        <div class="howto__steps-images howto__steps-images--wheypuccino">
+          {% assign wheypuccino_blocks = section.blocks | where: "type", "wheypuccino_step" %}
+          {% if wheypuccino_blocks.size > 0 %}
+            {% for block in wheypuccino_blocks %}
+              <div class="howto-step-image" {{ block.shopify_attributes }}>
+                {% if block.settings.step_image != blank %}
+                  <img src="{{ block.settings.step_image | image_url: width: 600 }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% else %}
+                  <div class="howto-step-image-placeholder">
+                    <span>{{ forloop.index }}</span>
+                  </div>
+                {% endif %}
+                <div class="howto-step-image-caption">
+                  <h3 class="howto-step-image-title">{{ forloop.index }}. {{ block.settings.title }}</h3>
+                  {% if block.settings.description != blank %}
+                    <p class="howto-step-image-desc">{{ block.settings.description }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="howto-step-image">
+              <div class="howto-step-image-placeholder">
+                <span>1</span>
+              </div>
+              <div class="howto-step-image-caption">
+                <h3 class="howto-step-image-title">1. Adicione 2 colheres (30g)</h3>
+                <p class="howto-step-image-desc">Coloque o Wheypuccino em uma caneca de 250 ml.</p>
+              </div>
+            </div>
+            <div class="howto-step-image">
+              <div class="howto-step-image-placeholder">
+                <span>2</span>
+              </div>
+              <div class="howto-step-image-caption">
+                <h3 class="howto-step-image-title">2. Acrescente 200 ml de água quente</h3>
+                <p class="howto-step-image-desc">Quente porém sem ferver, para manter a cremosidade.</p>
+              </div>
+            </div>
+            <div class="howto-step-image">
+              <div class="howto-step-image-placeholder">
+                <span>3</span>
+              </div>
+              <div class="howto-step-image-caption">
+                <h3 class="howto-step-image-title">3. Misture e aproveite</h3>
+                <p class="howto-step-image-desc">Mexa por 10–15 segundos até ficar homogêneo.</p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Conteúdo Chococaps -->
+    <div class="howto__grid howto__grid--chococaps howto__tab-content" data-content="chococaps">
+      <div class="howto__content howto__content--full">
+        <div class="howto__steps-images">
+          {% assign chococaps_blocks = section.blocks | where: "type", "chococaps_step" %}
+          {% if chococaps_blocks.size > 0 %}
+            {% for block in chococaps_blocks %}
+              <div class="howto-step-image" {{ block.shopify_attributes }}>
+                {% if block.settings.step_image != blank %}
+                  <img src="{{ block.settings.step_image | image_url: width: 800 }}" alt="{{ block.settings.title }}" loading="lazy">
+                {% else %}
+                  <div class="howto-step-image-placeholder">
+                    <span>{{ forloop.index }}</span>
+                  </div>
+                {% endif %}
+                <div class="howto-step-image-caption">
+                  <h3 class="howto-step-image-title">{{ forloop.index }}. {{ block.settings.title }}</h3>
+                  {% if block.settings.description != blank %}
+                    <p class="howto-step-image-desc">{{ block.settings.description }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="howto-step-image">
+              <div class="howto-step-image-placeholder">
+                <span>1</span>
+              </div>
+              <div class="howto-step-image-caption">
+                <h3 class="howto-step-image-title">1. Adicione 2 colheres (30g)</h3>
+                <p class="howto-step-image-desc">Coloque o Chococaps em uma caneca de 250 ml.</p>
+              </div>
+            </div>
+            <div class="howto-step-image">
+              <div class="howto-step-image-placeholder">
+                <span>2</span>
+              </div>
+              <div class="howto-step-image-caption">
+                <h3 class="howto-step-image-title">2. Acrescente 200 ml de água quente ou leite</h3>
+                <p class="howto-step-image-desc">Quente porém sem ferver, para manter a cremosidade.</p>
+              </div>
+            </div>
+            <div class="howto-step-image">
+              <div class="howto-step-image-placeholder">
+                <span>3</span>
+              </div>
+              <div class="howto-step-image-caption">
+                <h3 class="howto-step-image-title">3. Misture e aproveite</h3>
+                <p class="howto-step-image-desc">Mexa por 10–15 segundos até ficar homogêneo.</p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .howto { background: #EFEFEF; padding: 60px 0; }
+  .howto__container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  .howto__header { text-align: center; margin-bottom: 32px; }
+  .howto__kicker { display:inline-block; padding:6px 12px; border:1px solid rgba(90,56,56,.25); border-radius:100px; color:#5A3838; font-weight:600; margin-bottom:12px; }
+  .howto__title { margin: 0 0 8px; font-size: clamp(24px, 4vw, 36px); color:#342222; font-weight: 800; }
+  .howto__subtitle { color:#7B766E; margin:0; }
+
+  .howto__grid { display:grid; grid-template-columns:1fr; gap:24px; align-items:start; max-width:1100px; margin:0 auto; }
+  .howto__content { width:100%; }
+  .howto__media { position:relative; }
+  
+  .howto__reels { max-width: 380px; margin: 0 auto; background:#000; border-radius:16px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,.15); }
+  .howto__video { width:100%; aspect-ratio: 9/16; display:block; object-fit:cover; }
+  .howto__reels--placeholder .howto__video--ph { width:100%; aspect-ratio:9/16; background:linear-gradient(135deg,#ddd,#eee); }
+
+  /* Tabs */
+  .howto__tabs { display:flex; justify-content:center; gap:12px; margin-bottom:32px; flex-wrap:wrap; }
+  .howto__tab { padding:12px 32px; border:2px solid #E0E0E0; border-radius:50px; background:#fff; color:#7B766E; font-weight:600; font-size:16px; cursor:pointer; transition:all 0.3s ease; }
+  .howto__tab:hover { border-color:#F44027; color:#F44027; }
+  .howto__tab--active { background:#F44027; border-color:#F44027; color:#fff; }
+  .howto__tab-content { display:none; }
+  .howto__tab-content--active { display:grid; }
+
+  @media (max-width: 768px) {
+    .howto__tabs { gap:8px; }
+    .howto__tab { padding:10px 24px; font-size:14px; }
+  }
+
+  /* Wheypuccino - Layout com Vídeo + Imagens */
+  .howto__grid--wheypuccino { grid-template-columns:1fr; max-width:100%; gap:40px; }
+  @media (min-width: 980px) { 
+    .howto__grid--wheypuccino { grid-template-columns: 380px 1fr; gap:48px; align-items:start; } 
+  }
+  .howto__steps-images--wheypuccino { display:grid; grid-template-columns:1fr; gap:20px; }
+  @media (min-width: 600px) { 
+    .howto__steps-images--wheypuccino { grid-template-columns:repeat(2, 1fr); gap:24px; } 
+  }
+  @media (min-width: 980px) { 
+    .howto__steps-images--wheypuccino { grid-template-columns:repeat(2, 1fr); gap:28px; } 
+  }
+  
+  /* Chococaps - Layout com Imagens */
+  .howto__grid--chococaps { grid-template-columns:1fr; max-width:100%; }
+  .howto__content--full { width:100%; max-width:1000px; margin:0 auto; }
+  .howto__steps-images { display:grid; grid-template-columns:repeat(3, 1fr); gap:32px; }
+  
+  .howto-step-image { display:flex; flex-direction:column; gap:8px; align-items:center; background:#fff; border-radius:12px; padding:12px; box-shadow:0 2px 8px rgba(0,0,0,.06); transition:transform 0.3s ease, box-shadow 0.3s ease; }
+  .howto-step-image:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(0,0,0,.12); }
+  .howto-step-image img { width:100%; max-width:140px; height:auto; object-fit:contain; background:transparent; }
+  .howto-step-image-placeholder { width:100%; max-width:140px; aspect-ratio:1; background:linear-gradient(135deg,#f0f0f0,#e0e0e0); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:36px; font-weight:800; color:#ccc; }
+  
+  .howto-step-image-caption { text-align:center; max-width:140px; }
+  .howto-step-image-title { margin:0 0 4px; font-size:13px; color:#342222; font-weight:700; line-height:1.2; }
+  .howto-step-image-desc { margin:0; color:#7B766E; font-size:11px; line-height:1.4; }
+  
+  /* Ajustes específicos para Wheypuccino (layout 2 colunas) */
+  .howto__steps-images--wheypuccino .howto-step-image { padding:14px 10px; }
+  .howto__steps-images--wheypuccino .howto-step-image img { max-width:120px; }
+  .howto__steps-images--wheypuccino .howto-step-image-placeholder { max-width:120px; font-size:32px; }
+  .howto__steps-images--wheypuccino .howto-step-image-title { font-size:12px; }
+  .howto__steps-images--wheypuccino .howto-step-image-desc { font-size:10px; }
+
+  @media (max-width: 768px) {
+    /* Vídeo compacto no mobile */
+    .howto__reels { max-width: 220px; border-radius:12px; margin-bottom:20px; }
+    
+    /* Wheypuccino mobile - 2 colunas compactas */
+    .howto__steps-images--wheypuccino { grid-template-columns:repeat(2, 1fr); gap:10px; }
+    .howto__steps-images--wheypuccino .howto-step-image { padding:10px 8px; gap:6px; border-radius:10px; }
+    .howto__steps-images--wheypuccino .howto-step-image img { max-width:80px; }
+    .howto__steps-images--wheypuccino .howto-step-image-placeholder { max-width:80px; font-size:24px; border-radius:8px; }
+    .howto__steps-images--wheypuccino .howto-step-image-caption { max-width:100%; }
+    .howto__steps-images--wheypuccino .howto-step-image-title { font-size:11px; margin-bottom:3px; }
+    .howto__steps-images--wheypuccino .howto-step-image-desc { font-size:9px; line-height:1.3; }
+    
+    /* Chococaps mobile - 3 colunas compactas */
+    .howto__steps-images { grid-template-columns:repeat(3, 1fr); gap:12px; }
+    .howto-step-image { padding:10px 8px; gap:6px; border-radius:10px; }
+    .howto-step-image img { max-width:70px; }
+    .howto-step-image-placeholder { max-width:70px; font-size:22px; border-radius:8px; }
+    .howto-step-image-caption { max-width:100%; }
+    .howto-step-image-title { font-size:10px; margin-bottom:3px; }
+    .howto-step-image-desc { font-size:9px; line-height:1.3; }
+  }
+{% endstylesheet %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabs = document.querySelectorAll('.howto__tab');
+  const contents = document.querySelectorAll('.howto__tab-content');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+      
+      // Remove active class from all tabs
+      tabs.forEach(t => t.classList.remove('howto__tab--active'));
+      
+      // Add active class to clicked tab
+      this.classList.add('howto__tab--active');
+      
+      // Hide all content
+      contents.forEach(content => content.classList.remove('howto__tab-content--active'));
+      
+      // Show target content
+      const targetContent = document.querySelector(`[data-content="${targetTab}"]`);
+      if (targetContent) {
+        targetContent.classList.add('howto__tab-content--active');
+      }
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Como preparar",
+  "settings": [
+    { "type": "text", "id": "kicker", "label": "Kicker", "default": "Guia rápido" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Como preparar" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtítulo", "default": "Siga os passos simples para o preparo perfeito." },
+    { "type": "header", "content": "Vídeo Wheypuccino" },
+    { "type": "text", "id": "reels_url", "label": "URL do vídeo Wheypuccino (MP4 9:16)", "info": "Envie o vídeo em Files e cole a URL pública (formato .mp4)." },
+    { "type": "image_picker", "id": "reels_poster", "label": "Imagem de capa do vídeo (opcional)" }
+  ],
+  "blocks": [
+    {
+      "type": "wheypuccino_step",
+      "name": "Passo Wheypuccino",
+      "settings": [
+        { "type": "image_picker", "id": "step_image", "label": "Imagem do passo (PNG)" },
+        { "type": "text", "id": "title", "label": "Título do passo", "default": "Adicione 2 colheres (30g) ao copo" },
+        { "type": "textarea", "id": "description", "label": "Descrição", "default": "Use a medida recomendada para melhor sabor e textura." }
+      ]
+    },
+    {
+      "type": "chococaps_step",
+      "name": "Passo Chococaps",
+      "settings": [
+        { "type": "image_picker", "id": "step_image", "label": "Imagem do passo (PNG)" },
+        { "type": "text", "id": "title", "label": "Título do passo", "default": "Adicione 2 colheres (30g) ao copo" },
+        { "type": "textarea", "id": "description", "label": "Descrição", "default": "Use a medida recomendada para melhor sabor e textura." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Como preparar",
+      "blocks": [
+        { "type": "wheypuccino_step", "settings": { "title": "Adicione 2 colheres (30g)", "description": "Coloque Wheypuccino em uma caneca de 250ml." } },
+        { "type": "wheypuccino_step", "settings": { "title": "Acrescente 200ml de água quente", "description": "Quente, porém sem ferver, para preservar o sabor." } },
+        { "type": "wheypuccino_step", "settings": { "title": "Misture bem", "description": "Mexa por 10–15s até ficar cremoso. Aproveite!" } },
+        { "type": "chococaps_step", "settings": { "title": "Adicione 2 colheres (30g)", "description": "Coloque Chococaps em uma caneca de 250ml." } },
+        { "type": "chococaps_step", "settings": { "title": "Acrescente 200ml de água quente ou leite", "description": "Quente, porém sem ferver, para manter a cremosidade." } },
+        { "type": "chococaps_step", "settings": { "title": "Misture e aproveite", "description": "Mexa por 10–15s até ficar homogêneo!" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+

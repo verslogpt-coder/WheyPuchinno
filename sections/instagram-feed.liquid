@@ -1,0 +1,270 @@
+{% comment %}
+  Instagram Feed Customizado - Wheypuccino
+  Remove a marca "Powered by InstaFeed+Story" e aplica identidade visual
+{% endcomment %}
+
+<section class="instagram-feed-section" style="background: {{ section.settings.background | default: '#FFFFFF' }};">
+  <div class="instagram-feed-container">
+    {% if section.settings.title != blank %}
+      <div class="instagram-feed-header">
+        <h2 class="instagram-feed-title">{{ section.settings.title }}</h2>
+        {% if section.settings.subtitle != blank %}
+          <p class="instagram-feed-subtitle">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.instagram-feed-section {
+  padding: 80px 0 0 0;
+  background: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.instagram-feed-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.instagram-feed-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.instagram-feed-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #5A3838;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.instagram-feed-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: #666666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.instagram-feed-wrapper {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.instagram-feed-content {
+  position: relative;
+}
+
+/* Esconder a marca "Powered by InstaFeed+Story" */
+.instagram-feed-content *[style*="Powered by InstaFeed+Story"],
+.instagram-feed-content *[style*="Powered by"],
+.instagram-feed-content a[href*="instafeed"],
+.instagram-feed-content a[href*="story"],
+.instagram-feed-content .instafeed-powered,
+.instagram-feed-content .powered-by,
+.instagram-feed-content [class*="powered"],
+.instagram-feed-content [class*="attribution"],
+.instagram-feed-content [class*="credit"],
+.instagram-feed-content [class*="branding"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+}
+
+/* Estilizar o feed do Instagram */
+.instagram-feed-content iframe {
+  border: none !important;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.instagram-feed-cta {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.instagram-feed-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  background: #F44027;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 50px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(244, 64, 39, 0.3);
+}
+
+.instagram-feed-btn:hover {
+  background: #E03A22;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(244, 64, 39, 0.4);
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .instagram-feed-container {
+    padding: 0 24px;
+  }
+  
+  .instagram-feed-section {
+    padding: 60px 0;
+  }
+  
+  .instagram-feed-title {
+    font-size: 36px;
+  }
+  
+  .instagram-feed-subtitle {
+    font-size: 16px;
+  }
+  
+  .instagram-feed-header {
+    margin-bottom: 40px;
+  }
+  
+  .instagram-feed-btn {
+    padding: 14px 28px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .instagram-feed-container {
+    padding: 0 16px;
+  }
+  
+  .instagram-feed-title {
+    font-size: 28px;
+  }
+  
+  .instagram-feed-subtitle {
+    font-size: 14px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Função para remover marcas "Powered by"
+  function removePoweredBy() {
+    const content = document.querySelector('.instagram-feed-content');
+    if (content) {
+      // Remover elementos com texto "Powered by"
+      const elements = content.querySelectorAll('*');
+      elements.forEach(el => {
+        if (el.textContent && el.textContent.includes('Powered by')) {
+          el.style.display = 'none';
+          el.style.visibility = 'hidden';
+          el.style.opacity = '0';
+          el.style.height = '0';
+          el.style.width = '0';
+          el.style.overflow = 'hidden';
+        }
+      });
+      
+      // Remover links do InstaFeed
+      const links = content.querySelectorAll('a[href*="instafeed"], a[href*="story"]');
+      links.forEach(link => {
+        link.style.display = 'none';
+        link.style.visibility = 'hidden';
+      });
+    }
+  }
+  
+  // Executar imediatamente
+  removePoweredBy();
+  
+  // Executar após 1 segundo (para apps que carregam dinamicamente)
+  setTimeout(removePoweredBy, 1000);
+  
+  // Executar após 3 segundos (para apps que demoram mais)
+  setTimeout(removePoweredBy, 3000);
+  
+  // Observar mudanças no DOM
+  const observer = new MutationObserver(removePoweredBy);
+  const content = document.querySelector('.instagram-feed-content');
+  if (content) {
+    observer.observe(content, { childList: true, subtree: true });
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Instagram Feed",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Cor de fundo",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Siga-nos no Instagram"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Acompanhe nosso dia a dia e inspire-se com receitas incríveis"
+    },
+    {
+      "type": "html",
+      "id": "instagram_code",
+      "label": "Código do Instagram Feed",
+      "info": "Cole aqui o código embed do InstaFeed+Story"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texto do botão",
+      "default": "Seguir no Instagram"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Link do botão",
+      "info": "Link para o perfil do Instagram"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Instagram Feed"
+    }
+  ]
+}
+{% endschema %}

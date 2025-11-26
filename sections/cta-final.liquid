@@ -1,0 +1,116 @@
+{% comment %}
+  CTA Final
+  Call-to-action principal da página
+{% endcomment %}
+
+<!-- 10ª Seção - CTA Final -->
+<section class="section-10" aria-label="Escolha o seu Wheypuccino">
+  <div class="container section-10__inner">
+    {% if section.settings.background_vector_1 %}
+      <img class="section-10__bg-vector--1" src="{{ section.settings.background_vector_1 | image_url: width: 200 }}" alt="" aria-hidden="true" />
+    {% else %}
+      <img class="section-10__bg-vector--1" src="{{ 'vector-1.svg' | asset_url }}" alt="" aria-hidden="true" />
+    {% endif %}
+    
+    {% if section.settings.background_vector_2 %}
+      <img class="section-10__bg-vector--2" src="{{ section.settings.background_vector_2 | image_url: width: 200 }}" alt="" aria-hidden="true" />
+    {% else %}
+      <img class="section-10__bg-vector--2" src="{{ 'vector-2.svg' | asset_url }}" alt="" aria-hidden="true" />
+    {% endif %}
+    
+    {% if section.settings.background_vector_3 %}
+      <img class="section-10__bg-vector--3" src="{{ section.settings.background_vector_3 | image_url: width: 200 }}" alt="" aria-hidden="true" />
+    {% else %}
+      <img class="section-10__bg-vector--3" src="{{ 'vector-3.svg' | asset_url }}" alt="" aria-hidden="true" />
+    {% endif %}
+    
+    <div class="section-10__content">
+      <span class="section-10__icon-wrapper" aria-hidden="true">
+        <span class="section-10__bg-rect"></span>
+        {% if section.settings.main_icon %}
+          <img class="section-10__icon" src="{{ section.settings.main_icon | image_url: width: 24 }}" alt="" width="24" height="30" />
+        {% else %}
+          <svg class="section-10__icon" width="24" height="30" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.0021 3.73218V4.32476C17.0021 4.67332 17.0744 5.01709 17.2133 5.32885L18.5827 8.40201C18.859 9.02008 19.0029 9.702 19.0029 10.3935C19.0029 12.8928 19.0029 18.6614 19.0029 20.2419C19.0029 20.4624 18.9709 20.6815 18.9081 20.8905L18.4935 22.286C18.244 23.2546 17.4589 23.9259 16.5604 23.939H7.4396C6.57838 23.939 5.81378 23.3206 5.54143 22.4038L5.20245 21.2627C5.06643 20.8055 4.99709 20.3266 4.99709 19.8446C4.99709 17.8588 4.99709 12.7153 4.99709 10.3935C4.99709 9.70201 5.14097 9.0201 5.41726 8.40204L6.7869 5.32835C6.92575 5.01676 6.998 4.67315 6.99792 4.32477V3.73218" stroke="#FFFCFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.6282 11.3097L10.4994 13.8356H13.5006L12.3718 16.3614" stroke="#FFFCFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18.9871 20.4974H5.04121" stroke="#FFFCFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18.0947 7.3068H5.90533" stroke="#FFFCFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M17.5023 3.73219H6.49771" stroke="#FFFCFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        {% endif %}
+      </span>
+      <h2 class="section-10__title">{{ section.settings.title | default: "Escolha o seu!" }}</h2>
+      <p class="section-10__subtitle">{{ section.settings.subtitle | default: "A combinação perfeita entre capuccino e whey protein." }}</p>
+      <div class="section-10__actions">
+        <a href="{{ section.settings.cta_url | default: '#produtos' }}" class="section-10__cta">
+          <span class="section-10__cta-text">{{ section.settings.cta_text | default: "Conhecer Sabores" }}</span>
+          <span class="section-10__cta-circle">
+            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.5 12H5.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14.5 17L19.5 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M14.5 7L19.5 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+    <span class="section-10__decor" aria-hidden="true"></span>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA Final",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "Escolha o seu!"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo da Seção",
+      "default": "A combinação perfeita entre capuccino e whey protein."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texto do CTA",
+      "default": "Conhecer Sabores"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "URL do CTA"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_icon",
+      "label": "Ícone Principal"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_vector_1",
+      "label": "Vetor de Fundo 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_vector_2",
+      "label": "Vetor de Fundo 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_vector_3",
+      "label": "Vetor de Fundo 3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA Final"
+    }
+  ]
+}
+{% endschema %}
+

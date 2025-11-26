@@ -1,0 +1,44 @@
+{% comment %} Página Prescritor – Seção (Node 89-3220) {% endcomment %}
+
+<section class="prescritor-3220-section" style="background: {{ section.settings.background | default: '#FFFFFF' }};">
+  <div class="prescritor-3220-container">
+    {% if section.settings.title != blank %}<h2 class="title">{{ section.settings.title }}</h2>{% endif %}
+    {% if section.settings.text != blank %}<div class="text">{{ section.settings.text }}</div>{% endif %}
+
+    {% if section.settings.cta_label != blank %}
+      <a href="{{ section.settings.cta_url | default: '#' }}" class="btn">{{ section.settings.cta_label }}</a>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.prescritor-3220-section { width: 100%; padding: 80px 0; font-family: 'Inter', sans-serif; }
+.prescritor-3220-container { max-width: 1000px; margin: 0 auto; padding: 0 60px; display:flex; flex-direction:column; align-items:center; text-align:center; gap: 20px; }
+.title { font-size: 40px; line-height: 48px; font-weight: 700; color:#342222; margin:0; }
+.text { font-size: 16px; line-height: 24px; color: rgba(52,34,34,.8); }
+.btn { display:inline-flex; align-items:center; justify-content:center; padding: 14px 22px; background:#FD6C11; color:#fff; border-radius:12px; text-decoration:none; font-weight:700; margin-top: 6px; }
+
+@media (max-width: 768px) { 
+  .prescritor-3220-section { padding: 50px 0; }
+  .prescritor-3220-container { padding: 0 20px; }
+  .title { font-size: 28px; line-height: 34px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Prescritor • Seção 3220",
+  "settings": [
+    {"type":"color","id":"background","label":"Cor de fundo"},
+    {"type":"text","id":"title","label":"Título"},
+    {"type":"richtext","id":"text","label":"Texto"},
+    {"type":"text","id":"cta_label","label":"Texto do botão"},
+    {"type":"url","id":"cta_url","label":"Link do botão"}
+  ],
+  "presets": [ { "name": "Prescritor • Seção 3220" } ]
+}
+{% endschema %}
+
+
+
+

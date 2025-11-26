@@ -1,0 +1,39 @@
+{% comment %}
+  Renders a product media modal
+
+  Accepts:
+  - variant_images: {Array} Array of variant images
+
+  Usage:
+  {% render 'product-media-modal', variant_images: variant_images %}
+{% endcomment %}
+
+{%- if product.media.size > 0 -%}
+  <div id="ProductModal-{{ section.id }}" class="product-media-modal" style="display: none;">
+    <div class="product-media-modal__content">
+      <button type="button" class="product-media-modal__toggle" aria-label="{{ 'accessibility.close' | t }}">
+        &times;
+      </button>
+      <div class="product-media-modal__media">
+        {%- for media in product.media -%}
+          <div class="product-media-modal__media-item" data-media-id="{{ media.id }}">
+            {%- case media.media_type -%}
+              {%- when 'image' -%}
+                <img
+                  src="{{ media | image_url: width: 2048 }}"
+                  alt="{{ media.alt | escape }}"
+                  loading="lazy"
+                >
+              {%- when 'video' -%}
+                {{ media | video_tag: controls: true }}
+              {%- when 'external_video' -%}
+                {{ media | external_video_tag }}
+              {%- when 'model' -%}
+                {{ media | model_viewer_tag }}
+            {%- endcase -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}

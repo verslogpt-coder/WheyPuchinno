@@ -1,0 +1,334 @@
+<footer class="footer" id="footer-{{ section.id }}">
+  <div class="footer__top">
+    <div class="footer__inner">
+      <!-- Coluna 1: Brand -->
+      <div class="footer__col footer__brand">
+        <div class="footer__logo">
+          {% if section.settings.logo %}
+            <img src="{{ section.settings.logo | img_url: '200x' }}" alt="{{ shop.name }}" class="footer__logo-img">
+          {% else %}
+            <span class="footer__logo-text">{{ section.settings.logo_text | default: 'WHEYPUCCINO®' }}</span>
+          {% endif %}
+        </div>
+        <p class="footer__desc">{{ section.settings.description | default: 'Wheypuccino é a fusão pioneira entre o sabor autêntico de um cappuccino cremoso e a potência nutricional do whey protein, criado para quem não abre mão do prazer nem da performance.' }}</p>
+        
+        <div class="footer__social-container">
+          <div class="footer__social">
+            {% if section.settings.facebook != blank %}
+            <a href="{{ section.settings.facebook }}" class="footer__social-link" target="_blank">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            {% endif %}
+            {% if section.settings.instagram != blank %}
+            <a href="{{ section.settings.instagram }}" class="footer__social-link" target="_blank">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+            {% endif %}
+            {% if section.settings.linkedin != blank %}
+            <a href="{{ section.settings.linkedin }}" class="footer__social-link" target="_blank">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+            {% endif %}
+            {% if section.settings.tiktok != blank %}
+            <a href="{{ section.settings.tiktok }}" class="footer__social-link" target="_blank">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+              </svg>
+            </a>
+            {% endif %}
+          </div>
+          <span class="footer__social-handle">{{ section.settings.social_handle | default: '@wheypuccino' }}</span>
+        </div>
+      </div>
+
+      <!-- Coluna 2: Menu 1 -->
+      <div class="footer__col footer__menu">
+        <h3 class="footer__heading">{{ section.settings.menu_1_title | default: 'Institucional' }}</h3>
+        {% if section.settings.menu_1 != blank %}
+        <ul class="footer__list">
+          {% for link in linklists[section.settings.menu_1].links %}
+            <li class="footer__item"><a href="{{ link.url }}" class="footer__link">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+
+      <!-- Coluna 3: Menu 2 -->
+      <div class="footer__col footer__menu">
+        <h3 class="footer__heading">{{ section.settings.menu_2_title | default: 'Categorias' }}</h3>
+        {% if section.settings.menu_2 != blank %}
+        <ul class="footer__list">
+          {% for link in linklists[section.settings.menu_2].links %}
+            <li class="footer__item"><a href="{{ link.url }}" class="footer__link">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+
+      <!-- Coluna 4: Contato -->
+      <div class="footer__col footer__contact">
+        {% if section.settings.contact_heading_1 != blank %}
+        <h3 class="footer__heading">{{ section.settings.contact_heading_1 }}</h3>
+        {% endif %}
+        {% if section.settings.contact_heading_2 != blank %}
+        <h3 class="footer__heading">{{ section.settings.contact_heading_2 }}</h3>
+        {% endif %}
+        {% if section.settings.contact_heading_3 != blank %}
+        <h3 class="footer__heading">{{ section.settings.contact_heading_3 }}</h3>
+        {% endif %}
+        
+        <div class="footer__contact-box">
+          <h4 class="footer__contact-title">{{ section.settings.contact_title | default: 'Atendimento' }}</h4>
+          <p class="footer__contact-phone">{{ section.settings.contact_phone | default: '(41) 99122-1625' }}</p>
+          <p class="footer__contact-email">{{ section.settings.contact_email | default: 'wheypuccinooficial@gmail.com' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="footer__inner footer__bottom-inner">
+      <div class="footer__legal">
+        <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}.</span>
+        {% if section.settings.show_powered %}<span class="footer__sep">•</span>{{ powered_by_link }}{% endif %}
+        <span class="footer__sep">•</span>
+        <span>Desenvolvido por <a href="https://verslo.io/" target="_blank" rel="noopener noreferrer">Verslo</a></span>
+      </div>
+      {% if section.settings.legal_menu != blank %}
+        <ul class="footer__legal-links">
+          {% for link in linklists[section.settings.legal_menu].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</footer>
+
+{% stylesheet %}
+  .footer{background:#5A3838;color:#FFFFFF;font-family:'Inter',sans-serif;margin-top:0;padding-top:80px}
+  .footer__top{padding:60px 0 40px}
+  .footer__inner{max-width:1200px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:48px}
+  .footer__logo img{height:28px;width:auto;display:block;filter:brightness(0) invert(1)}
+  .footer__logo-img{height:28px;width:auto;display:block;filter:brightness(0) invert(1)}
+  .footer__logo-text{font-size:20px;font-weight:700;letter-spacing:-0.01em}
+  .footer__desc{margin:12px 0 16px;color:#FFFFFF;font-size:14px;line-height:1.6;opacity:0.9}
+  .footer__social-container{display:flex;align-items:center;gap:12px;margin-top:16px}
+  .footer__social{display:flex;gap:8px}
+  .footer__social-link{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;background:transparent;color:#FFFFFF;text-decoration:none;font-size:12px;transition:all 0.2s ease;border:1px solid rgba(255,255,255,0.3)}
+  .footer__social-link:hover{background:rgba(255,255,255,0.1);transform:translateY(-1px)}
+  .footer__social-handle{color:#FFFFFF;font-size:14px;opacity:.9;white-space:nowrap}
+  .footer__heading{margin:0 0 12px;font-size:12px;color:#FFFFFF;text-transform:uppercase;letter-spacing:.08em;opacity:0.8;font-weight:600}
+  .footer__contact-box{background:rgba(255,255,255,0.15);border-radius:8px;padding:16px;margin-top:16px;border:1px solid rgba(255,255,255,0.25)}
+  .footer__contact-title{margin:0 0 8px;font-size:14px;font-weight:600;color:#FFFFFF}
+  .footer__contact-phone,.footer__contact-email{margin:4px 0;color:#FFFFFF;font-size:13px;opacity:0.9}
+  .footer__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .footer__link{color:#FFFFFF;text-decoration:none;opacity:.9}
+  .footer__link:hover{opacity:1;text-decoration:underline}
+  .footer__form{display:flex;gap:10px;margin-top:8px}
+  .footer__input{flex:1;height:42px;border-radius:999px;border:1px solid #2A2F38;background:#141922;color:#EDEFF3;padding:0 14px}
+  .footer__btn{height:42px;padding:0 16px;border-radius:999px;background:#F32D35;color:#FFFCFC;border:0;cursor:pointer}
+  .footer__btn:hover{filter:brightness(1.05)}
+  .footer__payments{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .footer__payments svg{height:20px;width:auto;filter:grayscale(.8) brightness(1.2);opacity:0.8}
+  .footer__bottom{border-top:1px solid rgba(255,255,255,.06);padding:24px 0;background:#25272B}
+  .footer__bottom-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1440px;margin:0 auto;padding:0 80px}
+  .footer__legal{display:flex;align-items:center;gap:8px;color:#FFFFFF;font-size:13px;opacity:0.6}
+  .footer__legal a{color:inherit;text-decoration:none;opacity:1}
+  .footer__legal a:hover{opacity:1}
+  .footer__legal-links{display:flex;gap:24px;list-style:none;margin:0;padding:0}
+  .footer__legal-links a{color:#FFFFFF;text-decoration:none;opacity:0.6;font-size:13px;transition:opacity 0.2s ease}
+  .footer__legal-links a:hover{opacity:1}
+  @media (max-width: 1200px){
+    .footer__inner{padding:0 40px;grid-template-columns:1fr 1fr 1fr 1fr;gap:40px}
+    .footer__bottom-inner{padding:0 40px}
+  }
+  @media (max-width: 900px){
+    .footer__inner{grid-template-columns:1fr 1fr;gap:40px;padding:0 24px}
+    .footer__bottom-inner{padding:0 24px}
+  }
+  @media (max-width: 600px){
+    .footer{padding-top:40px;overflow-x:hidden}
+    .footer__top{padding:40px 0;overflow-x:hidden}
+    .footer__inner{grid-template-columns:1fr;padding:0 20px;gap:36px;max-width:100%;box-sizing:border-box}
+    .footer__col{width:100%;max-width:100%;margin:0;padding:0;box-sizing:border-box}
+    .footer__brand{padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.2);margin-bottom:0;max-width:100%;box-sizing:border-box;text-align:center}
+    .footer__logo{margin-bottom:16px;max-width:100%;display:flex;justify-content:center}
+    .footer__logo-img{height:32px;max-width:100%;width:auto}
+    .footer__logo-text{font-size:20px;font-weight:700;word-wrap:break-word}
+    .footer__desc{font-size:14px;line-height:1.7;margin:0 0 20px 0;opacity:0.9;max-width:100%;word-wrap:break-word;overflow-wrap:break-word;text-align:center}
+    .footer__social-container{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:0;max-width:100%}
+    .footer__social{display:flex;gap:10px;justify-content:center}
+    .footer__social-link{width:44px;height:44px;min-width:44px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border:1.5px solid rgba(255,255,255,0.3)}
+    .footer__social-link svg{width:20px;height:20px}
+    .footer__social-handle{font-size:14px;opacity:0.9;margin:0;word-wrap:break-word;text-align:center}
+    .footer__menu{padding:24px 0;margin:0;max-width:100%;box-sizing:border-box;border-bottom:1px solid rgba(255,255,255,0.1);text-align:center}
+    .footer__heading{font-size:12px;margin-bottom:16px;letter-spacing:0.1em;opacity:0.9;font-weight:700;text-transform:uppercase;word-wrap:break-word;text-align:center}
+    .footer__list{gap:12px;padding:0;margin:0;max-width:100%;box-sizing:border-box;align-items:center}
+    .footer__item{margin:0;max-width:100%;box-sizing:border-box}
+    .footer__link{font-size:14px;line-height:1.6;display:block;padding:4px 0;word-wrap:break-word;overflow-wrap:break-word;max-width:100%;text-align:center;opacity:0.85}
+    .footer__contact{padding:24px 0 0 0;margin:0;max-width:100%;box-sizing:border-box;text-align:center}
+    .footer__contact h3.footer__heading:not(.footer__contact-title){display:none}
+    .footer__contact-box{padding:20px;margin-top:0;border-radius:12px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);max-width:100%;box-sizing:border-box}
+    .footer__contact-title{font-size:14px;margin-bottom:12px;opacity:1;font-weight:700;word-wrap:break-word;text-align:center}
+    .footer__contact-phone,.footer__contact-email{font-size:13px;margin:6px 0;opacity:0.95;line-height:1.6;word-wrap:break-word;overflow-wrap:break-word;max-width:100%;text-align:center}
+    .footer__bottom{padding:24px 0;background:rgba(0,0,0,0.3);overflow-x:hidden}
+    .footer__bottom-inner{padding:0 20px;flex-direction:column;align-items:center;text-align:center;gap:16px;max-width:100%;box-sizing:border-box}
+    .footer__legal{font-size:12px;flex-wrap:wrap;gap:6px;line-height:1.6;max-width:100%;word-wrap:break-word;justify-content:center;text-align:center}
+    .footer__legal-links{flex-wrap:wrap;gap:16px;margin-top:0;padding:0;max-width:100%;box-sizing:border-box;justify-content:center}
+    .footer__legal-links li{margin:0;padding:0}
+    .footer__legal-links a{font-size:12px;word-wrap:break-word;opacity:0.8}
+    .footer__form{flex-direction:column;max-width:100%}
+    .footer__btn{width:100%;max-width:100%}
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Coluna 1 - Marca"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo do rodapé"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Texto do Logo (fallback)",
+      "default": "WHEYPUCCINO®"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrição da marca",
+      "default": "Wheypuccino é a fusão pioneira entre o sabor autêntico de um cappuccino cremoso e a potência nutricional do whey protein, criado para quem não abre mão do prazer nem da performance."
+    },
+    {
+      "type": "header",
+      "content": "Redes Sociais"
+    },
+    {
+      "type": "url",
+      "id": "facebook",
+      "label": "URL do Facebook"
+    },
+    {
+      "type": "url",
+      "id": "instagram",
+      "label": "URL do Instagram"
+    },
+    {
+      "type": "url",
+      "id": "linkedin",
+      "label": "URL do LinkedIn"
+    },
+    {
+      "type": "url",
+      "id": "tiktok",
+      "label": "URL do TikTok"
+    },
+    {
+      "type": "text",
+      "id": "social_handle",
+      "label": "Handle das redes sociais",
+      "default": "@wheypuccino"
+    },
+    {
+      "type": "header",
+      "content": "Coluna 2 - Menu 1"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_title",
+      "label": "Título do Menu 1",
+      "default": "Institucional"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu 1"
+    },
+    {
+      "type": "header",
+      "content": "Coluna 3 - Menu 2"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "Título do Menu 2",
+      "default": "Categorias"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu 2"
+    },
+    {
+      "type": "header",
+      "content": "Coluna 4 - Contato"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading_1",
+      "label": "Título 1",
+      "default": "Formas de pagamento"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading_2",
+      "label": "Título 2",
+      "default": "Selos de segurança"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading_3",
+      "label": "Título 3",
+      "default": "Rastreio"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Título da Caixa de Contato",
+      "default": "Atendimento"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Telefone",
+      "default": "(41) 99122-1625"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "E-mail",
+      "default": "wheypuccinooficial@gmail.com"
+    },
+    {
+      "type": "header",
+      "content": "Rodapé Inferior"
+    },
+    {
+      "type": "link_list",
+      "id": "legal_menu",
+      "label": "Menu Legal (Termos, Privacidade)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_powered",
+      "label": "Mostrar 'Powered by Shopify'",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

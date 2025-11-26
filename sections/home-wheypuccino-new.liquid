@@ -1,0 +1,67 @@
+{% comment %}
+  Homepage Wheypuccino - Versão Modular
+  Usa seções individuais para melhor organização
+{% endcomment %}
+
+<!-- Hero Section -->
+{% section 'hero-wheypuccino' %}
+
+<!-- Seção O que é Wheypuccino -->
+{% section 'what-is-wheypuccino' %}
+
+<!-- Carrossel de Tags -->
+{% section 'carousel-tags' %}
+
+<!-- Seção de Produtos -->
+{% section 'products-wheypuccino' %}
+
+<!-- Seção de Depoimentos -->
+{% section 'testimonials-wheypuccino' %}
+
+<!-- Seção Solução/Meta de Proteína -->
+{% section 'solution-section' %}
+
+<!-- Seção de Avaliações -->
+{% section 'reviews-section' %}
+
+<!-- CTA Final -->
+{% section 'cta-final' %}
+
+<!-- Seção FAQ -->
+{% section 'faq-section' %}
+
+<!-- Seção de Transição com Vector -->
+<section class="vector-transition" aria-hidden="true">
+  <div class="container">
+    <img class="vector-transition__text" src="{{ 'footer-vector.svg' | asset_url }}" alt="" />
+  </div>
+</section>
+
+<!-- Footer -->
+{% section 'footer' %}
+
+{% schema %}
+{
+  "name": "Homepage Wheypuccino",
+  "tag": "section",
+  "class": "homepage-wheypuccino",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configurações Gerais"
+    },
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "ID da Seção",
+      "default": "homepage-wheypuccino"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Homepage Wheypuccino",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

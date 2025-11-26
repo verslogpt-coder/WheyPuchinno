@@ -1,0 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "envio_hero": {
+      "type": "envio-hero",
+      "settings": {
+        "title": "Envio",
+        "subtitle": "Entregamos seu Wheypuccino com rapidez e segurança",
+        "background_color": "#5A3838",
+        "text_color": "#FFFFFF"
+      }
+    },
+    "envio_content": {
+      "type": "envio-content",
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "envio_hero",
+    "envio_content"
+  ]
+}

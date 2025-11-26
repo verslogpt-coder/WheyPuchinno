@@ -1,0 +1,8 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group">
+<g id="Path">
+</g>
+<path id="Path_2" fill-rule="evenodd" clip-rule="evenodd" d="M3 14.3806V9.61879C3 8.01671 3.85176 6.53544 5.23639 5.72956L9.73589 3.11076C11.1351 2.29639 12.8639 2.29639 14.2631 3.11076L18.7636 5.73014C20.1482 6.53602 21 8.01729 21 9.61937V14.3812C21 15.9833 20.1482 17.4646 18.7636 18.2704L14.2641 20.8892C12.8649 21.7036 11.1361 21.7036 9.73689 20.8892L5.23639 18.2699C3.85176 17.464 3 15.9827 3 14.3806Z" stroke="var(--stroke-0, #FFFCFC)" stroke-opacity="0.4" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Path_3" fill-rule="evenodd" clip-rule="evenodd" d="M10.1226 13.8491V10.1509C10.1226 9.91863 10.2466 9.70401 10.4478 9.58794C10.649 9.47186 10.8969 9.47196 11.098 9.58821L14.2978 11.4373C14.4988 11.5534 14.6226 11.7679 14.6226 12C14.6226 12.2321 14.4988 12.4466 14.2978 12.5627L11.098 14.4118C10.8969 14.528 10.649 14.5281 10.4478 14.4121C10.2466 14.296 10.1226 14.0814 10.1226 13.8491Z" stroke="var(--stroke-0, #FFFCFC)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</svg>

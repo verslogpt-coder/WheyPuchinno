@@ -1,0 +1,401 @@
+{% comment %}
+  Seção de Descrição do Produto
+  Tabs com descrição, informações nutricionais e avaliações
+{% endcomment %}
+
+<section class="product-description">
+  <div class="container product-description__inner">
+    
+    <!-- Tabs -->
+    <div class="product-tabs">
+      <div class="product-tabs__nav">
+        <button class="product-tab__btn active" data-tab="description">Descrição</button>
+        <button class="product-tab__btn" data-tab="info">Informações Nutricionais</button>
+        <button class="product-tab__btn" data-tab="shipping">Envio e Garantia</button>
+      </div>
+
+      <div class="product-tabs__content">
+        <!-- Tab: Descrição -->
+        <div class="product-tab__panel active" id="tab-description">
+          <div class="product-description__content">
+            {% if product.description != blank %}
+              {{ product.description }}
+            {% else %}
+              <p>{{ section.settings.default_description | default: "Descrição do produto não disponível." }}</p>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Tab: Informações Nutricionais -->
+        <div class="product-tab__panel" id="tab-info">
+          <div class="nutrition-info">
+            {% if product.metafields.custom.nutrition_table %}
+              {{ product.metafields.custom.nutrition_table }}
+            {% else %}
+              <h3>Informações Nutricionais</h3>
+              <table class="nutrition-table">
+                <thead>
+                  <tr>
+                    <th>Nutriente</th>
+                    <th>Por Porção (30g)</th>
+                    <th>% VD*</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Valor Energético</td>
+                    <td>110 kcal</td>
+                    <td>6%</td>
+                  </tr>
+                  <tr>
+                    <td>Carboidratos</td>
+                    <td>8g</td>
+                    <td>3%</td>
+                  </tr>
+                  <tr>
+                    <td>Proteínas</td>
+                    <td>20g</td>
+                    <td>27%</td>
+                  </tr>
+                  <tr>
+                    <td>Gorduras Totais</td>
+                    <td>2g</td>
+                    <td>4%</td>
+                  </tr>
+                  <tr>
+                    <td>Gorduras Saturadas</td>
+                    <td>1g</td>
+                    <td>5%</td>
+                  </tr>
+                  <tr>
+                    <td>Fibra Alimentar</td>
+                    <td>1g</td>
+                    <td>4%</td>
+                  </tr>
+                  <tr>
+                    <td>Sódio</td>
+                    <td>180mg</td>
+                    <td>8%</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="nutrition-note">*% Valores Diários de referência com base em uma dieta de 2.000 kcal ou 8.400 kJ. Seus valores diários podem ser maiores ou menores dependendo de suas necessidades energéticas.</p>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Tab: Envio e Garantia -->
+        <div class="product-tab__panel" id="tab-shipping">
+          <div class="shipping-info">
+            <div class="info-box">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 16V8A2 2 0 0 0 19 6H5A2 2 0 0 0 3 8V16A2 2 0 0 0 5 18H19A2 2 0 0 0 21 16Z" stroke="#5A3838" stroke-width="2"/>
+                <polyline points="7,10 12,15 17,10" stroke="#5A3838" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <h4>Frete Grátis</h4>
+                <p>Para compras acima de R$ 150,00 em todo o Brasil</p>
+              </div>
+            </div>
+            
+            <div class="info-box">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="#5A3838" stroke-width="2"/>
+                <polyline points="12,6 12,12 16,14" stroke="#5A3838" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <h4>Prazo de Entrega</h4>
+                <p>1 a 5 dias úteis após a confirmação do pagamento</p>
+              </div>
+            </div>
+            
+            <div class="info-box">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 1L3 5V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V5L12 1Z" stroke="#5A3838" stroke-width="2"/>
+                <path d="M9 12L11 14L15 10" stroke="#5A3838" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <h4>Garantia de 120 Dias</h4>
+                <p>Garantimos a qualidade do produto por 120 dias</p>
+              </div>
+            </div>
+            
+            <div class="info-box">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#5A3838" stroke-width="2"/>
+                <path d="M9 12L11 14L15 10" stroke="#5A3838" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <div>
+                <h4>Direito de Arrependimento</h4>
+                <p>7 dias para devolução sem necessidade de justificativa</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .product-description {
+    padding: 60px 0;
+    background: #f8f9fa;
+  }
+
+  .product-description__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Tabs */
+  .product-tabs {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+
+  .product-tabs__nav {
+    display: flex;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .product-tab__btn {
+    flex: 1;
+    padding: 20px;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .product-tab__btn:hover {
+    color: #5A3838;
+    background: #f8f9fa;
+  }
+
+  .product-tab__btn.active {
+    color: #5A3838;
+  }
+
+  .product-tab__btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #5A3838, #8B4513);
+  }
+
+  .product-tabs__content {
+    padding: 40px;
+  }
+
+  .product-tab__panel {
+    display: none;
+  }
+
+  .product-tab__panel.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Descrição */
+  .product-description__content {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .product-description__content h2,
+  .product-description__content h3 {
+    color: #5A3838;
+    margin: 24px 0 16px 0;
+  }
+
+  .product-description__content ul,
+  .product-description__content ol {
+    margin: 16px 0;
+    padding-left: 30px;
+  }
+
+  .product-description__content li {
+    margin-bottom: 8px;
+  }
+
+  /* Tabela Nutricional */
+  .nutrition-info h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #5A3838;
+    margin: 0 0 24px 0;
+  }
+
+  .nutrition-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+  }
+
+  .nutrition-table thead {
+    background: linear-gradient(135deg, #5A3838, #8B4513);
+    color: white;
+  }
+
+  .nutrition-table th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  .nutrition-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .nutrition-table tbody tr:hover {
+    background: #f8f9fa;
+  }
+
+  .nutrition-note {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    margin-top: 16px;
+  }
+
+  /* Shipping Info */
+  .shipping-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border-left: 4px solid #5A3838;
+  }
+
+  .info-box svg {
+    flex-shrink: 0;
+  }
+
+  .info-box h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #5A3838;
+    margin: 0 0 8px 0;
+  }
+
+  .info-box p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .product-description {
+      padding: 40px 0;
+    }
+
+    .product-tabs__nav {
+      overflow-x: auto;
+    }
+
+    .product-tab__btn {
+      white-space: nowrap;
+      font-size: 14px;
+      padding: 16px;
+    }
+
+    .product-tabs__content {
+      padding: 24px 20px;
+    }
+
+    .nutrition-table {
+      font-size: 14px;
+    }
+
+    .nutrition-table th,
+    .nutrition-table td {
+      padding: 12px;
+    }
+
+    .shipping-info {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabBtns = document.querySelectorAll('.product-tab__btn');
+  const tabPanels = document.querySelectorAll('.product-tab__panel');
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tabName = btn.dataset.tab;
+      
+      // Remove active from all
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanels.forEach(p => p.classList.remove('active'));
+      
+      // Add active to clicked
+      btn.classList.add('active');
+      const panel = document.getElementById(`tab-${tabName}`);
+      if (panel) {
+        panel.classList.add('active');
+      }
+    });
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Descrição do Produto",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "default_description",
+      "label": "Descrição Padrão",
+      "info": "Usado quando o produto não tem descrição",
+      "default": "Descrição do produto não disponível."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Descrição do Produto"
+    }
+  ]
+}
+{% endschema %}
+
+
+
+

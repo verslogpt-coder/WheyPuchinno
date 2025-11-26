@@ -1,0 +1,125 @@
+{% comment %} Página Prescritor – Seção (Node 89-3143) {% endcomment %}
+
+<section class="prescritor-3143-section" style="background: {{ section.settings.background | default: '#FFFFFF' }};">
+  <div class="prescritor-3143-container">
+    <h2 class="prescritor-3143-title">{{ section.settings.title | default: 'Kit e benefícios exclusivos' }}</h2>
+    
+    <div class="prescritor-3143-cards">
+      {% for block in section.blocks %}
+        <div class="prescritor-card">
+          {% if block.settings.icon != blank %}
+            <img src="{{ block.settings.icon | image_url: width: 200 }}" alt="" class="card-icon" loading="lazy">
+          {% endif %}
+          {% if block.settings.label != blank %}
+            <p class="card-label">{{ block.settings.label }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+.prescritor-3143-section {
+  width: 100%;
+  padding: 80px 0;
+  font-family: 'Inter', sans-serif;
+}
+.prescritor-3143-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  align-items: center;
+}
+.prescritor-3143-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 47.89px; /* Figma: 47.8916 */
+  line-height: 57.96px; /* Figma: 57.9597 */
+  text-align: center;
+  text-transform: uppercase;
+  color: #000000;
+}
+.prescritor-3143-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+  width: 100%;
+}
+.prescritor-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.card-icon {
+  width: 97.25px; /* Figma width */
+  height: 97.25px; /* Figma height */
+  object-fit: contain;
+}
+.card-label {
+  margin: 0;
+  font-size: 24.15px; /* Figma: 24.1532 */
+  line-height: 29.23px; /* Figma: 29.2309 */
+  text-align: center;
+  color: #000000;
+  font-weight: 400;
+}
+
+/* Responsivo Tablet */
+@media (max-width: 1024px) {
+  .prescritor-3143-section { padding: 60px 0; }
+  .prescritor-3143-container { padding: 0 40px; gap: 36px; }
+  .prescritor-3143-title { font-size: 36px; line-height: 44px; }
+  .prescritor-3143-cards { grid-template-columns: repeat(2, 1fr); gap: 28px; }
+}
+
+/* Responsivo Mobile */
+@media (max-width: 768px) {
+  .prescritor-3143-section { padding: 50px 0; }
+  .prescritor-3143-container { padding: 0 20px; gap: 32px; }
+  .prescritor-3143-title { font-size: 28px; line-height: 34px; }
+  .prescritor-3143-cards { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .card-icon { width: 80px; height: 80px; }
+  .card-label { font-size: 16px; line-height: 20px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Prescritor • Seção 3143",
+  "settings": [
+    { "type": "color", "id": "background", "label": "Cor de fundo" },
+    { "type": "text", "id": "title", "label": "Título" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefício",
+      "limit": 4,
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Ícone" },
+        { "type": "text", "id": "label", "label": "Texto" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Prescritor • Seção 3143",
+      "settings": {
+        "title": "Kit e benefícios exclusivos"
+      },
+      "blocks": [
+        { "type": "benefit", "settings": { "label": "Amostras grátis" } },
+        { "type": "benefit", "settings": { "label": "Material científico e técnico" } },
+        { "type": "benefit", "settings": { "label": "Suporte da equipe" } },
+        { "type": "benefit", "settings": { "label": "Benefícios comerciais" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

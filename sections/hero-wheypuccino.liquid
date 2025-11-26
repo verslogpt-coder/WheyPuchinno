@@ -1,0 +1,751 @@
+{% comment %}
+  Hero Section - Wheypuccino Slider
+  Seção principal da homepage com carrossel de slides
+{% endcomment %}
+
+<!-- Hero Section -->
+<section id="hero-{{ section.id }}" class="hero hero-slider" aria-label="Hero">
+  <style>
+    #hero-{{ section.id }} {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-slider-container {
+      position: relative;
+      width: 100%;
+      height: {{ section.settings.slider_height_mobile | default: 560 }}px;
+    }
+    
+    @media (min-width: 750px) {
+      .hero-slider-container {
+        height: {{ section.settings.slider_height_desktop | default: 720 }}px;
+      }
+    }
+    
+    .hero-slides {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .hero-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    @media (min-width: 1400px) {
+      .hero-slide {
+        background-size: 100% auto;
+      }
+    }
+    
+    .hero-slide.active {
+      opacity: 1;
+    }
+    
+    .hero-slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: {{ section.settings.overlay_color | default: '#000000' }};
+      opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+      z-index: 1;
+    }
+    
+    .hero-slide-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      cursor: pointer;
+    }
+    
+    .hero-slide-content {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+    }
+    
+    .hero-slide-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .hero-slide-content .hero__content {
+      position: relative;
+      z-index: 11;
+    }
+    
+    .hero-slide-content .btn,
+    .hero-slide-content a {
+      pointer-events: auto;
+      position: relative;
+      z-index: 25;
+    }
+    
+    .hero-slider-controls {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 30;
+    }
+    
+    .hero-slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .hero-slider-dot.active {
+      background: #F44027;
+      transform: scale(1.2);
+    }
+    
+    .hero-slider-dot:hover {
+      background: rgba(255, 255, 255, 0.7);
+    }
+    
+    .hero-slider-dot.active:hover {
+      background: #F44027;
+    }
+    
+    .hero-slider-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 30;
+    }
+    
+    .hero-slider-nav:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .hero-slider-nav.prev {
+      left: 20px;
+    }
+    
+    .hero-slider-nav.next {
+      right: 20px;
+    }
+    
+    .hero-slider-nav svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+    
+    @media (max-width: 768px) {
+      .hero-slider-nav {
+        display: none;
+      }
+      
+      .hero-slider-controls {
+        bottom: 20px;
+      }
+      
+      /* Ocultar dots de slides ocultos no mobile */
+      .hero-slider-dot--hide-mobile {
+        display: none;
+      }
+      
+      /* Aplicar cores personalizadas apenas no mobile */
+      .hero__title .u-strong,
+      .hero__title .u-semi,
+      .hero__title .u-text-red,
+      .hero__subtitle,
+      .chip.chip--info {
+        /* As cores são aplicadas via style inline para cada slide */
+      }
+    }
+    
+    /* Desktop: manter cores originais */
+    @media (min-width: 769px) {
+      .hero__title .u-strong,
+      .hero__title .u-semi {
+        color: #FFFFFF !important;
+      }
+      
+      .hero__title .u-text-red {
+        color: #F44027 !important;
+      }
+      
+      .hero__subtitle {
+        color: #FFFFFF !important;
+      }
+      
+      .chip.chip--info {
+        color: #61A1CD !important;
+      }
+      
+      .chip.chip--info svg path {
+        stroke: #61A1CD !important;
+      }
+    }
+  </style>
+  
+  <div class="hero-slider-container">
+    <div class="hero-slides">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'slide' %}
+            <div class="hero-slide {% if forloop.first %}active{% endif %} {% if block.settings.hide_on_mobile %}hero-slide--hide-mobile{% endif %}" data-slide="{{ forloop.index0 }}">
+              <style>
+                /* Mobile: Apenas imagem mobile */
+                @media (max-width: 749px) {
+                  .hero-slide[data-slide="{{ forloop.index0 }}"] {
+                    {% if block.settings.image_mobile != blank %}
+                      background-image: url('{{ block.settings.image_mobile | image_url }}');
+                    {% elsif block.settings.image_desktop != blank %}
+                      background-image: url('{{ block.settings.image_desktop | image_url }}');
+                    {% endif %}
+                  }
+                  
+                  /* Ocultar slide no mobile se opção ativada */
+                  {% if block.settings.hide_on_mobile %}
+                    .hero-slide[data-slide="{{ forloop.index0 }}"] {
+                      display: none !important;
+                    }
+                  {% endif %}
+                }
+                
+                /* Desktop: Apenas imagem desktop */
+                @media (min-width: 750px) {
+                  .hero-slide[data-slide="{{ forloop.index0 }}"] {
+                    {% if block.settings.image_desktop != blank %}
+                      background-image: url('{{ block.settings.image_desktop | image_url }}');
+                    {% elsif block.settings.image_mobile != blank %}
+                      background-image: url('{{ block.settings.image_mobile | image_url }}');
+                    {% endif %}
+                  }
+                }
+              </style>
+              
+              {% if block.settings.slide_link != blank %}
+                <a href="{{ block.settings.slide_link }}" class="hero-slide-link" aria-label="Ir para {{ block.settings.slide_link }}"></a>
+              {% endif %}
+              
+              <div class="hero-slide-content">
+                <div class="hero-slide-inner">
+                  <div class="hero__content">
+                    {% if block.settings.chip_text != blank %}
+                      <span class="chip chip--info" style="color: {{ block.settings.chip_text_color_mobile | default: '#61A1CD' }};">
+                        <span class="chip__icon" aria-hidden="true">
+                          <svg width="24" height="27" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.0021 3.36218V3.95476C17.0021 4.30332 17.0744 4.64709 17.2133 4.95885L18.5827 8.03201C18.859 8.65008 19.0029 9.332 19.0029 10.0235C19.0029 12.5228 19.0029 18.2914 19.0029 19.8719C19.0029 20.0924 18.9709 20.3115 18.9081 20.5205L18.4935 21.916C18.244 22.8846 17.4589 23.5559 16.5604 23.569H7.4396C6.57838 23.569 5.81378 22.9506 5.54143 22.0338L5.20245 20.8927C5.06643 20.4355 4.99709 19.9566 4.99709 19.4746C4.99709 17.4888 4.99709 12.3453 4.99709 10.0235C4.99709 9.33201 5.14097 8.6501 5.41726 8.03204L6.7869 4.95835C6.92575 4.64676 6.998 4.30315 6.99792 3.95477V3.36218" stroke="{{ block.settings.chip_text_color_mobile | default: '#61A1CD' }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.6282 10.9397L10.4994 13.4656H13.5006L12.3718 15.9914" stroke="{{ block.settings.chip_text_color_mobile | default: '#61A1CD' }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18.9871 20.1274H5.04121" stroke="{{ block.settings.chip_text_color_mobile | default: '#61A1CD' }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18.0947 6.9368H5.90533" stroke="{{ block.settings.chip_text_color_mobile | default: '#61A1CD' }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M17.5023 3.36219H6.49771" stroke="{{ block.settings.chip_text_color_mobile | default: '#61A1CD' }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+                        {{ block.settings.chip_text }}
+                      </span>
+                    {% endif %}
+                    
+                    {% if block.settings.title_strong != blank or block.settings.title_regular != blank or block.settings.title_accent != blank %}
+                      <h1 class="hero__title">
+                        {% if block.settings.title_strong != blank %}
+                          <span class="u-strong" style="color: {{ block.settings.title_strong_color_mobile | default: '#FFFFFF' }};">{{ block.settings.title_strong }}</span>
+                        {% endif %}
+                        {% if block.settings.title_regular != blank %}
+                          <span class="u-semi" style="color: {{ block.settings.title_regular_color_mobile | default: '#FFFFFF' }};"> {{ block.settings.title_regular }} </span>
+                        {% endif %}
+                        {% if block.settings.title_accent != blank %}
+                          <span class="u-text-red u-strong u-italic" style="color: {{ block.settings.title_accent_color_mobile | default: '#F44027' }};">{{ block.settings.title_accent }}</span>
+                        {% endif %}
+                      </h1>
+                    {% endif %}
+                    
+                    {% if block.settings.subtitle != blank %}
+                      <p class="hero__subtitle" style="color: {{ block.settings.subtitle_color_mobile | default: '#FFFFFF' }};">{{ block.settings.subtitle }}</p>
+                    {% endif %}
+                    
+                    {% if block.settings.cta_primary_text != blank or block.settings.cta_secondary_text != blank %}
+                      <div class="hero__actions">
+                        {% if block.settings.cta_primary_text != blank %}
+                          <a href="{{ block.settings.cta_primary_url | default: '#' }}" class="btn btn--hero-primary btn--lg">
+                            <span class="btn__icon" aria-hidden="true">
+                              <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M20 12.4312H4C3.448 12.4312 3 11.9832 3 11.4312V9.43121C3 8.87921 3.448 8.43121 4 8.43121H20C20.552 8.43121 21 8.87921 21 9.43121V11.4312C21 11.9832 20.552 12.4312 20 12.4312Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14.04 3.46124L17 8.40124" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9.96 3.46124L7 8.40124" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M20.5355 13.8957C22.4881 15.8484 22.4881 19.0142 20.5355 20.9668C18.5829 22.9194 15.4171 22.9194 13.4644 20.9668C11.5118 19.0142 11.5118 15.8484 13.4644 13.8957C15.4171 11.9431 18.5829 11.9431 20.5355 13.8957" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M17 15.4312V19.4312" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M19 17.4312H15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M13.963 21.4032H7.395C6.689 21.4032 6.079 20.9112 5.929 20.2212L4.242 12.4312" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            </span>
+                            {{ block.settings.cta_primary_text }}
+                          </a>
+                        {% endif %}
+                        {% if block.settings.cta_secondary_text != blank %}
+                          <a href="{{ block.settings.cta_secondary_url | default: '#' }}" class="btn btn--outline-white btn--lg">
+                            {{ block.settings.cta_secondary_text }}
+                            <span class="btn__icon" aria-hidden="true">
+                              <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 12.4312H5" stroke="#FFFCFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 17.4312L19 12.4312" stroke="#FFFCFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 7.43121L19 12.4312" stroke="#FFFCFC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            </span>
+                          </a>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                    
+                    {% if block.settings.reviews_count != blank %}
+                      <div class="hero__reviews">
+                        <div class="reviews__stars">
+                          {% for i in (1..5) %}
+                            <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M9.51056 0.886108L12.567 6.67922L19.0211 7.79594L14.4561 12.493L15.3884 18.9763L9.51056 16.0861L3.63271 18.9763L4.56507 12.493L0 7.79594L6.45408 6.67922L9.51056 0.886108Z" fill="#FFFCFC"/>
+                            </svg>
+                          {% endfor %}
+                        </div>
+                        <div class="reviews__separator"></div>
+                        <span class="reviews__count">{{ block.settings.reviews_count }}</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+    
+    {% if section.blocks.size > 1 %}
+      <div class="hero-slider-controls">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'slide' %}
+              <button class="hero-slider-dot {% if forloop.first %}active{% endif %} {% if block.settings.hide_on_mobile %}hero-slider-dot--hide-mobile{% endif %}" data-slide="{{ forloop.index0 }}" aria-label="Ir para slide {{ forloop.index }}"></button>
+          {% endcase %}
+        {% endfor %}
+      </div>
+      
+      <button class="hero-slider-nav prev" aria-label="Slide anterior">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="hero-slider-nav next" aria-label="Próximo slide">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const heroSlider = document.querySelector('#hero-{{ section.id }}');
+  if (!heroSlider) return;
+  
+  let currentSlide = 0;
+  let autoplayInterval;
+  let isMobile = window.innerWidth <= 768;
+  
+  // Função para obter slides e dots visíveis
+  function getVisibleElements() {
+    const allSlides = Array.from(heroSlider.querySelectorAll('.hero-slide'));
+    const allDots = Array.from(heroSlider.querySelectorAll('.hero-slider-dot'));
+    
+    if (isMobile) {
+      // No mobile, filtrar slides que não devem ser ocultos
+      const visibleSlides = allSlides.filter(slide => !slide.classList.contains('hero-slide--hide-mobile'));
+      const visibleDots = allDots.filter(dot => !dot.classList.contains('hero-slider-dot--hide-mobile'));
+      return { slides: visibleSlides, dots: visibleDots };
+    }
+    
+    // No desktop, mostrar todos
+    return { slides: allSlides, dots: allDots };
+  }
+  
+  function updateSlider() {
+    const { slides, dots } = getVisibleElements();
+    
+    if (slides.length === 0) return;
+    
+    // Se só tem 1 slide visível, não precisa de slider
+    if (slides.length === 1) {
+      slides[0].classList.add('active');
+      stopAutoplay();
+      return;
+    }
+    
+    // Garantir que currentSlide está dentro do range válido
+    if (currentSlide >= slides.length) {
+      currentSlide = 0;
+    }
+    
+    // Remover active de todos os slides e dots
+    const allSlides = heroSlider.querySelectorAll('.hero-slide');
+    const allDots = heroSlider.querySelectorAll('.hero-slider-dot');
+    allSlides.forEach(s => s.classList.remove('active'));
+    allDots.forEach(d => d.classList.remove('active'));
+    
+    // Adicionar active ao slide e dot atuais
+    slides[currentSlide].classList.add('active');
+    if (dots[currentSlide]) {
+      dots[currentSlide].classList.add('active');
+    }
+  }
+  
+  function nextSlide() {
+    const { slides } = getVisibleElements();
+    if (slides.length <= 1) return;
+    
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateSlider();
+  }
+  
+  function prevSlide() {
+    const { slides } = getVisibleElements();
+    if (slides.length <= 1) return;
+    
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    updateSlider();
+  }
+  
+  function startAutoplay() {
+    const { slides } = getVisibleElements();
+    if (slides.length <= 1) return;
+    
+    stopAutoplay();
+    autoplayInterval = setInterval(nextSlide, {{ section.settings.autoplay_duration | default: 5000 }});
+  }
+  
+  function stopAutoplay() {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
+    }
+  }
+  
+  // Inicializar
+  function init() {
+    isMobile = window.innerWidth <= 768;
+    currentSlide = 0;
+    updateSlider();
+    
+    {% if section.settings.autoplay %}
+      startAutoplay();
+    {% endif %}
+  }
+  
+  // Event listeners para dots
+  heroSlider.addEventListener('click', (e) => {
+    const dot = e.target.closest('.hero-slider-dot');
+    if (dot && !dot.classList.contains('hero-slider-dot--hide-mobile')) {
+      const { dots } = getVisibleElements();
+      const index = dots.indexOf(dot);
+      if (index !== -1) {
+        currentSlide = index;
+        updateSlider();
+        stopAutoplay();
+        startAutoplay();
+      }
+    }
+  });
+  
+  // Event listeners para navegação
+  const prevBtn = heroSlider.querySelector('.hero-slider-nav.prev');
+  const nextBtn = heroSlider.querySelector('.hero-slider-nav.next');
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      stopAutoplay();
+      startAutoplay();
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      stopAutoplay();
+      startAutoplay();
+    });
+  }
+  
+  // Pause on hover (apenas desktop)
+  heroSlider.addEventListener('mouseenter', () => {
+    if (!isMobile) stopAutoplay();
+  });
+  
+  heroSlider.addEventListener('mouseleave', () => {
+    if (!isMobile) startAutoplay();
+  });
+  
+  // Reinicializar no resize
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      const wasMobile = isMobile;
+      isMobile = window.innerWidth <= 768;
+      
+      // Se mudou de mobile para desktop ou vice-versa
+      if (wasMobile !== isMobile) {
+        init();
+      }
+    }, 250);
+  });
+  
+  // Inicializar slider
+  init();
+});
+</script>
+
+{% schema %}
+{
+  "name": "Hero Wheypuccino Slider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configurações do Slider"
+    },
+    {
+      "type": "range",
+      "id": "slider_height_mobile",
+      "label": "Altura do Slider (Mobile, px)",
+      "min": 300,
+      "max": 800,
+      "step": 10,
+      "default": 560
+    },
+    {
+      "type": "range",
+      "id": "slider_height_desktop",
+      "label": "Altura do Slider (Desktop, px)",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "default": 720
+    },
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Cor da sobreposição",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Opacidade da sobreposição (%)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay (troca automática)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_duration",
+      "label": "Duração do autoplay (ms)",
+      "min": 2000,
+      "max": 8000,
+      "step": 1000,
+      "default": 5000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Imagem de Fundo"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Imagem de Fundo (Desktop)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Imagem de Fundo (Mobile)"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_on_mobile",
+          "label": "Ocultar este slide no mobile",
+          "default": false,
+          "info": "Marque para não exibir este slide em dispositivos móveis"
+        },
+        {
+          "type": "url",
+          "id": "slide_link",
+          "label": "Link do Banner (opcional)",
+          "info": "Se preenchido, o banner inteiro será clicável e redirecionará para este link"
+        },
+        {
+          "type": "header",
+          "content": "Conteúdo do Slide"
+        },
+        {
+          "type": "text",
+          "id": "chip_text",
+          "label": "Texto do Chip",
+          "info": "Deixe vazio para não exibir"
+        },
+        {
+          "type": "color",
+          "id": "chip_text_color_mobile",
+          "label": "Cor do Chip (Mobile)",
+          "default": "#61A1CD"
+        },
+        {
+          "type": "text",
+          "id": "title_strong",
+          "label": "Título Principal (Negrito)",
+          "info": "Deixe vazio para não exibir"
+        },
+        {
+          "type": "color",
+          "id": "title_strong_color_mobile",
+          "label": "Cor do Título Principal (Mobile)",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "text",
+          "id": "title_regular",
+          "label": "Título Regular",
+          "info": "Deixe vazio para não exibir"
+        },
+        {
+          "type": "color",
+          "id": "title_regular_color_mobile",
+          "label": "Cor do Título Regular (Mobile)",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "text",
+          "id": "title_accent",
+          "label": "Título de Destaque",
+          "info": "Deixe vazio para não exibir"
+        },
+        {
+          "type": "color",
+          "id": "title_accent_color_mobile",
+          "label": "Cor do Título de Destaque (Mobile)",
+          "default": "#F44027"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Subtítulo",
+          "info": "Deixe vazio para não exibir"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color_mobile",
+          "label": "Cor do Subtítulo (Mobile)",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "header",
+          "content": "Botões de Ação"
+        },
+        {
+          "type": "text",
+          "id": "cta_primary_text",
+          "label": "Texto do CTA Principal",
+          "info": "Deixe vazio para não exibir"
+        },
+        {
+          "type": "url",
+          "id": "cta_primary_url",
+          "label": "URL do CTA Principal"
+        },
+        {
+          "type": "text",
+          "id": "cta_secondary_text",
+          "label": "Texto do CTA Secundário",
+          "info": "Deixe vazio para não exibir"
+        },
+        {
+          "type": "url",
+          "id": "cta_secondary_url",
+          "label": "URL do CTA Secundário"
+        },
+        {
+          "type": "header",
+          "content": "Avaliações"
+        },
+        {
+          "type": "text",
+          "id": "reviews_count",
+          "label": "Contador de Avaliações",
+          "info": "Deixe vazio para não exibir"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Wheypuccino Slider",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "chip_text": "Protein Solution",
+            "title_strong": "Wheypuccino:",
+            "title_regular": "A sua dose diária de sabor, energia e proteína",
+            "title_accent": "chegou.",
+            "subtitle": "Feito para quem vive com intensidade, mas não abre mão de uma pausa deliciosa e nutritiva.",
+            "cta_primary_text": "Comprar Agora",
+            "cta_secondary_text": "Conhecer Sabores",
+            "reviews_count": "2939 avaliações"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

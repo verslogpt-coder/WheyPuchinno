@@ -1,0 +1,221 @@
+{% comment %}
+  Seção de Benefícios em Carrossel
+  Carrossel horizontal com imagens dos benefícios
+{% endcomment %}
+
+<!-- Seção de Benefícios em Carrossel -->
+<section class="benefits-carousel-section" aria-label="Benefícios do Wheypuccino">
+  <div class="benefits-carousel-container">
+    <div class="benefits-carousel-wrapper">
+      <div class="benefits-grid" id="benefits-grid" role="region" aria-roledescription="carousel" aria-label="Benefícios" tabindex="0">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'benefit' %}
+              <div class="benefit-card" style="background-image: url('{{ block.settings.background_image | image_url: width: 600, format: 'pjpg' }}');" aria-label="{{ block.settings.title }}" aria-roledescription="slide" onclick="toggleBenefit(this)">
+                <div class="benefit-gradient"></div>
+                <div class="benefit-overlay">
+                  <div class="benefit-click-icon">+</div>
+                  <h3 class="benefit-title">{{ block.settings.title }}</h3>
+                  <div class="benefit-icon">
+                    {{ block.settings.icon_svg }}
+                  </div>
+                  <p class="benefit-desc">{{ block.settings.description }}</p>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+    
+    <!-- Dots para navegação do carrossel -->
+    <div class="benefits-dots">
+      {% for block in section.blocks %}
+        {% if block.type == 'benefit' %}
+          <button class="benefits-dot {% if forloop.index == 1 %}benefits-dot--active{% endif %}" 
+                  aria-label="Ir para benefício {{ forloop.index }}"
+                  data-index="{{ forloop.index0 }}"></button>
+        {% endif %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.button_text != blank %}
+      <div style="display: flex; justify-content: center; margin-top: 40px;">
+        <a 
+          href="{{ section.settings.button_url | default: '#' }}" 
+          class="p-card__cta"
+          aria-label="{{ section.settings.button_text }}"
+          style="width: auto; min-width: 280px; padding-left: 40px; padding-right: 40px;"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8401 21H6.16012C4.99512 21 4.07712 20.008 4.16612 18.847L4.92912 8.924C4.96912 8.402 5.40312 8 5.92612 8H18.0741C18.5971 8 19.0311 8.402 19.0711 8.923L19.8341 18.846C19.9241 20.008 19.0051 21 17.8401 21V21Z" fill="currentColor"/>
+            <path d="M8 8V7V7C8 4.791 9.791 3 12 3V3C14.209 3 16 4.791 16 7V7V8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          {{ section.settings.button_text }}
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+function toggleBenefit(card) {
+  const overlay = card.querySelector('.benefit-overlay');
+  const clickIcon = card.querySelector('.benefit-click-icon');
+  
+  // Fechar outros cards abertos
+  document.querySelectorAll('.benefit-overlay.expanded').forEach(expandedOverlay => {
+    if (expandedOverlay !== overlay) {
+      expandedOverlay.classList.remove('expanded');
+    }
+  });
+  
+  // Toggle do card atual
+  overlay.classList.toggle('expanded');
+  
+  // Atualizar ícone
+  if (overlay.classList.contains('expanded')) {
+    clickIcon.textContent = '×';
+  } else {
+    clickIcon.textContent = '+';
+  }
+}
+
+// Controle do carrossel
+document.addEventListener('DOMContentLoaded', function() {
+  const grid = document.getElementById('benefits-grid');
+  const dots = document.querySelectorAll('.benefits-dot');
+  const cards = grid ? grid.querySelectorAll('.benefit-card') : [];
+  
+  if (!grid || cards.length === 0) return;
+  
+  // Função para atualizar dot ativo
+  function updateActiveDot() {
+    const scrollLeft = grid.scrollLeft;
+    const cardWidth = cards[0].offsetWidth;
+    const gap = 16;
+    const activeIndex = Math.round(scrollLeft / (cardWidth + gap));
+    
+    dots.forEach((dot, index) => {
+      if (index === activeIndex) {
+        dot.classList.add('benefits-dot--active');
+      } else {
+        dot.classList.remove('benefits-dot--active');
+      }
+    });
+  }
+  
+  // Atualizar dot ao rolar
+  let scrollTimeout;
+  grid.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateActiveDot, 150);
+  });
+  
+  // Navegar ao clicar no dot
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', function() {
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 16;
+      const scrollPosition = index * (cardWidth + gap);
+      
+      grid.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+    });
+  });
+  
+  // Inicializar
+  updateActiveDot();
+});
+</script>
+
+{% schema %}
+{
+  "name": "Carrossel de Benefícios",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto do Botão",
+      "default": "Comprar Agora"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Link do Botão"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefício",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título do Benefício"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrição do Benefício"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Imagem de Fundo"
+        },
+        {
+          "type": "html",
+          "id": "icon_svg",
+          "label": "Ícone SVG"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carrossel de Benefícios",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Adeus ao Inchaço",
+            "description": "Fórmula rica em nutrientes e fibras, com baixo teor calórico, que ajuda a satisfazer as necessidades nutricionais, prolongar a saciedade e controlar a ingestão calórica.",
+            "background_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_10.55.41_03c4581f.jpg"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Digestão Saudável",
+            "description": "Ingredientes selecionados que promovem uma digestão mais eficiente e confortável, melhorando sua saúde intestinal.",
+            "background_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_11.02.41_83816557.jpg"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Redução da Fome",
+            "description": "Fórmula rica em nutrientes e fibras, com baixo teor calórico, que ajuda a satisfazer as necessidades nutricionais, prolongar a saciedade e controlar a ingestão calórica.",
+            "background_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_11.03.15_51fb7366.jpg"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Vitalidade para corpo e mente",
+            "description": "Combinação equilibrada de proteínas, vitaminas e minerais que fornecem energia sustentada para seu dia a dia.",
+            "background_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_11.04.00_2a8b9c1d.jpg"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

@@ -1,0 +1,55 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "lancamento-hero": {
+      "type": "lancamento-hero",
+      "blocks": {
+        "forms_inline_HHTgzR": {
+          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "708153",
+            "text_color": "#000000",
+            "button_background_color": "#e02229",
+            "button_label_color": "#ffffff",
+            "links_color": "#1878b9",
+            "errors_color": "#e02229",
+            "text_alignment": "center",
+            "form_alignment": "center",
+            "padding_top": 10,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        }
+      },
+      "block_order": [
+        "forms_inline_HHTgzR"
+      ],
+      "settings": {
+        "badge_text": "LANÇAMENTO EXCLUSIVO",
+        "title": "O [highlight]NOVO[/highlight] Wheypuccino está chegando",
+        "subtitle": "Seja o primeiro a experimentar o sabor revolucionário que vai transformar seu café da manhã. Cadastre-se agora e garanta vantagens exclusivas!",
+        "countdown_title": "LANÇAMENTO DO SITE",
+        "launch_date": "auto",
+        "show_stats": true,
+        "stat_1_number": "10K+",
+        "stat_1_label": "Clientes Satisfeitos",
+        "stat_2_number": "4.9★",
+        "stat_2_label": "Avaliação Média",
+        "stat_3_number": "2015",
+        "stat_3_label": "No Mercado"
+      }
+    }
+  },
+  "order": [
+    "lancamento-hero"
+  ]
+}

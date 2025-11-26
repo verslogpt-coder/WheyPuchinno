@@ -1,0 +1,375 @@
+{% comment %}
+  Seção de Produtos Wheypuccino
+  Grid de produtos com preços e CTAs
+{% endcomment %}
+
+<!-- 4ª Seção - Produtos -->
+<section class="products-figma" aria-label="Produtos" data-layer="Section/Products">
+  <div class="container products-figma__inner">
+    <div class="products-figma__header" data-layer="Products/Header">
+      <span class="products-figma__icon" aria-hidden="true" data-layer="Icon/Fast Food, Drink/energy-drink">
+        {% if section.settings.header_icon %}
+          <img src="{{ section.settings.header_icon | image_url: width: 25 }}" alt="" width="25" height="30" />
+        {% else %}
+          <img src="{{ 'header.svg' | asset_url }}" alt="" width="25" height="30" />
+        {% endif %}
+      </span>
+      <h2 class="products-figma__title" data-layer="Heading/Escolha o seu!">{{ section.settings.title | default: "Escolha o seu!" }}</h2>
+      <p class="products-figma__subtitle" data-layer="Subheading/A combinação perfeita entre capuccino e whey protein.">{{ section.settings.subtitle | default: "A combinação perfeita entre capuccino e whey protein." }}</p>
+    </div>
+
+    <div class="products-carousel products-carousel--grid-desktop" data-layer="Products/Carousel">
+      <div class="products-carousel__container">
+        <div class="products-carousel__track products-carousel__track--grid" id="products-track-{{ section.id }}">
+          {% if section.settings.collection != blank %}
+            {% assign collection = collections[section.settings.collection] %}
+            {% for product in collection.products limit: section.settings.products_limit %}
+              {% assign product_title_lower = product.title | downcase %}
+              {% if product_title_lower contains 'tradicional' %}
+                {% assign flavor_class = 'p-card--tradicional' %}
+              {% elsif product_title_lower contains 'chococaps' %}
+                {% assign flavor_class = 'p-card--chococaps' %}
+              {% elsif product_title_lower contains 'ciocollato' %}
+                {% assign flavor_class = 'p-card--ciocollato' %}
+              {% elsif product_title_lower contains 'vanilla' %}
+                {% assign flavor_class = 'p-card--vanilla' %}
+              {% elsif product_title_lower contains 'caramelo' %}
+                {% assign flavor_class = 'p-card--caramelo' %}
+              {% else %}
+                {% assign flavor_class = 'p-card--tradicional' %}
+              {% endif %}
+              
+              {% comment %} Calcular desconto se houver compare_at_price {% endcomment %}
+              {% assign discount_percent = 0 %}
+              {% if product.compare_at_price > product.price %}
+                {% assign discount_amount = product.compare_at_price | minus: product.price %}
+                {% assign discount_percent = discount_amount | times: 100.0 | divided_by: product.compare_at_price | round %}
+              {% endif %}
+              
+              <article class="p-card {{ flavor_class }}" data-layer="Card/Product {{ forloop.index }}">
+                <div class="p-card__media" data-layer="Card/Media">
+                  {% if product.tags contains 'lancamento' or product.tags contains 'novo' %}
+                    <span class="p-card__pill">
+                      {% if product.tags contains 'lancamento' %}Lançamento{% else %}Novidade{% endif %}
+                    </span>
+                  {% endif %}
+                  {% if product.featured_image %}
+                    <img class="p-card__img" src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.featured_image.alt | default: product.title }}" loading="lazy" />
+                  {% else %}
+                    <img class="p-card__img" src="{{ 'Pouch_Original 3.png' | asset_url }}" alt="{{ product.title }}" loading="lazy" />
+                  {% endif %}
+                </div>
+                <div class="p-card__body">
+                  <div class="p-card__prices">
+                    {% if product.compare_at_price > product.price %}
+                      <span class="p-card__old">{{ product.compare_at_price | money }}</span>
+                    {% endif %}
+                    <div class="p-card__row">
+                      <span class="p-card__price">{{ product.price | money }}</span>
+                      {% if discount_percent > 0 %}
+                        <span class="p-card__discount">-{{ discount_percent }}%</span>
+                      {% endif %}
+                    </div>
+                    {% comment %} Calcular parcelamento (exemplo: 12x sem juros) {% endcomment %}
+                    {% assign installment_value = product.price | divided_by: 12.0 %}
+                    <span class="p-card__install">ou em até 12x de {{ installment_value | money }} s/ juros</span>
+                  </div>
+                  <h3 class="p-card__name">
+                    <span class="p-card__lead">{{ section.settings.product_lead | default: "Adoce sua rotina com o" }}</span>
+                    <span class="p-card__title">{{ product.title }}</span>
+                  </h3>
+                  <a 
+                    href="{{ product.url }}"
+                    class="p-card__cta" 
+                    aria-label="Ver detalhes de {{ product.title }}" 
+                    data-layer="CTA/Ver detalhes"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8401 21H6.16012C4.99512 21 4.07712 20.008 4.16612 18.847L4.92912 8.924C4.96912 8.402 5.40312 8 5.92612 8H18.0741C18.5971 8 19.0311 8.402 19.0711 8.923L19.8341 18.846C19.9241 20.008 19.0051 21 17.8401 21V21Z" fill="currentColor"/>
+                      <path d="M8 8V7V7C8 4.791 9.791 3 12 3V3C14.209 3 16 4.791 16 7V7V8" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    {{ section.settings.cta_text | default: "Ver detalhes" }}
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            {% endfor %}
+          {% else %}
+            <p style="text-align: center; padding: 40px;">Por favor, selecione uma coleção nas configurações da seção.</p>
+          {% endif %}
+        </div>
+      </div>
+      
+      <!-- Navegação do Carrossel (apenas mobile) -->
+      <button class="products-carousel__nav products-carousel__nav--prev products-carousel__nav--mobile-only" id="products-prev-{{ section.id }}" aria-label="Produto anterior">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <button class="products-carousel__nav products-carousel__nav--next products-carousel__nav--mobile-only" id="products-next-{{ section.id }}" aria-label="Próximo produto">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+      
+      <!-- Indicadores (apenas mobile) -->
+      <div class="products-carousel__dots products-carousel__dots--mobile-only" id="products-dots-{{ section.id }}"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const sectionId = '{{ section.id }}';
+    const track = document.getElementById('products-track-' + sectionId);
+    const prevBtn = document.getElementById('products-prev-' + sectionId);
+    const nextBtn = document.getElementById('products-next-' + sectionId);
+    const dotsContainer = document.getElementById('products-dots-' + sectionId);
+    
+    if (!track) return;
+    
+    const cards = track.querySelectorAll('.p-card');
+    const totalCards = cards.length;
+    let currentIndex = 0;
+    let cardsPerView = 3;
+    let isMobile = false;
+    
+    // Função para atualizar cards por visualização baseado no tamanho da tela
+    function updateCardsPerView() {
+      if (window.innerWidth <= 768) {
+        cardsPerView = 1;
+        isMobile = true;
+      } else {
+        // Desktop: desabilita carrossel, usa grid 3x3
+        cardsPerView = 3;
+        isMobile = false;
+      }
+    }
+    
+    // Calcular total de páginas
+    function getTotalPages() {
+      return Math.ceil(totalCards / cardsPerView);
+    }
+    
+    // Criar dots
+    function createDots() {
+      dotsContainer.innerHTML = '';
+      const totalPages = getTotalPages();
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.classList.add('products-carousel__dot');
+        if (i === 0) dot.classList.add('products-carousel__dot--active');
+        dot.setAttribute('aria-label', 'Ir para página ' + (i + 1));
+        dot.addEventListener('click', () => goToPage(i));
+        dotsContainer.appendChild(dot);
+      }
+    }
+    
+    // Ir para uma página específica
+    function goToPage(pageIndex) {
+      if (isMobile) {
+        // No mobile, usa scroll nativo
+        const targetCard = Math.min(pageIndex * cardsPerView, totalCards - 1);
+        cards[targetCard].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        // No desktop, usa transform
+        currentIndex = Math.max(0, Math.min(pageIndex, getTotalPages() - 1));
+        updateCarousel();
+      }
+    }
+    
+    // Atualizar carrossel (desktop)
+    function updateCarousel() {
+      if (isMobile) return;
+      
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 24; // gap entre os cards
+      const translateX = -(currentIndex * cardsPerView * (cardWidth + gap));
+      
+      track.style.transform = `translateX(${translateX}px)`;
+      
+      // Atualizar dots
+      const dots = dotsContainer.querySelectorAll('.products-carousel__dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('products-carousel__dot--active', index === currentIndex);
+      });
+      
+      // Atualizar estado dos botões
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= getTotalPages() - 1;
+    }
+    
+    // Atualizar dots baseado no scroll (mobile)
+    function updateDotsFromScroll() {
+      if (!isMobile) return;
+      
+      const trackRect = track.getBoundingClientRect();
+      const trackCenter = trackRect.left + trackRect.width / 2;
+      
+      let closestIndex = 0;
+      let minDistance = Infinity;
+      
+      cards.forEach((card, index) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const distance = Math.abs(cardCenter - trackCenter);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
+        }
+      });
+      
+      // Atualizar dots
+      const pageIndex = Math.floor(closestIndex / cardsPerView);
+      const dots = dotsContainer.querySelectorAll('.products-carousel__dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('products-carousel__dot--active', index === pageIndex);
+      });
+    }
+    
+    // Navegação com botões (apenas mobile)
+    prevBtn.addEventListener('click', () => {
+      if (!isMobile) return; // Desabilita no desktop
+      
+      const trackRect = track.getBoundingClientRect();
+      const trackCenter = trackRect.left + trackRect.width / 2;
+      
+      let closestIndex = 0;
+      cards.forEach((card, index) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        if (cardCenter >= trackCenter - 10) {
+          closestIndex = index;
+          return;
+        }
+      });
+      
+      const targetIndex = Math.max(0, closestIndex - 1);
+      cards[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      if (!isMobile) return; // Desabilita no desktop
+      
+      const trackRect = track.getBoundingClientRect();
+      const trackCenter = trackRect.left + trackRect.width / 2;
+      
+      let closestIndex = 0;
+      cards.forEach((card, index) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        if (cardCenter <= trackCenter + 10) {
+          closestIndex = index;
+        }
+      });
+      
+      const targetIndex = Math.min(totalCards - 1, closestIndex + 1);
+      cards[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+    
+    // Listener para scroll (mobile apenas)
+    let scrollTimeout;
+    track.addEventListener('scroll', () => {
+      if (!isMobile) return;
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        updateDotsFromScroll();
+      }, 100);
+    });
+    
+    // Inicializar
+    updateCardsPerView();
+    
+    // Apenas cria dots e ativa funcionalidades do carrossel no mobile
+    if (isMobile) {
+      createDots();
+      updateDotsFromScroll();
+    }
+    
+    // Atualizar no resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const wasMobile = isMobile;
+        updateCardsPerView();
+        
+        // Se mudou de desktop para mobile ou vice-versa, resetar
+        if (wasMobile !== isMobile) {
+          currentIndex = 0;
+          track.style.transform = '';
+          
+          // Recriar dots apenas no mobile
+          if (isMobile) {
+            createDots();
+            updateDotsFromScroll();
+          } else {
+            // Limpar dots no desktop
+            dotsContainer.innerHTML = '';
+          }
+        }
+      }, 150);
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Produtos Wheypuccino",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "header_icon",
+      "label": "Ícone do Cabeçalho"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "Escolha o seu!"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo da Seção",
+      "default": "A combinação perfeita entre capuccino e whey protein."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleção de Produtos"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "label": "Número máximo de produtos",
+      "default": 8
+    },
+    {
+      "type": "text",
+      "id": "product_lead",
+      "label": "Texto de Introdução dos Produtos",
+      "default": "Adoce sua rotina com o",
+      "info": "Este texto aparece antes do nome do produto"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texto do Botão CTA",
+      "default": "Ver detalhes"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Produtos Wheypuccino"
+    }
+  ]
+}
+{% endschema %}
+
