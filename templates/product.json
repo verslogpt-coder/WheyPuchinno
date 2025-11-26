@@ -11,20 +11,55 @@
   "sections": {
     "main": {
       "type": "main-product",
+      "blocks": {
+        "product_rating_MbKReD": {
+          "type": "product_rating",
+          "settings": {
+            "rating_count": "2939 avaliações"
+          }
+        },
+        "product_title_QGUJUm": {
+          "type": "product_title",
+          "settings": {}
+        },
+        "product_description_xBfFdp": {
+          "type": "product_description",
+          "settings": {}
+        },
+        "ingredients_button_nEHEpk": {
+          "type": "ingredients_button",
+          "settings": {}
+        },
+        "quantity_options_VgMhec": {
+          "type": "quantity_options",
+          "settings": {
+            "qty1_title": "1 Unidade",
+            "qty1_info": "Rende 18 doses",
+            "qty2_title": "2 Unidades",
+            "qty2_info": "Rende 54 doses",
+            "qty3_title": "3 Unidades",
+            "qty3_info": "Rende 36 doses",
+            "qty3_badge": "Frete Grátis!"
+          }
+        },
+        "trust_badges_K8YPFX": {
+          "type": "trust_badges",
+          "settings": {
+            "badge1_text": "Entrega rápida",
+            "badge2_text": "Frete grátis",
+            "badge3_text": "Garantia"
+          }
+        }
+      },
+      "block_order": [
+        "product_rating_MbKReD",
+        "product_title_QGUJUm",
+        "product_description_xBfFdp",
+        "ingredients_button_nEHEpk",
+        "quantity_options_VgMhec",
+        "trust_badges_K8YPFX"
+      ],
       "settings": {
-        "rating_count": "2939 avaliações",
-        "qty1_title": "1 Unidade",
-        "qty1_info": "Rende 18 doses",
-        "qty2_title": "2 Unidades",
-        "qty2_info": "Rende 36 doses",
-        "qty2_discount": 8,
-        "qty3_title": "3 Unidades",
-        "qty3_info": "Rende 54 doses",
-        "qty3_discount": 12,
-        "qty3_badge": "Frete Grátis!",
-        "badge1_text": "Entrega rápida",
-        "badge2_text": "Frete grátis",
-        "badge3_text": "Garantia",
         "button_text": "Comprar Agora"
       }
     },
@@ -121,7 +156,9 @@
         "title": "A solução para sua meta de proteína diária!",
         "lead_text": "Imagine transformar a pausa mais aguardada e saborosa do seu dia em um gesto poderoso para sua saúde muscular e bem‑estar.",
         "description": "Com WHEYPUCCINO®, o capuccino proteico pioneiro no mundo desde 2015, você não precisa mais escolher entre o prazer e a disciplina. Nutrir seu corpo com a proteína que ele precisa agora é o seu novo hábito delicioso.",
-        "main_image": "shopify://shop_images/image_34.png"
+        "main_image": "shopify://shop_images/image_34.png",
+        "button_text": "Comprar Agora",
+        "button_url": ""
       }
     },
     "how_to_prepare_HHxcLQ": {
@@ -311,7 +348,9 @@
         "title": "A solução para sua meta de proteína diária!",
         "lead_text": "Imagine transformar a pausa mais aguardada e saborosa do seu dia em um gesto poderoso para sua saúde muscular e bem‑estar.",
         "description": "Com WHEYPUCCINO®, o capuccino proteico pioneiro no mundo desde 2015, você não precisa mais escolher entre o prazer e a disciplina. Nutrir seu corpo com a proteína que ele precisa agora é o seu novo hábito delicioso.",
-        "main_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_13.57.22_b46c9b14.jpg"
+        "main_image": "shopify://shop_images/Imagem_do_WhatsApp_de_2025-10-08_a_s_13.57.22_b46c9b14.jpg",
+        "button_text": "Comprar Agora",
+        "button_url": ""
       }
     },
     "carousel_tags_rPhnN7": {

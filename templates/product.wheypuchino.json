@@ -12,23 +12,6 @@
     "main": {
       "type": "main-product",
       "settings": {
-        "rating_count": "2939 avaliações",
-        "qty1_title": "1 Unidade",
-        "qty1_info": "Rende 18 doses",
-        "qty2_title": "2 Unidades",
-        "qty2_info": "Rende 36 doses",
-        "qty2_custom_price_from": "279,8",
-        "qty2_custom_price_to": "199,80",
-        "qty2_custom_savings": "79",
-        "qty3_title": "3 Unidades",
-        "qty3_info": "Rende 54 doses",
-        "qty3_custom_price_from": "387",
-        "qty3_custom_price_to": "299,70",
-        "qty3_custom_savings": "87,3",
-        "qty3_badge": "Frete Grátis!",
-        "badge1_text": "Entrega rápida",
-        "badge2_text": "Frete grátis",
-        "badge3_text": "Garantia",
         "button_text": "Comprar Agora"
       }
     },

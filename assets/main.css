@@ -3477,29 +3477,35 @@ html, body {max-width:100%; overflow-x:hidden}
 /* =============================
    BOTÃO E MODAL: INGREDIENTES
    ============================= */
-.ingredients-block{ margin-top: 16px; }
+.ingredients-block{ margin-bottom: 0; }
 .ingredients-btn{
-  background:#5A3838;
-  color:#FFFFFF;
-  border:none;
-  border-radius:12px;
-  padding:12px 18px;
-  font-size:16px;
-  font-weight:700;
-  letter-spacing:0.2px;
-  cursor:pointer;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  box-shadow:0 8px 18px rgba(90,56,56,0.18);
-  transition:background .2s ease, transform .15s ease, box-shadow .2s ease;
+  background: #F32D35;
+  color: white;
+  border: 1px solid #F32D35;
+  border-radius: 40px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(243, 45, 53, 0.2), 0 0 1px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease-out;
 }
 .ingredients-btn:hover{
-  background:#6A4545;
-  transform:translateY(-0.5px);
-  box-shadow:0 12px 24px rgba(90,56,56,0.22);
+  background: #D92631;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(243, 45, 53, 0.3), 0 0 1px rgba(0, 0, 0, 0.06);
+  border-color: #D92631;
 }
-.ingredients-btn:active{ transform:translateY(0); }
+.ingredients-btn:active{ 
+  transform: translateY(0); 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
 .ingredients-btn:focus-visible,
 .ingredients-close:focus-visible{ outline:2px solid #8B4513; outline-offset:2px; }
 
